@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.navigation {
+  text-align: right;
+}
+
+.nav-links{
+  margin-left: 15px;
+}
+
+.app {
+  /* margin: 1rem; */
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 1rem 1rem;
+}
+
+.align-middle{
+text-align: center;
+}
+
+/* HEADING */
+.heading{
+display: inline-block;
+}
+
+/* NAVIGATION */
+.nav-spacing {
+margin: 10px 5px;
+text-decoration: none;
+}
+
+.top-nav{
+margin-left: 50%;
+}
+
+/* APPLICATIONS */
+
+.center-links{
+text-decoration: none;
+padding: 0px 25px;
+}
+
+/* LANGUAGES BUTTONS */
+
+.language-buttons a{
+font-weight: bold;
+text-decoration: none;
+padding: 10px;
+margin: 20px 40px;
+width: 100px;
+}
+
+.languages-list {
+display: inline-block;
+padding: 20px;
+}
+
+.hide-list{
+visibility: hidden;
+}
+
+/*  SIZE OF INPUT TEXT AREA  */
+
+.textarea-size{
+width: 45%;
+height: 50px;
+margin:auto;
+}
+
+.button-display{
+display: block;
+}
+
+/* LIST STYLING */
+li {
+display: block;
+text-align: left;
+padding: 30px 0px;
+margin: 5px 10px 0px 10px;
+
+}
+
+.date-stamp{
+display: block;
+text-align: right;
+font-style: italic;
+}
+
+.small-border{
+margin: auto;
+width: 50%;
+border-top: 1px solid black;
+}
+
+.ul-list{
+padding-left: 0;
+}
+
+/*  TEXT STYLING */
+
+/* warning sign */
+.text-warning {
+color: red;
+}
