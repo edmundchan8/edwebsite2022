@@ -37,7 +37,7 @@ function Languages(){
         <div className="language-buttons">
             <ul>
                 {projects.map((project, index) =>
-                    project[0] == programmingLanguage ? <li key={index} className="languages-list">{project[1]}</li> : ""    
+                    project[0] === programmingLanguage ? <li key={index} className="languages-list">{project[1]}</li> : ""    
                 )}
             </ul>
             <div>

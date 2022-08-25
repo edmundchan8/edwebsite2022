@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import apiClient from '../services/api';
 
 function Login (props) {
@@ -13,11 +12,13 @@ function Login (props) {
                 email: email,
                 password: password
             }).then(response => {
-                console.log(response)
+                console.log(response);
+                props.login(true);
             });
         });
 
     }
+
     return (
         <div>
             <h1>Login</h1>
