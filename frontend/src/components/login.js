@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useState } from 'react';
 import apiClient from '../services/api';
 
 function Login (props) {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
-            console.log(response);
             apiClient.post('/login', {
                 email: email,
                 password: password
             }).then(response => {
-                console.log(response);
-                props.login(true);
+                props.onLogin();
             });
         });
 
     }
 
+    if (!sessionStorage.getItem('loggedIn')){
+        return (<div>You are logged in</div>);
+    }
+    else
     return (
         <div>
             <h1>Login</h1>

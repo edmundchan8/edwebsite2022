@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodolistController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 
@@ -25,6 +26,11 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// LOGIN CONTROLLER
+// custom logout function route
+Route::post('/logout', [LoginController::class, 'logout']);
+
 
 // REGISTER CONTROLLER
 Route::post('/register', [RegisterController::class, 'register']);
