@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Session;
+// use Session;
 
 class LoginController extends Controller
 {
@@ -39,16 +39,25 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function logout(Request $request)
-    {
-        // Auth::guard('web')->logout();
-        // Revoke the token that was used to authenticate the current request...
-        auth()->user()->tokens()->delete();
+    // public function logout(Request $request)
+    // {
+    //     // Auth::guard('web')->logout();
+    //     // Revoke the token that was used to authenticate the current request...
+    //     auth()->user()->tokens()->delete();
 
-        $this->guard()->logout();
+    //     $this->guard()->logout();
 
-        $request->session()->invalidate();
+    //     $request->session()->invalidate();
 
-        return redirect('/');
-    }
+    //     return redirect('/');
+    // }
+
+    // public function logout() 
+    // { 
+    //     Session::flush(); 
+
+    //     // Revoke the token that was used to authenticate the current request...
+    //     auth()->user()->tokens()->delete();
+    //     return redirect()->route('/');
+    // }
 }

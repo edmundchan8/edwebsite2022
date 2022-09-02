@@ -8,6 +8,7 @@ function Login (props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
+            console.log(response);
             apiClient.post('/login', {
                 email: email,
                 password: password
@@ -18,7 +19,7 @@ function Login (props) {
 
     }
 
-    if (!sessionStorage.getItem('loggedIn')){
+    if (sessionStorage.getItem('loggedIn') == true){
         return (<div>You are logged in</div>);
     }
     else
