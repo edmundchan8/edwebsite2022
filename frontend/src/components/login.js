@@ -19,7 +19,7 @@ function Login (props) {
 
     }
 
-    if (sessionStorage.getItem('loggedIn') == true){
+    if (sessionStorage.getItem('loggedIn') === true){
         return (<div>You are logged in</div>);
     }
     else

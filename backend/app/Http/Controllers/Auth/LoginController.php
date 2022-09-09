@@ -38,26 +38,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    // public function logout(Request $request)
-    // {
-    //     // Auth::guard('web')->logout();
-    //     // Revoke the token that was used to authenticate the current request...
-    //     auth()->user()->tokens()->delete();
-
-    //     $this->guard()->logout();
-
-    //     $request->session()->invalidate();
-
-    //     return redirect('/');
-    // }
-
-    // public function logout() 
-    // { 
-    //     Session::flush(); 
-
-    //     // Revoke the token that was used to authenticate the current request...
-    //     auth()->user()->tokens()->delete();
-    //     return redirect()->route('/');
-    // }
 }

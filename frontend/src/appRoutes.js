@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, NavLink, Navigate } from 'react-router-dom';
 import Todolist from './components/todolist';
 import Login from './components/login';
-import Register from './components/register';
+import Home from './home';
 import apiClient from './services/api';
 
 function AppRoutes() {
 
+    // set if we are logged in
     const [loggedIn, setLoggedIn] = useState(false);
 
+    // log in function, setting variable to true as well as sessionStorage
     function login(){
         setLoggedIn(true);
         sessionStorage.setItem('loggedIn', true);
     }
 
+    // log out sents an api post request to loginController, which sets logged in to false
+    // as sets sessionStorage to false as well
     function logout(){
         apiClient.post('/logout').then(response => {
             console.log(response);
@@ -25,24 +29,23 @@ function AppRoutes() {
         })
     }
 
+    // controls if the login or logout links/buttons appear
     var loginContent = null;
-    console.log("current " + sessionStorage.getItem('loggedIn'));
-    console.log(loggedIn);
     !loggedIn ? loginContent = <NavLink 
     className='nav-links' to='/login'>Login</NavLink> : 
     loginContent = <button className='nav-links' onClick={logout}>Logout</button>;
+
     return (
         <Router>
             <div className='navigation'>
-                <NavLink className='nav-links' to='/'>Home</NavLink>
+                <NavLink className='nav-links' to='/home'>Home</NavLink>
                 {loginContent}
-                <NavLink className='nav-links' to='/register'>Register</NavLink>
                 <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
             </div>
             <Routes>
-                <Route path='/login' element={ <Login onLogin={login}/>} />
-                <Route path='/register' element={ <Register  />} />
-                <Route path='/todolist' element={ <Todolist />} />
+                <Route exact path="/home" element={ <Home/>} />
+                <Route exact path='/login' element={ <Login onLogin={login}/>} />
+                <Route exact path='/todolist' element={ <Todolist />} />
             </Routes>
         </Router>
     );
