@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 import apiClient from '../services/api';
 
 function Todolist (){
@@ -12,7 +11,7 @@ function Todolist (){
             })
             .catch(error => {
                 console.error(error);
-                if (error.response.status == 401){
+                if (error.response.status === 401){
                     setErrorMsg('Please login to see the todolist data');
                 }
             });
@@ -30,7 +29,7 @@ function Todolist (){
         <li key={todo.id}>{todo.note}</li>
     );
     return (
-        <div>
+        <div className="align-middle">
             <h1>
                 TodoList
             </h1>

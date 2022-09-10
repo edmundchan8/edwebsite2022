@@ -1,7 +1,10 @@
 import React, {useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../services/api';
 
 function Login (props) {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,17 +17,20 @@ function Login (props) {
                 password: password
             }).then(response => {
                 props.onLogin();
+                navigate('/home');
             });
         });
 
     }
 
     if (sessionStorage.getItem('loggedIn') === true){
-        return (<div>You are logged in</div>);
+        return (
+            <div>You are logged in</div>
+            );
     }
     else
     return (
-        <div>
+        <div className='align-middle'>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <input

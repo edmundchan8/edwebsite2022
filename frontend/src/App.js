@@ -1,31 +1,55 @@
-import React from 'react';
-import { Route, Routes } from "react-router-dom";
-import AppRoutes from './appRoutes';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 import Home from './home';
 import Login from './components/login';
-import TodoList from './components/todolist';
-
+import Todolist from './components/todolist';
+import apiClient from './services/api';
 
 function App() {
-    
-    // let routes = (
-    //     <Routes>
-    //         <Route exact path='/'>
-    //             <Home />
-    //         </Route>
-    //         <Route exact path='/login'>
-    //             <Login />
-    //         </Route>
-    //         <Route exact path='/todolist'>
-    //             <TodoList />
-    //         </Route>
-    //     </Routes>
-    // );
+
+    // set if we are logged in
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    // log in function, setting variable to true as well as sessionStorage
+    function login(){
+        setLoggedIn(true);
+        sessionStorage.setItem('loggedIn', true);
+    }
+
+    // log out sents an api post request to loginController, which sets logged in to false
+    // as sets sessionStorage to false as well
+    function logout(){
+        apiClient.post('/logout').then(response => {
+            if (response.status === 204){
+                setLoggedIn(false);
+                sessionStorage.setItem('loggedIn', false);
+                console.log(sessionStorage.getItem('loggedIn'));
+            }
+        })
+    }
+
+    // controls if the login or logout links/buttons appear
+    var loginNavContent = null;
+    !loggedIn ? loginNavContent = <NavLink 
+    className='nav-links' to='/login'>Login</NavLink> : 
+    loginNavContent = <button className='nav-links' onClick={logout}>Logout</button>;
 
     return (
-        <div className="align-middle">
-            <AppRoutes />
-            {/* <Home /> */}
+        <div>
+            <Router>
+                <div className='navigation'>
+                    <NavLink className='nav-links' to='/home'>Home</NavLink>
+                    {loginNavContent}
+                    <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
+                </div>
+                <Routes>
+                    <Route exact path="/home" element={ <Home/>} />
+                    <Route exact path='/login' element={ <Login onLogin={login}/>} />
+                    <Route exact path='/todolist' element={ <Todolist />} />
+                    <Route exact path="/" element={ <Home/>} />
+                </Routes>
+            </Router>
+            
         </div>
     );
 };
