@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-do
 import Home from './home';
 import Login from './components/login';
 import Todolist from './components/todolist';
+import StockManager from './components/stockManager/index';
 import apiClient from './services/api';
 
 function App() {
@@ -34,18 +35,25 @@ function App() {
     className='nav-links' to='/login'>Login</NavLink> : 
     loginNavContent = <button className='nav-links' onClick={logout}>Logout</button>;
 
+    // Make stock app appear
+    var stockManager = null;
+
+    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager'>Stock Manager</NavLink> : stockManager = null;
+    console.log(stockManager);
     return (
         <div>
             <Router>
                 <div className='navigation'>
                     <NavLink className='nav-links' to='/home'>Home</NavLink>
                     {loginNavContent}
+                    {stockManager}
                     <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
                 </div>
                 <Routes>
                     <Route exact path="/home" element={ <Home/>} />
                     <Route exact path='/login' element={ <Login onLogin={login}/>} />
                     <Route exact path='/todolist' element={ <Todolist />} />
+                    <Route exact path='/stockManager' element={<StockManager />} />
                     <Route exact path="/" element={ <Home/>} />
                 </Routes>
             </Router>

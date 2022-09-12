@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+import Login from './login';
 import apiClient from '../services/api';
 
 function Todolist (){
@@ -20,7 +22,11 @@ function Todolist (){
     if (errorMsg){
         return (
         <div>
+            <h1 className="align-middle">
+                TodoList
+            </h1>
             <p>{errorMsg}</p>
+            <Link to='/login'>Login</Link>
         </div>
         )
     }
