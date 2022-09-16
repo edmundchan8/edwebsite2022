@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import Login from './login';
 import apiClient from '../services/api';
 
 function Todolist (){
     const [todolists, setTodolists] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
 
-    React.useEffect(() => {
+    useEffect(() => {
         apiClient.get('/api/todolists').then(response => {
             setTodolists(response.data)
             })

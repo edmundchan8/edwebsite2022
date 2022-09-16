@@ -6,6 +6,7 @@ use App\Http\Controllers\TodolistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StockManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // TODOLIST CONTROLLER
 Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
+
+// STOCK CONTROLLER
+Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
+
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);

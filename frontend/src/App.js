@@ -24,7 +24,6 @@ function App() {
             if (response.status === 204){
                 setLoggedIn(false);
                 sessionStorage.setItem('loggedIn', false);
-                console.log(sessionStorage.getItem('loggedIn'));
             }
         })
     }
@@ -38,8 +37,7 @@ function App() {
     // Make stock app appear
     var stockManager = null;
 
-    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager'>Stock Manager</NavLink> : stockManager = null;
-    console.log(stockManager);
+    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/'>Stock Manager</NavLink> : stockManager = null;
     return (
         <div>
             <Router>
@@ -53,11 +51,10 @@ function App() {
                     <Route exact path="/home" element={ <Home/>} />
                     <Route exact path='/login' element={ <Login onLogin={login}/>} />
                     <Route exact path='/todolist' element={ <Todolist />} />
-                    <Route exact path='/stockManager' element={<StockManager />} />
+                    <Route path='/stockManager/*' element={<StockManager />}/>
                     <Route exact path="/" element={ <Home/>} />
                 </Routes>
             </Router>
-            
         </div>
     );
 };
