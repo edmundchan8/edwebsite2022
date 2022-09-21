@@ -14,7 +14,7 @@ class StockManager extends Model
      *
      * @var string
      */
-    protected $table = 'stocks';
+    // protected $table = 'stock_orders';
 
     /**
      * The primary key associated with the table.

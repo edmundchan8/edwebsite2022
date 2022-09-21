@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\StockManager;
+use App\Models\StockOrder;
 use Illuminate\Http\Request;
 
 class StockManagerController extends Controller
@@ -14,9 +16,15 @@ class StockManagerController extends Controller
      */
     public function index()
     {
-        $items = StockManager::all();
-        return response()->json($items);
-        //return response()->json(StockManager::all());
+        // get $data by joining the stock_orders and stock_data tables together based on their ticker sumbol
+        $data = DB::table('stock_orders')
+            -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            -> join('owners', 'stock_orders.owner', '=', 'owners.id')
+            -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 'stock_data.price', 'owners.owner', 'stock_data.AnalystRating')
+            // -> where('tickerSymbol', $tickerSymbol)
+            -> get();
+        
+        return response()->json($data);
     }
 
     /**

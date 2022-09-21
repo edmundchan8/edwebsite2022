@@ -114,3 +114,12 @@ padding-left: 0;
 .text-warning {
 color: red;
 }
+
+/* STOCK MANAGER STYLING */
+table{
+  margin: auto;
+}
+
+td{
+  width: 11em;
+}

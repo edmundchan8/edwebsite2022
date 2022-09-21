@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('stock_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('tickerSymbol');
             $table->decimal('quantity', 10, 3);
-            $table->date('date')->nullable();
-            $table->string('buySell');
             $table->decimal('price', 10, 2);
+            $table->date('date')->nullable();
             $table->string('owner');
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('stock_orders');
     }
 };
