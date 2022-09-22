@@ -131,3 +131,12 @@ td{
 .td-smaller {
   width: 6em;
 }
+
+tr:nth-child(even) {
+  background-color: rgb(216, 208, 208);
+}
+
+/* remove link underline */
+.remove_link_underline {
+  text-decoration: none;
+}
