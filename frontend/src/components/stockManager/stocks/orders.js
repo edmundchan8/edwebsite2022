@@ -29,12 +29,10 @@ function Orders() {
 
     const curStocks = stocks.map((s) => 
         <tr>
-            <td>{s.date}</td>
             <td>{s.name}</td>
             <td>{s.tickerSymbol}</td>
             <td>{parseFloat(s.quantity).toFixed(2)}</td>
             <td>{parseFloat(s.totalInvested).toFixed(2)}</td>
-            <td>{s.owner}</td>
         </tr>
     );
 
@@ -44,12 +42,10 @@ function Orders() {
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Name</th>
+                        <th className='td-name'>Name</th>
                         <th>Ticker Symbol</th>
                         <th>Quantity</th>
                         <th>Invested Total</th>
-                        <th>Owner</th>
                     </tr>
                         {curStocks}
                 </thead>

@@ -67,14 +67,19 @@ class StockManagerController extends Controller
     {
         // get $data by joining the stock_orders, stock_data and owner tables together based on their ticker symbol and owner ids
         // select gets the data we need
-        $data = DB::table('stock_orders')
-            -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            -> join('owners', 'stock_orders.owner', '=', 'owners.id')
-            -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 
-            'stock_orders.price', 'owners.owner', 'stock_data.AnalystRating', DB::raw('(stock_orders.quantity * stock_orders.price) as totalInvested'))
-            -> orderBy('date')
-            -> get();
+        // $data = DB::table('stock_orders')
+        //     -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+        //     -> join('owners', 'stock_orders.owner', '=', 'owners.id')
+        //     -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 
+        //     'stock_orders.price', 'owners.owner', 'stock_data.AnalystRating', DB::raw('(stock_orders.quantity * stock_orders.price) as totalInvested'))
+        //     -> orderBy('date')
+        //     -> get();
         
+        $data = DB::table('stock_orders')
+            ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            ->select('stock_data.name','stock_orders.tickerSymbol', DB::raw('SUM(stock_orders.quantity) as quantity'), DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'))
+            ->groupBy('stock_orders.tickerSymbol', 'stock_data.name')
+            ->get();
 
         return $data;   //response()->json($data);
     }

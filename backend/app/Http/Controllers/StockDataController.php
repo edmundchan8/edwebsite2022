@@ -10,7 +10,7 @@ class StockDataController extends Controller
 {
     public function index()
     {
-        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'META', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JNJ', 'JPM', 'LUMN', 'MSFT', 
+        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JNJ', 'JPM', 'LUMN', 'META', 'MSFT', 
         'O', 'PG', 'PLTR', 'SBUX', 'SCHD', 'TCEHY', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'trailingAnnualDividendRate', 'averageAnalystRating'];
@@ -61,8 +61,7 @@ class StockDataController extends Controller
             else{
                 $json = json_decode($response, true);
                 if(!isset($json['optionChain'])){
-                    echo 'May need to update API Key';
-                    return;
+                    return $json;//"May need to update API Key";
                 }
                 $stock_data_array = $json['optionChain']['result'][0];
             }
@@ -112,8 +111,7 @@ class StockDataController extends Controller
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }   
-            echo "Stocks Updated!";
         }
-        return;// view('data.index');
+        return "Stocks Updated!";// view('data.index');
     }
 }

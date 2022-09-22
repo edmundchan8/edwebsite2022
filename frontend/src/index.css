@@ -121,5 +121,13 @@ table{
 }
 
 td{
-  width: 11em;
+  width: 10em;
+}
+
+.td-name{
+  width: 24em;
+}
+
+.td-smaller {
+  width: 6em;
 }

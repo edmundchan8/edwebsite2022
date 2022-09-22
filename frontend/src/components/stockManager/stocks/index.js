@@ -4,6 +4,7 @@ import apiClient from '../../../services/api';
 function Index() {
 
     const [stocks, setStocks] = useState([]);
+    const [financeApi, setFinanceApi] = useState('05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj');
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
@@ -37,14 +38,18 @@ function Index() {
             });
     }
 
+    function getApiKey(){
+        return financeApi;
+    }
+
     const curStocks = stocks.map((s) => 
         <tr>
-            <td>{s.name}</td>
-            <td>{s.tickerSymbol}</td>
+            <td className="td-name">{s.name}</td>
+            <td className="td-smaller">{s.tickerSymbol}</td>
             <td>{s.price}</td>
-            <td>{s.analystRating}</td>
+            <td className="td-smaller">{s.analystRating}</td>
             <td>{s.analystOpinion}</td>
-            <td>{s.dividendRate}</td>
+            <td className="td-smaller">{s.dividendRate}</td>
             <td>{s.forwardPE}</td>
         </tr>
     );
@@ -52,6 +57,7 @@ function Index() {
     return (
         <div className="align-middle">
             <button onClick={() => updateData()}>Update Data</button>
+            <input type="text" name="current-api" value={financeApi} onChange={e => setFinanceApi(e.target.value)}/>
             <h1>Stocks</h1>
             <table>
                 <thead>
