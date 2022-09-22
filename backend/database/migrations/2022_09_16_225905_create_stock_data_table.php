@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('tickerSymbol');
             $table->decimal('price', 10, 2);
-            $table->decimal('200DaySMA', 10, 2);
-            $table->string('AnalystRating');
+            $table->decimal('twoHundredDayAverage', 10, 2);
+            $table->string('analystRating');
+            $table->string('analystOpinion');
+            $table->string('dividendRate');
+            $table->decimal('forwardPE', 10, 2);
             $table->date('date')->nullable();
             $table->timestamps();
         });

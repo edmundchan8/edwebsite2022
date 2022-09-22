@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import apiClient from '../../../services/api';
 
-function Index() {
+function Orders() {
 
     const [stocks, setStocks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
-        apiClient.get('/api/stocks').then(response => {
+        apiClient.get('/api/showAll').then(response => {
             setStocks(response.data)
             console.log(response.data);
             })
@@ -27,42 +27,29 @@ function Index() {
         )
     }
 
-    function updateData(){
-        //getData
-        apiClient.get('/api/getData').then(response => {
-            console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
     const curStocks = stocks.map((s) => 
         <tr>
+            <td>{s.date}</td>
             <td>{s.name}</td>
             <td>{s.tickerSymbol}</td>
-            <td>{s.price}</td>
-            <td>{s.analystRating}</td>
-            <td>{s.analystOpinion}</td>
-            <td>{s.dividendRate}</td>
-            <td>{s.forwardPE}</td>
+            <td>{parseFloat(s.quantity).toFixed(2)}</td>
+            <td>{parseFloat(s.totalInvested).toFixed(2)}</td>
+            <td>{s.owner}</td>
         </tr>
     );
 
     return (
         <div className="align-middle">
-            <button onClick={() => updateData()}>Update Data</button>
             <h1>Stocks</h1>
             <table>
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Name</th>
                         <th>Ticker Symbol</th>
-                        <th>Market Price</th>
-                        <th>Analyst Rating</th>
-                        <th>Analyst Opinion</th>
-                        <th>Dividend Rate</th>
-                        <th>Forward PE</th>
+                        <th>Quantity</th>
+                        <th>Invested Total</th>
+                        <th>Owner</th>
                     </tr>
                         {curStocks}
                 </thead>
@@ -70,4 +57,4 @@ function Index() {
         </div>
     );
 };
-export default Index;
+export default Orders;

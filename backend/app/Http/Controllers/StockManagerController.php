@@ -16,15 +16,14 @@ class StockManagerController extends Controller
      */
     public function index()
     {
-        // get $data by joining the stock_orders and stock_data tables together based on their ticker sumbol
-        $data = DB::table('stock_orders')
-            -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            -> join('owners', 'stock_orders.owner', '=', 'owners.id')
-            -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 'stock_data.price', 'owners.owner', 'stock_data.AnalystRating')
-            // -> where('tickerSymbol', $tickerSymbol)
+        // get $data by joining the stock_orders, stock_data and owner tables together based on their ticker symbol and owner ids
+        // select gets the data we need
+        $data = DB::table('stock_data')
+            -> orderBy('tickersymbol')
             -> get();
         
-        return response()->json($data);
+
+        return $data;   //response()->json($data);
     }
 
     /**
@@ -57,6 +56,27 @@ class StockManagerController extends Controller
     public function show(StockManager $stockManager)
     {
         //
+    }
+
+        /**
+     * Shows all orders 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll()
+    {
+        // get $data by joining the stock_orders, stock_data and owner tables together based on their ticker symbol and owner ids
+        // select gets the data we need
+        $data = DB::table('stock_orders')
+            -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            -> join('owners', 'stock_orders.owner', '=', 'owners.id')
+            -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 
+            'stock_orders.price', 'owners.owner', 'stock_data.AnalystRating', DB::raw('(stock_orders.quantity * stock_orders.price) as totalInvested'))
+            -> orderBy('date')
+            -> get();
+        
+
+        return $data;   //response()->json($data);
     }
 
     /**

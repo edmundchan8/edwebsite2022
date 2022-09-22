@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockManagerController;
+use App\Http\Controllers\StockDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class,
 
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/showAll', [StockManagerController::class, 'showAll']);
+
+// STOCK DATA CONTROLLER
+Route::middleware('auth:sanctum')->get('/getData', [StockDataController::class, 'index']);
 
 
 // HOME CONTROLLER
