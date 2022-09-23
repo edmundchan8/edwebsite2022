@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { Route, Routes } from 'react-router-dom';
 import apiClient from '../../../services/api';
+import Show from '../stocks/show';
 
-function Orders() {
+function Index() {
 
     const [stocks, setStocks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
@@ -53,7 +55,10 @@ function Orders() {
 
         return (
             <tr key={index}>
-                <td><a href='' className='remove_link_underline'>{s.name}</a></td>
+                {/* <Routes>
+                    <Route path={`/show/${s.tickerSymbol}`} element={ <Show ticker={s.tickerSymbol} />} />{s.name}
+                </Routes> */}
+                <td><a href={`/stockManager/show/${s.tickerSymbol}`} value={s.tickerSymbol} className='remove_link_underline'>{s.name}</a></td>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(2)}</td>
                 <td>${shareTotalInvest}</td>
@@ -66,6 +71,7 @@ function Orders() {
     return (
         <div className="align-middle">
             <h1>Stocks</h1>
+            <h3 className={statusClass}>Portfolio Performance: {portfolioStatus}</h3>
             <table>
                 <thead>
                     <tr>
@@ -79,11 +85,9 @@ function Orders() {
                         {curStocks}
                 </thead>
             </table>
-
-            <h3 className={statusClass}>{portfolioStatus}</h3>
             <h3>Invested: ${sumInvestment.toFixed(2)}</h3>
             <h3>Portfolio Value: ${sumValue.toFixed(2)}</h3>
         </div>
     );
 };
-export default Orders;
+export default Index;

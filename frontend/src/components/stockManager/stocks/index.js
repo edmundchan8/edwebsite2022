@@ -32,22 +32,23 @@ function Index() {
         //getData
         apiClient.get('/api/getData').then(response => {
             console.log(response.data);
+            setErrorMsg(response.data);
             })
             .catch(error => {
                 console.error(error);
             });
     }
 
-    function getApiKey(){
-        return financeApi;
-    }
+    // function getApiKey(){
+    //     return financeApi;
+    // }
 
     const curStocks = stocks.map((s, index) => {
         // styling and setting forwardPE
         var peClass = '';
-        var forPeVal = s.forwardPE;
+        var forPeVal = null;
         forPeVal < 0 ? peClass = 'text-warning' : peClass = '';
-        forPeVal == null ? forPeVal = '-' : forPeVal = forPeVal;
+        forPeVal == null ? forPeVal = '-' : forPeVal = s.forwardPE;
 
         // setting dividendValue
         var dividendValue = '';
@@ -55,7 +56,7 @@ function Index() {
         
         return(
             <tr key={index}>
-                <td className="td-name"><a href='' className='remove_link_underline'>{s.name}</a></td>
+                <td className="td-name">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
                 <td>${s.price}</td>
                 <td className="td-smaller">{s.analystRating}</td>
@@ -68,19 +69,20 @@ function Index() {
 
     return (
         <div className="align-middle">
+            <h2>{errorMsg}</h2>
             <button onClick={() => updateData()}>Update Data</button>
             <input type="text" name="current-api" value={financeApi} onChange={e => setFinanceApi(e.target.value)}/>
             <h1>Stocks</h1>
             <table>
                 <thead>
                     <tr>
-                        <th><a href='' className='remove_link_underline'>Name</a></th>
-                        <th><a href='' className='remove_link_underline'>Ticker Symbol</a></th>
-                        <th><a href='' className='remove_link_underline'>Market Price</a></th>
-                        <th><a href='' className='remove_link_underline'>Analyst Rating</a></th>
-                        <th><a href='' className='remove_link_underline'>Analyst Opinion</a></th>
-                        <th><a href='' className='remove_link_underline'>Dividend Rate</a></th>
-                        <th><a href='' className='remove_link_underline'>Forward PE</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='name'>Name</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='tickerSymbol'>Ticker Symbol</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='price'>Market Price</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='rating'>Analyst Rating</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='opinion'>Analyst Opinion</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='dividend'>Dividend Rate</a></th>
+                        <th><a href='/stocks' className='remove_link_underline' value='pe'>Forward PE</a></th>
                     </tr>
                         {curStocks}
                 </thead>
