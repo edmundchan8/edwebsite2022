@@ -44,7 +44,43 @@ class StockManagerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate request
+        $validated = $request->validate([
+            'tickerSymbol' => 'required',
+            'price' => 'required',
+            'quantity'=>'required',
+            'date' => 'required',
+            'owner' => 'required'
+        ]);
+
+        //set variables to request data (apart from owner and date)
+        $tickerSymbol = $request->tickerSymbol;
+        $price = $request->price;
+        $quantity = $request->quantity;
+
+        $owner = DB::table('owners')
+        ->where('owner', $request->owner)
+        ->first();
+        
+
+        if ($request->date == null){
+            $date = date("Y-m-d");
+        }
+        else{
+            $date = $request->date;
+        }
+
+        // add stock to database
+        DB::table('stock_orders')->insert(
+            ['tickerSymbol' => $tickerSymbol, 
+            'price' => $price, 
+            'quantity' => $quantity, 
+            'date' => $date, 
+            'owner' => $owner->id]
+        );
+
+
+        return $request;
     }
 
 

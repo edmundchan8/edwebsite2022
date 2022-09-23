@@ -108,14 +108,25 @@ border-top: 1px solid black;
 padding-left: 0;
 }
 
-/*  TEXT STYLING */
+/* TEXT STYLING */
 
 /* warning sign */
 .text-warning {
 color: red;
 }
 
+/* remove link underline */
+.remove_link_underline {
+  text-decoration: none;
+}
+
 /* STOCK MANAGER STYLING */
+
+/*  input size for adding stock orders */
+.input-width{
+  width: 7em;
+}
+
 table{
   margin: auto;
 }
@@ -136,7 +147,7 @@ tr:nth-child(even) {
   background-color: rgb(216, 208, 208);
 }
 
-/* remove link underline */
-.remove_link_underline {
-  text-decoration: none;
+/* Adding spacing to right of label */
+.label-padding{
+  padding: 0 1em;
 }
