@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use DB;
-use App\Models\StockManager;
-use App\Models\StockOrder;
+use App\Models\Dividend;
 use Illuminate\Http\Request;
 
-class StockManagerController extends Controller
+class DividendController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +15,18 @@ class StockManagerController extends Controller
      */
     public function index()
     {
-        // get $data by joining the stock_orders, stock_data and owner tables together based on their ticker symbol and owner ids
-        // select gets the data we need
-        $data = DB::table('stock_data')
-            -> orderBy('tickersymbol')
+        // get dividend data
+        // to use sum(dividend), must groupBy the name because we aggregate using a function
+        $data = DB::table('dividends')
+            ->join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            ->select(
+                'stock_data.name',
+                DB::raw('SUM(dividend) as dividends')
+                )
+            ->groupBy('stock_data.name')
             -> get();
         
-
-        return $data;   //response()->json($data);
+        return $data;
     }
 
     /**
@@ -90,18 +93,7 @@ class StockManagerController extends Controller
      */
     public function showAll()
     {
-        $data = DB::table('stock_orders')
-            ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            ->select(
-                'stock_data.name',
-                'stock_orders.tickerSymbol', 
-                DB::raw('SUM(stock_orders.quantity) as quantity'), 
-                DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'),
-                DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'))
-            ->groupBy('stock_orders.tickerSymbol', 'stock_data.name')
-            ->get();
-
-        return $data;
+        
     }
 
 
@@ -112,26 +104,7 @@ class StockManagerController extends Controller
      */
     public function show(Request $request)
     {
-        // get $data by joining the stock_orders, stock_data and owner tables together based on their ticker symbol and owner ids
-        // select gets the data we need
-        // $data = DB::table('stock_orders')
-        //     -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-        //     -> join('owners', 'stock_orders.owner', '=', 'owners.id')
-        //     -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_orders.quantity', 
-        //     'stock_orders.price', 'owners.owner', 'stock_data.AnalystRating', DB::raw('(stock_orders.quantity * stock_orders.price) as totalInvested'))
-        //     -> orderBy('date')
-        //     -> get();
-    
-
-        $ticker = $request->tickerSymbol;
-
-        if($ticker){
-            $data = DB::table('stock_orders')
-            ->where('tickerSymbol', '=', $ticker)
-            ->get();
-        }
-
-        return $data;   //response()->json($data);
+        
     }
 
     /**

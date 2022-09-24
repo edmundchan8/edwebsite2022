@@ -16,10 +16,8 @@ return new class extends Migration
         Schema::create('dividends', function (Blueprint $table) {
             $table->id();
             $table->string('tickerSymbol');
-            $table->decimal('quantity', 10, 3);
-            $table->decimal('price', 10, 2);
+            $table->decimal('dividend', 10, 3);
             $table->date('date')->nullable();
-            $table->string('owner');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockManagerController;
 use App\Http\Controllers\StockDataController;
+use App\Http\Controllers\DividendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,14 +42,16 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
 
 // STOCK CONTROLLER
-Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'showAll']);
 Route::middleware('auth:sanctum')->get('/showAll', [StockManagerController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/store', [StockManagerController::class, 'store']);
-
 
 // STOCK DATA CONTROLLER
 Route::middleware('auth:sanctum')->get('/getData', [StockDataController::class, 'index']);
 
+// DIVIDEND CONTROLLER
+Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::class, 'store']);
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);
