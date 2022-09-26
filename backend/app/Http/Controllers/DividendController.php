@@ -21,7 +21,7 @@ class DividendController extends Controller
             ->join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
             ->select(
                 'stock_data.name',
-                DB::raw('SUM(dividend) as dividends')
+                DB::raw('SUM(dividend) as totalDividends')
                 )
             ->groupBy('stock_data.name')
             -> get();
@@ -49,22 +49,14 @@ class DividendController extends Controller
     {
         //validate request
         $validated = $request->validate([
+            'dividend' => 'required',
             'tickerSymbol' => 'required',
-            'price' => 'required',
-            'quantity'=>'required',
-            'date' => 'required',
-            'owner' => 'required'
+            'date' => 'required'
         ]);
 
         //set variables to request data (apart from owner and date)
         $tickerSymbol = $request->tickerSymbol;
-        $price = $request->price;
-        $quantity = $request->quantity;
-
-        $owner = DB::table('owners')
-        ->where('owner', $request->owner)
-        ->first();
-        
+        $dividend = $request->dividend;        
 
         if ($request->date == null){
             $date = date("Y-m-d");
@@ -73,14 +65,12 @@ class DividendController extends Controller
             $date = $request->date;
         }
 
-        // add stock to database
-        DB::table('stock_orders')->insert(
+        // add dividend to database
+        DB::table('dividends')->insert(
             ['tickerSymbol' => $tickerSymbol, 
-            'price' => $price, 
-            'quantity' => $quantity, 
-            'date' => $date, 
-            'owner' => $owner->id]
-        );
+            'dividend' => $dividend, 
+            'date' => $date
+        ]);
 
         return $request;
     }

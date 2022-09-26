@@ -42,7 +42,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
 
 // STOCK CONTROLLER
-Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'showAll']);
+Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/showAll', [StockManagerController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/store', [StockManagerController::class, 'store']);
 

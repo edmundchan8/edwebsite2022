@@ -53,7 +53,6 @@ function Index() {
         // setting dividendValue
         var dividendValue = '';
         s.dividendRate > 0 ? dividendValue = s.dividendRate + '%' : dividendValue = '-';
-        
         return(
             <tr key={index}>
                 <td className="td-name">{s.name}</td>

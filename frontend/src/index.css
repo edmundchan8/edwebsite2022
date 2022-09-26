@@ -151,3 +151,9 @@ tr:nth-child(even) {
 .label-padding{
   padding: 0 1em;
 }
+
+/* DIVIDEND STYLING */
+
+.dividend-width{
+  width: 20em;
+}
