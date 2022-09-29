@@ -37,7 +37,7 @@ function App() {
     // Make stock app appear
     var stockManager = null;
 
-    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/'>Stock Manager</NavLink> : stockManager = null;
+    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/stocks'>Stock Manager</NavLink> : stockManager = null;
     return (
         <div>
             <Router>

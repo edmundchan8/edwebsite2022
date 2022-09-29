@@ -83,7 +83,13 @@ class DividendController extends Controller
      */
     public function showAll()
     {
+        $data = DB::table('dividends')
+            -> leftJoin('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            -> select('stock_data.name', 'dividends.dividend', 'dividends.date')
+            ->orderBy('dividends.date')
+            ->get();
         
+        return $data;
     }
 
 

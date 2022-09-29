@@ -41,13 +41,13 @@ function Languages(){
                 )}
             </ul>
             <div>
-                <a href="#" onMouseOver={underline} name="c#" >C#</a>
-                <a href="#" onMouseOver={underline} name="reactjs" >ReactJS</a>
-                <a href="#" onMouseOver={underline} name="angular" >Angular</a>
-                <a href="#" onMouseOver={underline} name="aspnet" >ASP.NET</a>
-                <a href="#" onMouseOver={underline} name="php" >PHP</a>
-                <a href="#" onMouseOver={underline} name="python" >Python</a>
-                <a href="#" onMouseOver={underline} name="javascript" >Javascript</a>
+                <a href="/home" onMouseOver={underline} name="c#" >C#</a>
+                <a href="/home" onMouseOver={underline} name="reactjs" >ReactJS</a>
+                <a href="/home" onMouseOver={underline} name="angular" >Angular</a>
+                <a href="/home" onMouseOver={underline} name="aspnet" >ASP.NET</a>
+                <a href="/home" onMouseOver={underline} name="php" >PHP</a>
+                <a href="/home" onMouseOver={underline} name="python" >Python</a>
+                <a href="/home" onMouseOver={underline} name="javascript" >Javascript</a>
             </div>
         </div>
     );

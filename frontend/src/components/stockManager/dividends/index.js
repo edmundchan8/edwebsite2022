@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../../services/api';
-// import Graph from './graph';
+import Graph from './graph';
 
 function Index() {
 
@@ -12,35 +12,8 @@ function Index() {
     // const [chartData, setChartData] = useState([]);
     
     useEffect(() => {
-        // const fetchData = async () => {
-        //     apiClient.get('/api/showAllDividends').then(response => {
-        //         setChartData({
-        //             labels: response.data.map((dividend) => dividend.totalDividends),
-        //             datasets: [
-        //             {
-        //                 label: "Dividend Amount",
-        //                 data: response.data.map((dividend) => dividend.date),
-        //                 backgroundColor: [
-        //                 "#ffbb11",
-        //                 "#ecf0f1",
-        //                 "#50AF95",
-        //                 "#f3ba2f",
-        //                 "#2a71d0"
-        //                 ]
-        //             }]
-        //         });
-        //         console.log(response.data);
-        //         })
-        //         .catch(error => {
-        //             console.error(error);
-        //             if (error.response.status === 401){
-        //                 setErrorMsg('Please login to see your dividend data');
-        //             }
-        //         });
-        // }
         apiClient.get('/api/showAllDividends').then(response => {
-            setDividends(response.data)
-            console.log(response.data);
+            setDividends(response.data);
             })
             .catch(error => {
                 console.error(error);
@@ -48,10 +21,11 @@ function Index() {
                     setErrorMsg('Please login to see your dividend data');
                 }
             });
-        // fetchData()
-        }, 
-    []);
-    
+            // apiClient.get('/api/dividendChartData').then(response => {
+            //     setChartData(response.data);
+            //     });
+        }, []);
+        //dividendChartData
 
     if(errorMsg){
         return <div><p>{errorMsg}</p></div>
@@ -82,7 +56,7 @@ function Index() {
 
     return (
         <div className="align-middle">
-            {/* <Graph setChartData={chartData} /> */}
+            <Graph />
             <h1>Dividends</h1>
 
             <h3>Add Dividend</h3>

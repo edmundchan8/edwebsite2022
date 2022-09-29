@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
 import apiClient from '../../../services/api';
-import Show from '../stocks/show';
+// import Show from '../stocks/show';
 
 function Index() {
 
@@ -77,7 +77,7 @@ function Index() {
                 </Routes> */}
                 <td><a href={`/stockManager/show/${s.tickerSymbol}`} value={s.tickerSymbol} className='remove_link_underline'>{s.name}</a></td>
                 <td>{s.tickerSymbol}</td>
-                <td>{parseFloat(s.quantity).toFixed(2)}</td>
+                <td>{parseFloat(s.quantity).toFixed(3)}</td>
                 <td>${shareTotalInvest}</td>
                 <td>${valueTotal}</td>
                 <td className={diffColor}><strong>{difference}%</strong></td>
@@ -112,12 +112,14 @@ function Index() {
             <table>
                 <thead>
                     <tr>
-                        <th className='td-name'><a href='' className='remove_link_underline'>Name</a></th>
-                        <th><a href='' className='remove_link_underline'>Ticker Symbol</a></th>
-                        <th><a href='' className='remove_link_underline'>Quantity</a></th>
-                        <th><a href='' className='remove_link_underline'>Invested Total</a></th>
-                        <th><a href='' className='remove_link_underline'>Current Value</a></th>
-                        <th><a href='' className='remove_link_underline'>Difference</a></th>
+                        <th className='td-name'>
+                            <a href='/stocks' className='remove_link_underline'>Name</a>
+                        </th>
+                        <th><a href='/stocks' className='remove_link_underline'>Ticker Symbol</a></th>
+                        <th><a href='/stocks' className='remove_link_underline'>Quantity</a></th>
+                        <th><a href='/stocks' className='remove_link_underline'>Invested Total</a></th>
+                        <th><a href='/stocks' className='remove_link_underline'>Current Value</a></th>
+                        <th><a href='/stocks' className='remove_link_underline'>Difference</a></th>
                     </tr>
                         {curStocks}
                 </thead>

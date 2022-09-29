@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->get('/getData', [StockDataController::class, 
 
 // DIVIDEND CONTROLLER
 Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/dividendChartData', [DividendController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::class, 'store']);
 
 // HOME CONTROLLER
