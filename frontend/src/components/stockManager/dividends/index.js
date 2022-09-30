@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes, NavLink } from 'react-router-dom';
 import apiClient from '../../../services/api';
 import Graph from './graph';
 
@@ -9,11 +10,12 @@ function Index() {
     const [tickerSymbol, setTickerSymbol] = useState('');
     const [dividend, setDividend] = useState('');
     const [date, setDate] = useState('');
-    // const [chartData, setChartData] = useState([]);
+    const [chartData, setchartData] = useState([]);
     
     useEffect(() => {
         apiClient.get('/api/showAllDividends').then(response => {
             setDividends(response.data);
+            console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
@@ -21,11 +23,17 @@ function Index() {
                     setErrorMsg('Please login to see your dividend data');
                 }
             });
-            // apiClient.get('/api/dividendChartData').then(response => {
-            //     setChartData(response.data);
-            //     });
+        apiClient.get('/api/dividendChartData').then(response => {
+            setchartData(response.data);
+            console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+                if (error.response.status === 401){
+                    setErrorMsg('Please login to see your dividend data');
+                }
+            });
         }, []);
-        //dividendChartData
 
     if(errorMsg){
         return <div><p>{errorMsg}</p></div>
@@ -44,11 +52,10 @@ function Index() {
         });
     }
 
-    const curDividends = dividends.map((d, index) => {
-                
+    const curDividends = dividends.map((d, index) => {      
         return (
             <tr key={index}>
-                <td className='dividend-width'>{d.name}</td>
+                <NavLink className='nav-links' to={`/stockManager/dividends/${d.name}`} >{d.name}</NavLink>
                 <td className='dividend-width'>{d.totalDividends}</td>
             </tr>
         )}
@@ -56,7 +63,7 @@ function Index() {
 
     return (
         <div className="align-middle">
-            <Graph />
+            <Graph chartData={chartData}/>
             <h1>Dividends</h1>
 
             <h3>Add Dividend</h3>
@@ -83,6 +90,7 @@ function Index() {
                         {curDividends}
                 </thead>
             </table>
+            <br></br>
         </div>
     );
 };

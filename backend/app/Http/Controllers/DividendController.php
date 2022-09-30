@@ -18,14 +18,14 @@ class DividendController extends Controller
         // get dividend data
         // to use sum(dividend), must groupBy the name because we aggregate using a function
         $data = DB::table('dividends')
-            ->join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            ->select(
+            -> join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            -> select(
                 'stock_data.name',
                 DB::raw('SUM(dividend) as totalDividends')
                 )
-            ->groupBy('stock_data.name')
+            -> groupBy('stock_data.name')
             -> get();
-        
+
         return $data;
     }
 
@@ -86,8 +86,8 @@ class DividendController extends Controller
         $data = DB::table('dividends')
             -> leftJoin('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
             -> select('stock_data.name', 'dividends.dividend', 'dividends.date')
-            ->orderBy('dividends.date')
-            ->get();
+            -> orderBy('dividends.date')
+            -> get();
         
         return $data;
     }
@@ -100,7 +100,14 @@ class DividendController extends Controller
      */
     public function show(Request $request)
     {
-        
+        $data = DB::table('dividends')
+        -> leftJoin('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+        -> select('stock_data.name', 'dividends.dividend', 'dividends.date')
+        -> orderBy('dividends.date')
+        -> where ('stock_data.name', '=', $request->name)
+        -> get();
+    
+    return $data;
     }
 
     /**

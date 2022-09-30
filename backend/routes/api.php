@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->get('/getData', [StockDataController::class, 
 Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/dividendChartData', [DividendController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/dividends/{name}', [DividendController::class, 'show']);
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);

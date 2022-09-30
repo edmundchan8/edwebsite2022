@@ -3,6 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import Stocks from './stocks/index';
 import Orders from './orders/index';
 import Dividends from './dividends/index';
+import ShowDividend from './dividends/show';
 
 function Navigation() {
 
@@ -16,7 +17,8 @@ function Navigation() {
             <Routes>
                 <Route path="/stocks" element={ <Stocks/>} />
                 <Route path="/orders/" element={ <Orders/>} />
-                <Route path="/dividends" element={ <Dividends />} />
+                <Route path="/dividends/" element={ <Dividends />} />
+                <Route path="/dividends/:name" element={ <ShowDividend />} />
             </Routes>
         </div>
     );

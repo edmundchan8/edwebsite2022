@@ -72,9 +72,6 @@ function Index() {
 
         return (
             <tr key={index}>
-                {/* <Routes>
-                    <Route path={`/show/${s.tickerSymbol}`} element={ <Show ticker={s.tickerSymbol} />} />{s.name}
-                </Routes> */}
                 <td><a href={`/stockManager/show/${s.tickerSymbol}`} value={s.tickerSymbol} className='remove_link_underline'>{s.name}</a></td>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
@@ -112,14 +109,12 @@ function Index() {
             <table>
                 <thead>
                     <tr>
-                        <th className='td-name'>
-                            <a href='/stocks' className='remove_link_underline'>Name</a>
-                        </th>
-                        <th><a href='/stocks' className='remove_link_underline'>Ticker Symbol</a></th>
-                        <th><a href='/stocks' className='remove_link_underline'>Quantity</a></th>
-                        <th><a href='/stocks' className='remove_link_underline'>Invested Total</a></th>
-                        <th><a href='/stocks' className='remove_link_underline'>Current Value</a></th>
-                        <th><a href='/stocks' className='remove_link_underline'>Difference</a></th>
+                        <th className='td-name'>Name</th>
+                        <th>Ticker Symbol</th>
+                        <th>Quantity</th>
+                        <th>Invested Total</th>
+                        <th>Current Value</th>
+                        <th>Difference</th>
                     </tr>
                         {curStocks}
                 </thead>

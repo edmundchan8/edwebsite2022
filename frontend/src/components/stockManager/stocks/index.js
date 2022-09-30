@@ -75,13 +75,13 @@ function Index() {
             <table>
                 <thead>
                     <tr>
-                        <th><a href='/stocks' className='remove_link_underline' value='name'>Name</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='tickerSymbol'>Ticker Symbol</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='price'>Market Price</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='rating'>Analyst Rating</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='opinion'>Analyst Opinion</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='dividend'>Dividend Rate</a></th>
-                        <th><a href='/stocks' className='remove_link_underline' value='pe'>Forward PE</a></th>
+                        <th>Name</th>
+                        <th>Ticker Symbol</th>
+                        <th>Market Price</th>
+                        <th>Analyst Rating</th>
+                        <th>Analyst Opinion</th>
+                        <th>Dividend Rate</th>
+                        <th>Forward PE</th>
                     </tr>
                         {curStocks}
                 </thead>
