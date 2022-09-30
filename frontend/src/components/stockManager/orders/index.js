@@ -124,8 +124,8 @@ function Index() {
                         {curStocks}
                 </thead>
             </table>
-            <h3>Invested: ${sumInvestment.toFixed(2)}</h3>
-            <h3>Portfolio Value: ${sumValue.toFixed(2)}</h3>
+            <h3>Invested: ${sumInvestment.toFixed(2)} | 
+            Portfolio Value: ${sumValue.toFixed(2)}</h3>
         </div>
     );
 };
