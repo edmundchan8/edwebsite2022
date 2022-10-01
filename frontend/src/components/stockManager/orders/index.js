@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import { Route, Routes } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import apiClient from '../../../services/api';
 // import Show from '../stocks/show';
 
@@ -72,7 +72,7 @@ function Index() {
 
         return (
             <tr key={index}>
-                <td><a href={`/stockManager/show/${s.tickerSymbol}`} value={s.tickerSymbol} className='remove_link_underline'>{s.name}</a></td>
+                <NavLink className='nav-links' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
                 <td>${shareTotalInvest}</td>
@@ -109,7 +109,7 @@ function Index() {
             <table>
                 <thead>
                     <tr>
-                        <th className='td-name'>Name</th>
+                        <th>Name</th>
                         <th>Ticker Symbol</th>
                         <th>Quantity</th>
                         <th>Invested Total</th>

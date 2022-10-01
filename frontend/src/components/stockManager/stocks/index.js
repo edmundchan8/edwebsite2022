@@ -55,7 +55,7 @@ function Index() {
         s.dividendRate > 0 ? dividendValue = s.dividendRate + '%' : dividendValue = '-';
         return(
             <tr key={index}>
-                <td className="td-name">{s.name}</td>
+                <td className="td-smaller">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
                 <td>${s.price}</td>
                 <td className="td-smaller">{s.analystRating}</td>

@@ -4,6 +4,7 @@ import Stocks from './stocks/index';
 import Orders from './orders/index';
 import Dividends from './dividends/index';
 import ShowDividend from './dividends/show';
+import ShowStocks from './orders/show';
 
 function Navigation() {
 
@@ -15,7 +16,8 @@ function Navigation() {
                 <NavLink className='nav-links' to='/stockManager/dividends'>Dividends</NavLink>
             </div>
             <Routes>
-                <Route path="/stocks" element={ <Stocks/>} />
+                <Route path="/stocks/" element={ <Stocks/>} />
+                <Route path="/orders/:tickerSymbol" element={ <ShowStocks/>} />
                 <Route path="/orders/" element={ <Orders/>} />
                 <Route path="/dividends/" element={ <Dividends />} />
                 <Route path="/dividends/:name" element={ <ShowDividend />} />

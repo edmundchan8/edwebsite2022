@@ -5,7 +5,7 @@ import Graph from './graph';
 
 function Show() {
 
-    // Get ID from URL
+    // Get name from URL
     const params = useParams();
 
     const [dividends, setDividends] = useState([]);
