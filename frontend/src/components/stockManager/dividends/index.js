@@ -55,7 +55,7 @@ function Index() {
     const curDividends = dividends.map((d, index) => {      
         return (
             <tr key={index}>
-                <NavLink className='nav-links' to={`/stockManager/dividends/${d.name}`} >{d.name}</NavLink>
+                <NavLink className='nav-links remove-link-underline' to={`/stockManager/dividends/${d.name}`} >{d.name}</NavLink>
                 <td className='dividend-width'>{d.totalDividends}</td>
             </tr>
         )}

@@ -72,7 +72,7 @@ function Index() {
 
         return (
             <tr key={index}>
-                <NavLink className='nav-links' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink>
+                <NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
                 <td>${shareTotalInvest}</td>
@@ -109,7 +109,7 @@ function Index() {
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th className="td-name">Name</th>
                         <th>Ticker Symbol</th>
                         <th>Quantity</th>
                         <th>Invested Total</th>

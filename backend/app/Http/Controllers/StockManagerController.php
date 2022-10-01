@@ -115,11 +115,8 @@ class StockManagerController extends Controller
         $data = DB::table('stock_orders')
         -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
         -> leftjoin('owners', 'stock_orders.owner', '=', 'owners.id')
-        -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 
+        -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
         'stock_orders.owner', 'stock_orders.quantity', 'stock_orders.price', 'owners.owner')
-            // DB::raw('SUM(stock_orders.quantity) as quantity'), 
-            // DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'),
-            // DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'))
         -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
         -> orderBy('stock_orders.date')
         -> get();

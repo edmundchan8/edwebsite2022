@@ -116,7 +116,7 @@ color: red;
 }
 
 /* remove link underline */
-.remove_link_underline {
+.remove-link-underline {
   text-decoration: none;
 }
 

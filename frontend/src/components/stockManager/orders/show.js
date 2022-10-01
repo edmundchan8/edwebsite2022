@@ -10,13 +10,50 @@ function Show() {
     const [stock, setStock] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     const [name, setName] = useState('');
+    const [owner, setOwner] = useState('Any');
+    const [data, setData] = useState(); 
+    const [totalInvested, setTotalInvested] = useState();
+    const [currentPrice, setCurrentPrice] = useState();
+    const [totalQuantity, setTotalQuantity] = useState();
 
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
                 setStock(response.data)
-                console.log(response.data);
                 setName(response.data[0].name);
+                setCurrentPrice(response.data[0].currentPrice);
+                var totalInvest = 0;
+                var totalQuant = 0;
+                var currentData = stock.map((s, index) => {
+                    if (owner === 'Any' || owner === s.owner){
+                        var price = 0;
+                        s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
+                        
+                        var totalInvested = 0;
+                        s.price === 0 ? totalInvested = '-' : totalInvested = '$' + (parseFloat(s.quantity) * parseFloat(s.price)).toFixed(3);
+                        totalInvest += parseFloat(s.quantity) * parseFloat(s.price);
+
+                        totalQuant += parseFloat(s.quantity);
+
+                        return (
+                            <tr key={index}>
+                                <td>{s.date}</td>
+                                <td>{parseFloat(s.quantity).toFixed(3)}</td>
+                                <td>{price}</td>
+                                <td>{totalInvested}</td>
+                                <td>{s.owner}</td>
+                            </tr>
+                        )
+                    }
+                    else{
+                        return;
+                    }
+                });
+
+                setTotalInvested(totalInvest.toFixed(2));
+                setData(currentData);
+                setTotalQuantity(totalQuant);
+
                 })
                 .catch(error => {
                     console.error(error);
@@ -28,31 +65,28 @@ function Show() {
             
             fetchData()
             .catch(console.error);
-        }, []);
+        }, [owner]);
 
     if(errorMsg){
         return <div><p>{errorMsg}</p></div>
     }
 
-    const curStock = stock.map((s, index) => {
-        var price = 0;
-        s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
-        
-        var totalInvested = 0;
-        s.price === 0 ? totalInvested = '-' : totalInvested = '$' + (parseFloat(s.quantity) * parseFloat(s.price)).toFixed(3);
-        return (
-            <tr key={index}>
-                <td>{s.date}</td>
-                <td>{parseFloat(s.quantity).toFixed(3)}</td>
-                <td>{price}</td>
-                <td>{totalInvested}</td>
-                <td>{s.owner}</td>
-            </tr>
-        )});
+    function changeOwner(event){
+        setOwner(event.target.value);
+    }
 
     return (
         <div className="align-middle">
-            <h2>{name}</h2>
+            <h1>{name}</h1>
+            <h4>Current Share Price ${currentPrice}</h4>
+            <h4>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(3)}</h4>
+            <select value={owner} onChange={changeOwner}>
+            <option value='Any'>Any</option>
+                <option value='Edmund'>Edmund</option>
+                <option value='Yau Yau'>Yau Yau</option>
+                <option value='Mum'>Mum</option>
+                <option value='Priscilla'>Priscilla</option>
+            </select>
              <table>
                 <thead>
                     <tr>
@@ -62,7 +96,7 @@ function Show() {
                         <td>Total Spent</td>
                         <td>Owner</td>
                     </tr>
-                    {curStock}
+                    {data}
                 </thead>
             </table>
         </div>
