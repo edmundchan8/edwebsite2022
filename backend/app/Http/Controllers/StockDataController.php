@@ -17,6 +17,8 @@ class StockDataController extends Controller
 
         // $API_KEY = "x-api-key: 05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj";
 
+        $API_KEY = env('APP_API_KEY');
+
         // $default_url = "https://yfapi.net/v7/finance/options/";
         
         // // This will ignore any ssl checks on the url, allowing the api call to go ahead
@@ -44,12 +46,12 @@ class StockDataController extends Controller
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => "symbol=" . $stock,
                 CURLOPT_HTTPHEADER => [
-                    "X-RapidAPI-Key: 182c458e4fmsh6a1268fd224fe8bp1d5400jsn02f6ca4580c7",
+                    "X-RapidAPI-Key: " . $API_KEY,
                     "X-RapidAPI-Host: yahoo-finance97.p.rapidapi.com",
                     "content-type: application/x-www-form-urlencoded"
                 ],
             ]);
-            
+
             // send the request and get a bool response from it
             $response = curl_exec($ch);
 
@@ -70,7 +72,7 @@ class StockDataController extends Controller
                 $stock_data_array = $json['data'];//$json['optionChain']['result'][0];
             }
             //$quote_array = $stock_data_array['quote'];
-            $quote_array = $stock_data_array = $json['data'];
+            $quote_array = $stock_data_array;// = $json['data'];
 
             $forwardPE = null;
             $trailingDivRate = null;
