@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 import apiClient from '../../../services/api';
+import Loading from '../../loading';
 
 const sleep = ms => new Promise(
   resolve => setTimeout(resolve, ms)
@@ -13,13 +14,9 @@ function Graph(chartData){
   var [label, setLabel]  = useState([]);
   var [chartDate, setChartDate] = useState('year');
   var [numMonths, setNumMonths] = useState();
-  
-  const [load, setLoad] = useState(true);
-
 
   useEffect(() => {
-    const fetchData = async () => { 
-      // apiClient.get('/api/dividendChartData').then(response => {
+    const fetchData = async () => {
         var curDate = 0;
         var dateIndex = 0;
         var curTotal = 0;
@@ -65,7 +62,6 @@ function Graph(chartData){
       }; 
       fetchData()
       .catch(console.error);
-      // })
     }, [chartDate]);
 
     const state = {

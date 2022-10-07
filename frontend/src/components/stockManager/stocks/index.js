@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../services/api';
 import Loading from '../../loading';
 
 function Index() {
 
+    const navigate = useNavigate();
     const [stocks, setStocks] = useState([]);
-    const [financeApi, setFinanceApi] = useState('05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj');
     const [errorMsg, setErrorMsg] = useState('');
+    var [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
             setStocks(response.data)
-            console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
@@ -30,15 +31,31 @@ function Index() {
     }
 
     function updateData(){
-        //getData
+        // set spinning logo
+        setIsLoading(true);
+        //getData using promise and api call with axios
         apiClient.post('/api/getData').then(response => {
-            console.log(response.data);
-            setErrorMsg(response.data);
+
+            let p = new Promise((resolve, reject) => {
+                if (response.data){
+                    setIsLoading(false);
+                    navigate('/stockManager/stocks');
+                    resolve('Promise success')
+                }
+                else {
+                    reject('Promise failed');
+                }
             })
-            .catch(error => {
-                console.error(error);
-            });
+            // setErrorMsg(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
+
+    // loading / spinning wheel content
+    var loadingContent = null;
+    isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     const curStocks = stocks.map((s, index) => {
         // styling and setting forwardPE
@@ -68,7 +85,7 @@ function Index() {
         <div className="align-middle">
             <h2>{errorMsg}</h2>
             <button onClick={() => updateData()}>Update Data</button>
-            <Loading />
+            {loadingContent}
             <h1>Stocks</h1>
             <table>
                 <thead>

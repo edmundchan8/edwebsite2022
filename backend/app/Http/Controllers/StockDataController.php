@@ -61,6 +61,8 @@ class StockDataController extends Controller
             // close the session and free up resources
             curl_close($ch);
 
+            $stock_data_array = null;
+
             if ($err){
                 echo 'cURL Error #:' . $err;
             }
