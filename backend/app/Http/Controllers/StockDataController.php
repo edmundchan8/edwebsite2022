@@ -13,12 +13,12 @@ class StockDataController extends Controller
         $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JNJ', 'JPM', 'LUMN', 'META', 'MSFT', 
         'O', 'PG', 'PLTR', 'SBUX', 'SCHD', 'TCEHY', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
-        'trailingAnnualDividendRate', 'averageAnalystRating'];
+        'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 
-        $API_KEY = "x-api-key: 05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj";
+        // $API_KEY = "x-api-key: 05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj";
 
-        $default_url = "https://yfapi.net/v7/finance/options/";
-
+        // $default_url = "https://yfapi.net/v7/finance/options/";
+        
         // // This will ignore any ssl checks on the url, allowing the api call to go ahead
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -27,12 +27,13 @@ class StockDataController extends Controller
 
         //loop through and get api data of each stock
         foreach($ticker_stocks_array as $stock){
-            $stock_url = $default_url . $stock;
+            //$stock_url = $default_url . $stock;
 
              // Initiate the curl request
-            $ch = curl_init($stock_url);
+            $ch = curl_init();//$stock_url);
 
             curl_setopt_array($ch, [
+                CURLOPT_URL => "https://yahoo-finance97.p.rapidapi.com/stock-info",
                 CURLOPT_SSL_VERIFYPEER => 0,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_FOLLOWLOCATION => true,
@@ -40,9 +41,12 @@ class StockDataController extends Controller
                 CURLOPT_MAXREDIRS => 10,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "symbol=" . $stock,
                 CURLOPT_HTTPHEADER => [
-                    $API_KEY
+                    "X-RapidAPI-Key: 182c458e4fmsh6a1268fd224fe8bp1d5400jsn02f6ca4580c7",
+                    "X-RapidAPI-Host: yahoo-finance97.p.rapidapi.com",
+                    "content-type: application/x-www-form-urlencoded"
                 ],
             ]);
             
@@ -60,26 +64,31 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
-                if(!isset($json['optionChain'])){
-                    return $json;//"May need to update API Key";
-                }
-                $stock_data_array = $json['optionChain']['result'][0];
+                // if(!isset($json['optionChain'])){
+                //     return $json;//"May need to update API Key";
+                // }
+                $stock_data_array = $json['data'];//$json['optionChain']['result'][0];
             }
-            $quote_array = $stock_data_array['quote'];
-            
+            //$quote_array = $stock_data_array['quote'];
+            $quote_array = $stock_data_array = $json['data'];
+
             $forwardPE = null;
             $trailingDivRate = null;
-            $avgAnalystRating = [];
-            $avgAnalystRating[0] = 'null';
-            $avgAnalystRating[1] = 'null';
+            $recommendationMean = 'null';
+            $recommendationKey = 'null';
 
             // if below quotes don't exist, set to null
             isset($quote_array['forwardPE']) ? $forwardPE = $quote_array['forwardPE'] : '';
-            isset($quote_array['trailingAnnualDividendRate']) ? $trailingDivRate = $quote_array['trailingAnnualDividendRate'] : '';
+            isset($quote_array['lastDividendValue']) ? $trailingDivRate = $quote_array['lastDividendValue'] : '';
 
-            // set average analyst rating to null, or if available split rating and buy/sell/hold value out
-            isset($quote_array['averageAnalystRating']) ? $avgAnalystRating = explode(" - ", $quote_array['averageAnalystRating']) : '';
+            // set recommendationMean to null, or if available split rating and buy/sell/hold value out
+            isset($quote_array['recommendationMean']) ? $recommendationMean = $quote_array['recommendationMean'] : '';
 
+            // set recommendationKey rating to null, or if available split rating and buy/sell/hold value out
+            isset($quote_array['recommendationKey']) ? $recommendationKey = $quote_array['recommendationKey'] : '';
+
+
+            //recommendationKey
             $stock_data_table = DB::table('stock_data');
 
             if ($stock_data_table->where('tickerSymbol', $quote_array['symbol'])->exists()){
@@ -93,8 +102,8 @@ class StockDataController extends Controller
                     'price' => $quote_array['regularMarketPrice'],
                     'forwardPE' => $forwardPE,
                     'dividendRate' => $trailingDivRate,
-                    'analystRating' => $avgAnalystRating[0],
-                    'analystOpinion' => $avgAnalystRating[1],
+                    'analystRating' => $recommendationMean,
+                    'analystOpinion' => $recommendationKey,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }
@@ -106,8 +115,8 @@ class StockDataController extends Controller
                     'price' => $quote_array['regularMarketPrice'],
                     'forwardPE' => $forwardPE,
                     'dividendRate' => $trailingDivRate,
-                    'analystRating' => $avgAnalystRating[0],
-                    'analystOpinion' => $avgAnalystRating[1],
+                    'analystRating' => $recommendationMean,
+                    'analystOpinion' => $recommendationKey,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }   

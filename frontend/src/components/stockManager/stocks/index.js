@@ -30,7 +30,7 @@ function Index() {
 
     function updateData(){
         //getData
-        apiClient.get('/api/getData').then(response => {
+        apiClient.post('/api/getData').then(response => {
             console.log(response.data);
             setErrorMsg(response.data);
             })
@@ -47,19 +47,20 @@ function Index() {
         // styling and setting forwardPE
         var peClass = '';
         var forPeVal = null;
-        forPeVal < 0 ? peClass = 'text-warning' : peClass = '';
-        forPeVal == null ? forPeVal = '-' : forPeVal = s.forwardPE;
+        s.forwardPE == null ? forPeVal = '-' : forPeVal = s.forwardPE;
+
+        s.forwardPE < 0 ? peClass = 'text-warning' : peClass = '';
 
         // setting dividendValue
         var dividendValue = '';
-        s.dividendRate > 0 ? dividendValue = s.dividendRate + '%' : dividendValue = '-';
+        s.dividendRate > 0 ? dividendValue = '$' + s.dividendRate : dividendValue = '-';
         return(
             <tr key={index}>
                 <td className="td-smaller">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
                 <td>${s.price}</td>
                 <td className="td-smaller">{s.analystRating}</td>
-                <td>{s.analystOpinion}</td>
+                <td>{s.analystOpinion.replace('_', ' ')}</td>
                 <td className="td-smaller">{dividendValue}</td>
                 <td className={peClass}>{forPeVal}</td>
             </tr>

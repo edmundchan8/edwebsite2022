@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->get('/orders/{tickerSymbol}', [StockManagerCo
 
 
 // STOCK DATA CONTROLLER
-Route::middleware('auth:sanctum')->get('/getData', [StockDataController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/getData', [StockDataController::class, 'index']);
 
 // DIVIDEND CONTROLLER
 Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);

@@ -79,8 +79,7 @@ function Index() {
                 placeholder='YYYY-MM-DD' onChange={e => setDate(e.target.value)} />
                 <button>Submit</button>
             </form>
-
-
+            
             <table>
                 <thead>
                     <tr>
