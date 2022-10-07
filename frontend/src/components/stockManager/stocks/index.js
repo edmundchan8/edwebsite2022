@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import apiClient from '../../../services/api';
+import Loading from '../../loading';
 
 function Index() {
 
@@ -39,10 +40,6 @@ function Index() {
             });
     }
 
-    // function getApiKey(){
-    //     return financeApi;
-    // }
-
     const curStocks = stocks.map((s, index) => {
         // styling and setting forwardPE
         var peClass = '';
@@ -71,7 +68,7 @@ function Index() {
         <div className="align-middle">
             <h2>{errorMsg}</h2>
             <button onClick={() => updateData()}>Update Data</button>
-            <input type="text" name="current-api" value={financeApi} onChange={e => setFinanceApi(e.target.value)}/>
+            <Loading />
             <h1>Stocks</h1>
             <table>
                 <thead>

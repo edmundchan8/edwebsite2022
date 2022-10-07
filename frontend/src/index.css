@@ -157,3 +157,23 @@ tr:nth-child(even) {
 .dividend-width{
   width: 20em;
 }
+
+/* LOADING SPINNER */
+
+.loader {
+  position: absolute;
+  left: 45%;
+  border: 16px solid #e0e0e0; /* Light grey */
+  border-top: 16px solid #2c56df; /* Blue */
+  border-bottom: 16px solid #5fdf2c; /* Green */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
