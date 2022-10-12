@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../services/api';
-// import Show from '../stocks/show';
+import Loading from '../../loading';
+import DisplayOrders from './displayOrders';
 
 function Index() {
 
+    const navigate = useNavigate();
     const [stocks, setStocks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     const [tickerSymbol, setTickerSymbol] = useState('');
@@ -12,7 +14,7 @@ function Index() {
     const [quantity, setQuantity] = useState('');
     const [date, setDate] = useState('');
     const [owner, setOwner] = useState('');
-    
+    var [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         apiClient.get('/api/showAll').then(response => {
@@ -33,6 +35,8 @@ function Index() {
 
     function handleSubmit(e){
         e.preventDefault();
+        // set spinning logo
+        setIsLoading(true);
         apiClient.post('/api/store', {
             tickerSymbol: tickerSymbol,
             price: price,
@@ -40,52 +44,29 @@ function Index() {
             date: date,
             owner: owner
         }).then(response => {
-            console.log(response)
+            let p = new Promise((resolve, reject) => {
+                if(response){
+                    setIsLoading(false);
+                    navigate('/stockManager/orders');
+                    resolve('Promise success')
+                }
+                else {
+                    reject('Promise failed');
+                }
+            });
         }).catch(error => {
             console.error(error.response);
         });;
     }
 
-    var sumInvestment = 0;
-    var sumValue = 0;
-    var portfolioStatus = '';
-    var statusClass = '';
-
-    const curStocks = stocks.map((s, index) => {
-        var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
-        var diffColor = '';
-        if (difference < 0){
-            diffColor = 'text-warning';
-        }
-
-        var shareTotalInvest = parseFloat(s.totalInvested).toFixed(2);
-        var valueTotal = parseFloat(s.currentValue).toFixed(2);
-
-        sumInvestment += parseFloat(shareTotalInvest);
-        sumValue += parseFloat(valueTotal);
-
-        var investmentDiff = -((sumInvestment - sumValue)/sumInvestment) * 100;
-
-        investmentDiff > 0 ? portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Gains' : portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Losses';
-
-        investmentDiff < 0 ? statusClass = 'text-warning' : statusClass = '';
-
-        return (
-            <tr key={index}>
-                <NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink>
-                <td>{s.tickerSymbol}</td>
-                <td>{parseFloat(s.quantity).toFixed(3)}</td>
-                <td>${shareTotalInvest}</td>
-                <td>${valueTotal}</td>
-                <td className={diffColor}><strong>{difference}%</strong></td>
-            </tr>
-        )}
-    );
+    // loading / spinning wheel content
+    var loadingContent = null;
+    isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     return (
         <div className="align-middle">
+            {loadingContent}
             <h1>Stocks</h1>
-            <h3 className={statusClass}>Portfolio Performance: {portfolioStatus}</h3>
             {/* Add an order */}
             <h3>Add Stock Order</h3>
             <form name="orderForm" onSubmit={handleSubmit}>
@@ -106,21 +87,7 @@ function Index() {
                 placeholder='e.g. Edmund' onChange={e => setOwner(e.target.value)} />
                 <button>Submit</button>
             </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th className="td-name">Name</th>
-                        <th>Ticker Symbol</th>
-                        <th>Quantity</th>
-                        <th>Invested Total</th>
-                        <th>Current Value</th>
-                        <th>Difference</th>
-                    </tr>
-                        {curStocks}
-                </thead>
-            </table>
-            <h3>Invested: ${sumInvestment.toFixed(2)} | 
-            Portfolio Value: ${sumValue.toFixed(2)}</h3>
+            <DisplayOrders stocks={stocks} />
         </div>
     );
 };

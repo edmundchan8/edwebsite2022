@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+//set up logging of errors
+use Illuminate\Support\Facades\Log;
 
 class StockDataController extends Controller
 {
@@ -14,8 +16,6 @@ class StockDataController extends Controller
         'O', 'PG', 'PLTR', 'SBUX', 'SCHD', 'TCEHY', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
-
-        // $API_KEY = "x-api-key: 05i93571A13ATlFNYcZW32h8o8WmsCIq8hwIOFUj";
 
         $API_KEY = env('APP_API_KEY');
 
@@ -68,6 +68,7 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
+                // Log::info($json);
                 // if(!isset($json['optionChain'])){
                 //     return $json;//"May need to update API Key";
                 // }

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import apiClient from '../../../services/api';
 import Graph from './graph';
+import Loading from '../../loading';
 
 function Index() {
+
+    const navigate = useNavigate();
 
     const [dividends, setDividends] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
@@ -11,6 +14,7 @@ function Index() {
     const [dividend, setDividend] = useState('');
     const [date, setDate] = useState('');
     const [chartData, setchartData] = useState([]);
+    var [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
         apiClient.get('/api/showAllDividends').then(response => {
@@ -41,12 +45,24 @@ function Index() {
 
     function handleSubmit(e){
         e.preventDefault();
+         // set spinning logo
+         setIsLoading(true);
         apiClient.post('/api/storeDividend', {
             tickerSymbol: tickerSymbol,
             dividend: dividend,
             date: date
         }).then(response => {
-            console.log(response)
+            let p = new Promise((resolve, reject) => {
+                if(response){
+                    setIsLoading(false);
+                    navigate('/stockManager/dividends');
+                    resolve('Promise success')
+                }
+                else {
+                    reject('Promise failed');
+                }
+            });
+            
         }).catch(error => {
             console.error(error.response);
         });
@@ -61,11 +77,15 @@ function Index() {
         )}
     );
 
+    // loading / spinning wheel content
+    var loadingContent = null;
+    isLoading ? loadingContent = <Loading /> : loadingContent = null;
+
     return (
         <div className="align-middle">
             <Graph chartData={chartData}/>
+            {loadingContent}
             <h1>Dividends</h1>
-
             <h3>Add Dividend</h3>
             <form name="orderForm" onSubmit={handleSubmit}>
                 <label className='label-padding'>Ticker Symbol</label>

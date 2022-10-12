@@ -35,7 +35,6 @@ function Index() {
         setIsLoading(true);
         //getData using promise and api call with axios
         apiClient.post('/api/getData').then(response => {
-
             let p = new Promise((resolve, reject) => {
                 if (response.data){
                     setIsLoading(false);

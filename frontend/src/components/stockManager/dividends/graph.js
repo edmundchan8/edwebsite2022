@@ -75,7 +75,6 @@ function Graph(chartData){
           data: dividendTotal
         },
         {
-          label: 'Dividends',
           backgroundColor: 'rgba(75,192,192,1)',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
@@ -92,10 +91,14 @@ function Graph(chartData){
     var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
     var avgDividends = (totalDividends/dividendTotal.length).toFixed(2);
 
+    // avg dividends per day when viewing month
+    var avgDivDay = null;
+    chartDate === 'month' ? avgDivDay = ` | Average Dividends per Day: ${avgDividends / 12}` : avgDivDay = null;
+
     return (
       <div>
         <h3>Total Dividends: ${totalDividends} | 
-        Average Dividends per {chartDate}: ${avgDividends}</h3>
+        Average Dividends per {chartDate}: ${avgDividends} {avgDivDay}</h3>
         <Bar
           data={state}
           height="50px"

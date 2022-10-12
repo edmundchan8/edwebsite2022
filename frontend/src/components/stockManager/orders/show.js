@@ -19,6 +19,7 @@ function Show() {
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
+                console.log(response.data);
                 setStock(response.data)
                 setName(response.data[0].name);
                 setCurrentPrice(response.data[0].currentPrice);
@@ -78,7 +79,7 @@ function Show() {
     return (
         <div className="align-middle">
             <h1>{name}</h1>
-            <h4>Current Share Price ${currentPrice}</h4>
+            <h4>Current Share Price ${currentPrice} | Total Shares {totalQuantity}</h4>
             <h4>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(3)}</h4>
             <select value={owner} onChange={changeOwner}>
             <option value='Any'>Any</option>
