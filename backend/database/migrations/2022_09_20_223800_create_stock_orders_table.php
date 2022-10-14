@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('quantity', 10, 3);
             $table->decimal('price', 10, 2);
             $table->date('date')->nullable();
-            $table->string('owner');
+            $table->string('ownerID');
             $table->timestamps();
         });
     }

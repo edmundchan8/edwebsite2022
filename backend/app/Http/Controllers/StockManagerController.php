@@ -95,7 +95,7 @@ class StockManagerController extends Controller
 
         $data = DB::table('stock_orders')
             ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            ->join('owners', 'stock_orders.owner', '=', 'owners.id' )
+            ->join('owners', 'stock_orders.ownerID', '=', 'owners.id' )
             ->select(
                 'stock_data.name',
                 'stock_orders.tickerSymbol',
@@ -103,7 +103,7 @@ class StockManagerController extends Controller
                 DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'),
                 DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'))
             ->groupBy('stock_orders.tickerSymbol', 'stock_data.name')
-            ->where('owners.owner', 'like', $owner_param)
+            ->where('owners.name', 'like', $owner_param)
             ->get();
 
         return $data;
@@ -119,9 +119,9 @@ class StockManagerController extends Controller
     {
         $data = DB::table('stock_orders')
         -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-        -> leftjoin('owners', 'stock_orders.owner', '=', 'owners.id')
+        -> leftjoin('owners', 'stock_orders.ownerID', '=', 'owners.id')
         -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
-        'stock_orders.owner', 'stock_orders.quantity', 'stock_orders.price', 'owners.owner')
+        'stock_orders.ownerID', 'stock_orders.quantity', 'stock_orders.price', 'owners.name')
         -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
         -> orderBy('stock_orders.date')
         -> get();
