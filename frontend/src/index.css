@@ -1,5 +1,5 @@
 body {
-  margin: 5em 10em 10em;
+  margin: 4em 7em 7em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -129,6 +129,7 @@ color: red;
 
 table{
   margin: auto;
+  width: 100%;
 }
 
 td{
@@ -140,7 +141,11 @@ td{
 }
 
 .td-smaller {
-  width: 6em;
+  width: 5em;
+}
+
+.td-larger {
+  width: 11em;
 }
 
 tr:nth-child(even) {

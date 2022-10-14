@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import apiClient from '../../../services/api';
 import Loading from '../../loading';
 
@@ -33,7 +33,6 @@ function Index() {
     function updateData(){
         // set spinning logo
         setIsLoading(true);
-        //getData using promise and api call with axios
         apiClient.post('/api/getData').then(response => {
             let p = new Promise((resolve, reject) => {
                 if (response.data){
@@ -45,10 +44,11 @@ function Index() {
                     reject('Promise failed');
                 }
             })
-            // setErrorMsg(response.data);
         })
         .catch(error => {
             console.error(error);
+            setErrorMsg(error.message);
+            setIsLoading(false);
         });
     }
 
@@ -69,11 +69,11 @@ function Index() {
         s.dividendRate > 0 ? dividendValue = '$' + s.dividendRate : dividendValue = '-';
         return(
             <tr key={index}>
-                <td className="td-smaller">{s.name}</td>
+                <td className="td-larger">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
-                <td>${s.price}</td>
+                <td className="td-smaller">${s.price}</td>
                 <td className="td-smaller">{s.analystRating}</td>
-                <td>{s.analystOpinion.replace('_', ' ')}</td>
+                <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td>
                 <td className="td-smaller">{dividendValue}</td>
                 <td className={peClass}>{forPeVal}</td>
             </tr>

@@ -54,10 +54,10 @@ class StockDataController extends Controller
 
             // send the request and get a bool response from it
             $response = curl_exec($ch);
-
+            sleep(1);
             //capture any errors if exec above fails
             $err = curl_error($ch);
-
+            Log::info(print_r($stock, true));
             // close the session and free up resources
             curl_close($ch);
 
@@ -68,13 +68,8 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
-                // Log::info($json);
-                // if(!isset($json['optionChain'])){
-                //     return $json;//"May need to update API Key";
-                // }
-                $stock_data_array = $json['data'];//$json['optionChain']['result'][0];
+                $stock_data_array = $json['data'];
             }
-            //$quote_array = $stock_data_array['quote'];
             $quote_array = $stock_data_array;// = $json['data'];
 
             $forwardPE = null;

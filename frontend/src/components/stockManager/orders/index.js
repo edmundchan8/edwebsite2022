@@ -7,8 +7,7 @@ import DisplayOrders from './displayOrders';
 function Index() {
 
     const navigate = useNavigate();
-    const [stocks, setStocks] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
+
     const [tickerSymbol, setTickerSymbol] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -16,22 +15,9 @@ function Index() {
     const [owner, setOwner] = useState('');
     var [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        apiClient.get('/api/showAll').then(response => {
-            setStocks(response.data)
-            console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-                if (error.response.status === 401){
-                    setErrorMsg('Please login to see your stock data');
-                }
-            });
-        }, []);
-
-    if(errorMsg){
-        return <div><p>{errorMsg}</p></div>
-    }
+    // useEffect(() => {
+        
+    // }
 
     function handleSubmit(e){
         e.preventDefault();
@@ -87,7 +73,7 @@ function Index() {
                 placeholder='e.g. Edmund' onChange={e => setOwner(e.target.value)} />
                 <button>Submit</button>
             </form>
-            <DisplayOrders stocks={stocks} />
+            <DisplayOrders />
         </div>
     );
 };

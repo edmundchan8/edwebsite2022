@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class,
 
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
-Route::middleware('auth:sanctum')->get('/showAll', [StockManagerController::class, 'showAll']);
+Route::middleware('auth:sanctum')->get('/showAll/{owner}', [StockManagerController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/store', [StockManagerController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/orders/{tickerSymbol}', [StockManagerController::class, 'show']);
 

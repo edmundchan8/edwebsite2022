@@ -6,6 +6,8 @@ use DB;
 use App\Models\StockManager;
 use App\Models\StockOrder;
 use Illuminate\Http\Request;
+//set up logging of errors
+use Illuminate\Support\Facades\Log;
 
 class StockManagerController extends Controller
 {
@@ -49,8 +51,8 @@ class StockManagerController extends Controller
             'tickerSymbol' => 'required',
             'price' => 'required',
             'quantity'=>'required',
-            'date' => 'required',
-            'owner' => 'required'
+            'date',
+            'owner'
         ]);
 
         //set variables to request data (apart from owner and date)
@@ -58,17 +60,15 @@ class StockManagerController extends Controller
         $price = $request->price;
         $quantity = $request->quantity;
 
+        // set default owner to by Edmund
+        $request->owner == null ? $owner = "Edmund" : $owner = $request->owner;
+
         $owner = DB::table('owners')
         ->where('owner', $request->owner)
         ->first();
         
-
-        if ($request->date == null){
-            $date = date("Y-m-d");
-        }
-        else{
-            $date = $request->date;
-        }
+        // set date to default/current date
+        $request->date == null ? $date = date("Y-m-d") : $date = $request->date;
 
         // add stock to database
         DB::table('stock_orders')->insert(
@@ -88,17 +88,22 @@ class StockManagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showAll()
+    public function showAll(Request $request)
     {
+        $owner_param = null;
+        $request->owner != null ? $owner_param = $request->owner : $owner_param = '%';
+
         $data = DB::table('stock_orders')
             ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            ->join('owners', 'stock_orders.owner', '=', 'owners.id' )
             ->select(
                 'stock_data.name',
-                'stock_orders.tickerSymbol', 
+                'stock_orders.tickerSymbol',
                 DB::raw('SUM(stock_orders.quantity) as quantity'), 
                 DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'),
                 DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'))
             ->groupBy('stock_orders.tickerSymbol', 'stock_data.name')
+            ->where('owners.owner', 'like', $owner_param)
             ->get();
 
         return $data;
