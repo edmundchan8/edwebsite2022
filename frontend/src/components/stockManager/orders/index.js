@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../services/api';
 import Loading from '../../loading';
@@ -14,10 +14,6 @@ function Index() {
     const [date, setDate] = useState('');
     const [owner, setOwner] = useState('');
     var [isLoading, setIsLoading] = useState(false);
-
-    // useEffect(() => {
-        
-    // }
 
     function handleSubmit(e){
         e.preventDefault();

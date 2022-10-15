@@ -20,13 +20,12 @@ function DisplayOrders(){
     var sumInvestment = 0;
     var sumValue = 0;
     var valueTotal;
-    var quantityTotal;
     var investmentDiff;
 
     useEffect( () => {
         const fetchData = async () => { 
 
-            apiClient.get('/api/showAll/', { params: {owner: owner} }).then(response => {
+            apiClient.get(`/api/showAll/${owner}`).then(response => {
                 setStocks(response.data)
                 console.log(response.data);
                 })
@@ -41,9 +40,13 @@ function DisplayOrders(){
                 return <div><p>{errorMsg}</p></div>
             }
         }
+        console.log('before fetchData');
         fetchData()
         .catch(console.error);
+        console.log('after fetchdata');
     }, [owner])
+
+    console.log('outside fetchdata');
 
     data = stocks.map((s, index) => {
         var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
@@ -53,7 +56,6 @@ function DisplayOrders(){
         var totalInvest = parseFloat(s.totalInvested).toFixed(2);
 
         valueTotal = parseFloat(s.currentValue).toFixed(2);
-        quantityTotal +=parseFloat(s.quantity).toFixed(2);
 
         sumInvestment += parseFloat(totalInvest);
         sumValue += parseFloat(valueTotal);
@@ -74,6 +76,7 @@ function DisplayOrders(){
     investmentDiff = -((sumInvestment - sumValue)/sumInvestment) * 100;
     investmentDiff > 0 ? portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Gains' : portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Losses';
     investmentDiff < 0 ? statusClass = 'text-warning' : statusClass = '';
+
 
     return (
         <div>

@@ -57,7 +57,6 @@ class StockDataController extends Controller
             sleep(1);
             //capture any errors if exec above fails
             $err = curl_error($ch);
-            Log::info(print_r($stock, true));
             // close the session and free up resources
             curl_close($ch);
 

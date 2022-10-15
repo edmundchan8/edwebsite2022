@@ -1,19 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
-import apiClient from '../../../services/api';
-import Loading from '../../loading';
-
-const sleep = ms => new Promise(
-  resolve => setTimeout(resolve, ms)
-);
 
 function Graph(chartData){
   
   var [dividendTotal, setDividendTotal] = useState([]);
   var [label, setLabel]  = useState([]);
   var [chartDate, setChartDate] = useState('year');
-  var [numMonths, setNumMonths] = useState();
 
   useEffect(() => {
     const fetchData = async () => {

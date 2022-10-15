@@ -117,12 +117,19 @@ class StockManagerController extends Controller
      */
     public function show(Request $request)
     {
+        // $owner = null;
+        // $owner == null ? $owner = '%' : $owner = $request->owner;
+        $tickerSymbol = $request->tickerSymbol;
+
+        // Log::info(print_r($owner, true));
+
         $data = DB::table('stock_orders')
         -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
         -> leftjoin('owners', 'stock_orders.ownerID', '=', 'owners.id')
         -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
         'stock_orders.ownerID', 'stock_orders.quantity', 'stock_orders.price', 'owners.name')
         -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
+        // -> where('owners.name', '=', $owner)
         -> orderBy('stock_orders.date')
         -> get();
 

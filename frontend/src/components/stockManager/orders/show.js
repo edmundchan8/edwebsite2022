@@ -16,6 +16,12 @@ function Show() {
     const [currentPrice, setCurrentPrice] = useState();
     const [totalQuantity, setTotalQuantity] = useState();
 
+    // const apiParams = {
+    //     params: [owner, params.tickerSymbol]
+    // }
+
+    console.log(params.tickerSymbol);
+
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
@@ -44,7 +50,7 @@ function Show() {
                                 <td>{totalInvested}</td>
                                 <td>{s.owner}</td>
                             </tr>
-                        )
+                        );
                     }
                     else{
                         return;
