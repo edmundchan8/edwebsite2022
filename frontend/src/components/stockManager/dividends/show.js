@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
+import { NavLink, useParams } from "react-router-dom";
 import apiClient from '../../../services/api';
-import { useParams } from "react-router-dom";
 import Graph from './graph';
 
 function Show() {
@@ -36,6 +36,8 @@ function Show() {
             <tr key={index}>
                 <td className='dividend-width'>{d.date}</td>
                 <td className='dividend-width'>${d.dividend}</td>
+                <NavLink className='nav-links' to='edit' state={{d}} >Edit</NavLink>
+                <NavLink className='nav-links' to='delete' >Delete</NavLink>
             </tr>
         )}
     );

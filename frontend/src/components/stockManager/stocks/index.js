@@ -12,6 +12,7 @@ function Index() {
 
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
+            console.log(setStocks);
             setStocks(response.data)
             })
             .catch(error => {
@@ -55,6 +56,8 @@ function Index() {
     // loading / spinning wheel content
     var loadingContent = null;
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
+
+    console.log(stocks);
 
     const curStocks = stocks.map((s, index) => {
         // styling and setting forwardPE

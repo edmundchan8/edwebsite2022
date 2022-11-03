@@ -12,7 +12,7 @@ class StockDataController extends Controller
 {
     public function index()
     {
-        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JNJ', 'JPM', 'LUMN', 'META', 'MSFT', 
+        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JPM', 'META', 'MSFT', 
         'O', 'PG', 'PLTR', 'SBUX', 'SCHD', 'TCEHY', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
@@ -41,7 +41,7 @@ class StockDataController extends Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
+                CURLOPT_TIMEOUT => 60,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => "symbol=" . $stock,
@@ -67,6 +67,7 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
+
                 $stock_data_array = $json['data'];
             }
             $quote_array = $stock_data_array;// = $json['data'];

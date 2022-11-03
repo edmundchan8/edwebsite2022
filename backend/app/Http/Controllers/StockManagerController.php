@@ -63,10 +63,12 @@ class StockManagerController extends Controller
         // set default owner to by Edmund
         $request->owner == null ? $owner = "Edmund" : $owner = $request->owner;
 
-        $owner = DB::table('owners')
-        ->where('owner', $request->owner)
-        ->first();
-        
+        $ownerData = DB::table('owners')
+        ->where('name', $owner)
+        ->get();
+
+        $ownerId = json_decode($ownerData, true)[0]['id'];
+
         // set date to default/current date
         $request->date == null ? $date = date("Y-m-d") : $date = $request->date;
 
@@ -76,7 +78,7 @@ class StockManagerController extends Controller
             'price' => $price, 
             'quantity' => $quantity, 
             'date' => $date, 
-            'owner' => $owner->id]
+            'ownerID' => $ownerId]
         );
 
         return $request;
@@ -91,7 +93,7 @@ class StockManagerController extends Controller
     public function showAll(Request $request)
     {
         $owner_param = null;
-        $request->owner != null ? $owner_param = $request->owner : $owner_param = '%';
+        $request->owner != 'Any' ? $owner_param = $request->owner : $owner_param = '%';
 
         $data = DB::table('stock_orders')
             ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
@@ -117,19 +119,14 @@ class StockManagerController extends Controller
      */
     public function show(Request $request)
     {
-        // $owner = null;
-        // $owner == null ? $owner = '%' : $owner = $request->owner;
         $tickerSymbol = $request->tickerSymbol;
-
-        // Log::info(print_r($owner, true));
 
         $data = DB::table('stock_orders')
         -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
         -> leftjoin('owners', 'stock_orders.ownerID', '=', 'owners.id')
-        -> select('stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
+        -> select('stock_orders.id', 'stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
         'stock_orders.ownerID', 'stock_orders.quantity', 'stock_orders.price', 'owners.name')
         -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
-        // -> where('owners.name', '=', $owner)
         -> orderBy('stock_orders.date')
         -> get();
 
@@ -142,9 +139,37 @@ class StockManagerController extends Controller
      * @param  \App\Models\StockManager  $stockManager
      * @return \Illuminate\Http\Response
      */
-    public function edit(StockManager $stockManager)
+    public function edit(Request $request)
     {
-        //
+        // get data from react, json decode it
+        $orderData = json_decode($request->order, true);
+
+        // access individual data from react like an array
+        $id = $orderData['id'];
+        $date = $orderData['date'];
+        $name = $orderData['name'];
+        $tickerSymbol = $orderData['tickerSymbol'];
+        $quantity = $orderData['quantity'];
+        $price = $orderData['price'];
+        
+        //get owner in to use in update query below
+        $ownerQuery = DB::table('owners')
+            ->where('name', '=', $name)
+            ->get();
+
+        // json decode the query from owners, get the array then id element, pass this to update
+        $ownerId = json_decode($ownerQuery, true)[0]['id'];
+
+        $order = DB::table('stock_orders')
+            -> where('id', $id)
+            -> update([
+                'ownerID' => $ownerId,
+                'date' => $date,
+                'tickerSymbol' => $tickerSymbol,
+                'quantity' => $quantity,
+                'price' => $price,
+            ]);
+        return $order;
     }
 
     /**
@@ -165,8 +190,11 @@ class StockManagerController extends Controller
      * @param  \App\Models\StockManager  $stockManager
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StockManager $stockManager)
+    public function delete(Request $request)
     {
-        //
+        Log::info($request->id);
+        $order = DB::table('stock_orders')
+            -> where('id', $request->id)
+            -> delete();
     }
 }

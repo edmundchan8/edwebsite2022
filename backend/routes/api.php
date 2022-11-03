@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class
 Route::middleware('auth:sanctum')->get('/showAll/{owner}', [StockManagerController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/store', [StockManagerController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/orders/{tickerSymbol}', [StockManagerController::class, 'show']);
+Route::middleware('auth:sanctum')->get('/orders/{tickerSymbol}/edit/{order}', [StockManagerController::class, 'edit']);
+Route::middleware('auth:sanctum')->delete('/orders/delete/{id}', [StockManagerController::class, 'delete']);
 
 
 // STOCK DATA CONTROLLER

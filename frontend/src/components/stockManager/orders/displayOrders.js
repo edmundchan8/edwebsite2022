@@ -40,13 +40,13 @@ function DisplayOrders(){
                 return <div><p>{errorMsg}</p></div>
             }
         }
-        console.log('before fetchData');
+        // console.log('before fetchData');
         fetchData()
         .catch(console.error);
-        console.log('after fetchdata');
+        // console.log('after fetchdata');
     }, [owner])
 
-    console.log('outside fetchdata');
+    // console.log('outside fetchdata');
 
     data = stocks.map((s, index) => {
         var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
@@ -85,7 +85,7 @@ function DisplayOrders(){
             Portfolio Value: ${sumValue.toFixed(2)}</h3>
             Sort by Owner
             <select onChange={handleChange}>
-                <option value="">Any</option>
+                <option value="Any">Any</option>
                 <option value="Edmund">Edmund</option>
                 <option value="Mum">Mum</option>
                 <option value="Priscilla">Priscilla</option>

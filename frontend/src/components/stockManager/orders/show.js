@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import apiClient from '../../../services/api';
 
 function Show() {
@@ -16,45 +16,44 @@ function Show() {
     const [currentPrice, setCurrentPrice] = useState();
     const [totalQuantity, setTotalQuantity] = useState();
 
-    // const apiParams = {
-    //     params: [owner, params.tickerSymbol]
-    // }
-
-    console.log(params.tickerSymbol);
-
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
                 console.log(response.data);
                 setStock(response.data)
-                setName(response.data[0].name);
                 setCurrentPrice(response.data[0].currentPrice);
+                
                 var totalInvest = 0;
                 var totalQuant = 0;
+                
                 var currentData = stock.map((s, index) => {
-                    if (owner === 'Any' || owner === s.owner){
-                        var price = 0;
-                        s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
-                        
-                        var totalInvested = 0;
-                        s.price === 0 ? totalInvested = '-' : totalInvested = '$' + (parseFloat(s.quantity) * parseFloat(s.price)).toFixed(3);
-                        totalInvest += parseFloat(s.quantity) * parseFloat(s.price);
-
-                        totalQuant += parseFloat(s.quantity);
-
-                        return (
-                            <tr key={index}>
-                                <td>{s.date}</td>
-                                <td>{parseFloat(s.quantity).toFixed(3)}</td>
-                                <td>{price}</td>
-                                <td>{totalInvested}</td>
-                                <td>{s.owner}</td>
-                            </tr>
-                        );
+                    // if owner is not Any (the default), check if owner's name exists, and only 
+                    // show stocks for those that match, otherwise show all.
+                    if(owner !== 'Any'){
+                        if (owner !== s.name){
+                            return;
+                        }
                     }
-                    else{
-                        return;
-                    }
+
+                    var price = 0;
+                    s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
+                    
+                    var totalInvested = 0;
+                    s.price === 0 ? totalInvested = '-' : totalInvested = '$' + (parseFloat(s.quantity) * parseFloat(s.price)).toFixed(3);
+                    totalInvest += parseFloat(s.quantity) * parseFloat(s.price);
+
+                    totalQuant += parseFloat(s.quantity);
+
+                    return (
+                        <tr key={index}>
+                            <td>{s.date}</td>
+                            <td>{parseFloat(s.quantity).toFixed(3)}</td>
+                            <td>{price}</td>
+                            <td>{totalInvested}</td>
+                            <td>{s.name}</td>
+                            <NavLink className='nav-links' to={{pathname :"edit"}} state={{s}} >Edit</NavLink>
+                        </tr>
+                    );
                 });
 
                 setTotalInvested(totalInvest.toFixed(2));
@@ -84,7 +83,7 @@ function Show() {
 
     return (
         <div className="align-middle">
-            <h1>{name}</h1>
+            <h1>{owner}</h1>
             <h4>Current Share Price ${currentPrice} | Total Shares {totalQuantity}</h4>
             <h4>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(3)}</h4>
             <select value={owner} onChange={changeOwner}>
