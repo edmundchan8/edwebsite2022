@@ -12,7 +12,6 @@ function Index() {
 
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
-            console.log(setStocks);
             setStocks(response.data)
             })
             .catch(error => {

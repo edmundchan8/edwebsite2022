@@ -50,8 +50,7 @@ class DividendController extends Controller
         //validate request
         $validated = $request->validate([
             'dividend' => 'required',
-            'tickerSymbol' => 'required',
-            'date' => 'required'
+            'tickerSymbol' => 'required'
         ]);
 
         //set variables to request data (apart from owner and date)
