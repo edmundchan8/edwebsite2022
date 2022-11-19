@@ -1,2 +1,5 @@
 {
+    "require": {
+        "laravel/vapor-core": "^2.25"
+    }
 }

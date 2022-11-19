@@ -84,6 +84,28 @@ class StockManagerController extends Controller
         return $request;
     }
 
+/**
+     * Shows individual orders 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
+        $tickerSymbol = $request->tickerSymbol;
+
+        $data = DB::table('stock_orders')
+        -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+        -> leftjoin('owners', 'stock_orders.ownerID', '=', 'owners.id')
+        -> select('stock_orders.id', 'stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
+        'stock_orders.ownerID', 'stock_orders.quantity', 'stock_orders.price', 'owners.name')
+        -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
+        -> orderBy('stock_orders.date')
+        -> get();
+
+    return $data;
+    }
+
+
 
     /**
      * Shows all orders 
@@ -112,26 +134,6 @@ class StockManagerController extends Controller
     }
 
 
-    /**
-     * Shows individual orders 
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $tickerSymbol = $request->tickerSymbol;
-
-        $data = DB::table('stock_orders')
-        -> join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
-        -> leftjoin('owners', 'stock_orders.ownerID', '=', 'owners.id')
-        -> select('stock_orders.id', 'stock_orders.date', 'stock_data.name', 'stock_orders.tickerSymbol', 'stock_data.price as currentPrice',
-        'stock_orders.ownerID', 'stock_orders.quantity', 'stock_orders.price', 'owners.name')
-        -> where('stock_orders.tickerSymbol', '=', $request->tickerSymbol)
-        -> orderBy('stock_orders.date')
-        -> get();
-
-    return $data;
-    }
 
     /**
      * Show the form for editing the specified resource.

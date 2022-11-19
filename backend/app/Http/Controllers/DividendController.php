@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Dividend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DividendController extends Controller
 {
@@ -75,6 +76,25 @@ class DividendController extends Controller
     }
 
 
+   /**
+     * Shows individual orders 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
+        $data = DB::table('dividends')
+        -> leftJoin('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+        -> select('dividends.id', 'stock_data.name', 'dividends.dividend', 'dividends.date')
+        -> orderBy('dividends.date')
+        -> where ('stock_data.name', '=', $request->name)
+        -> get();
+    
+    return $data;
+    }
+
+
+
     /**
      * Shows all orders 
      *
@@ -93,31 +113,30 @@ class DividendController extends Controller
 
 
     /**
-     * Shows individual orders 
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $data = DB::table('dividends')
-        -> leftJoin('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
-        -> select('stock_data.name', 'dividends.dividend', 'dividends.date')
-        -> orderBy('dividends.date')
-        -> where ('stock_data.name', '=', $request->name)
-        -> get();
-    
-    return $data;
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\StockManager  $stockManager
-     * @return \Illuminate\Http\Response
      */
-    public function edit(StockManager $stockManager)
+    public function edit(Request $request)
     {
-        //
+
+        // get data from react, json decode it
+        // $dividendData = json_decode($request->dividend, true);
+
+        $dividendData = json_decode($request->dividend, true);
+
+        // access individual data from react like an array
+        $id = $dividendData['id'];
+        $date = $dividendData['date'];
+        $name = $dividendData['name'];
+        $dividend = $dividendData['dividend'];
+        
+        $dividendOrder = DB::table('dividends')
+            -> where('id', $id)
+            -> update([
+                'date' => $date,
+                'dividend' => $dividend,
+            ]);
+        return $dividendOrder;
     }
 
     /**
@@ -135,11 +154,11 @@ class DividendController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StockManager  $stockManager
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(StockManager $stockManager)
+    public function delete(Request $request)
     {
-        //
+        $dividend = DB::table('dividends')
+            -> where('id', $request->id)
+            -> delete();
     }
 }

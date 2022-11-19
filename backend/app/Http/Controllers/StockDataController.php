@@ -12,8 +12,8 @@ class StockDataController extends Controller
 {
     public function index()
     {
-        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'BEP', 'COST', 'EBET', 'GOOG', 'HAS', 'HD', 'HOOD', 'JEPI', 'JPM', 'META', 'MSFT', 
-        'O', 'PG', 'PLTR', 'SBUX', 'SCHD', 'TCEHY', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
+        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'COST', 'GOOG', 'HAS', 'HD', 'JEPI', 'JPM', 'META', 'MSFT', 
+        'O', 'PG', 'SBUX', 'SCHD', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 

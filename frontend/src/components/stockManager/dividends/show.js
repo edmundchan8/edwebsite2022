@@ -36,8 +36,7 @@ function Show() {
             <tr key={index}>
                 <td className='dividend-width'>{d.date}</td>
                 <td className='dividend-width'>${d.dividend}</td>
-                <NavLink className='nav-links' to='edit' state={{d}} >Edit</NavLink>
-                <NavLink className='nav-links' to='delete' >Delete</NavLink>
+                <NavLink className='nav-links' to={{pathname :"edit"}} state={{d}} >Edit</NavLink>
             </tr>
         )}
     );

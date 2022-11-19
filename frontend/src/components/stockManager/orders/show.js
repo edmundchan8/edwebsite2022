@@ -81,6 +81,8 @@ function Show() {
         setOwner(event.target.value);
     }
 
+    console.log(stock);
+
     return (
         <div className="align-middle">
             <h1>{owner}</h1>
