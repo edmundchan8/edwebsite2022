@@ -34,9 +34,11 @@ function Index() {
         // set spinning logo
         setIsLoading(true);
         apiClient.post('/api/getData').then(response => {
+            console.log(response);
             let p = new Promise((resolve, reject) => {
                 if (response.data){
                     setIsLoading(false);
+                    setErrorMsg(response.data.message);
                     navigate('/stockManager/stocks');
                     resolve('Promise success')
                 }
@@ -55,8 +57,6 @@ function Index() {
     // loading / spinning wheel content
     var loadingContent = null;
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
-
-    console.log(stocks);
 
     const curStocks = stocks.map((s, index) => {
         // styling and setting forwardPE

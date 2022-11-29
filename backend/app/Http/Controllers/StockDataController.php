@@ -12,14 +12,12 @@ class StockDataController extends Controller
 {
     public function index()
     {
-        $ticker_stocks_array = ['AAPL', 'AMZN', 'APAM', 'COST', 'GOOG', 'HAS', 'HD', 'JEPI', 'JPM', 'META', 'MSFT', 
-        'O', 'PG', 'SBUX', 'SCHD', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
+        $ticker_stocks_array = ['AAPL', 'AMZN', 'COST', 'GOOG', 'HAS', 'HD', 'JEPI', 'JPM', 'META', 'MSFT', 
+        'O', 'SBUX', 'SCHD', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 
         $API_KEY = env('APP_API_KEY');
-
-        // $default_url = "https://yfapi.net/v7/finance/options/";
         
         // // This will ignore any ssl checks on the url, allowing the api call to go ahead
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -67,10 +65,19 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
-
-                $stock_data_array = $json['data'];
+                // if data exists, set stock_data_array
+                if (array_key_exists('data', $json)){
+                    $stock_data_array = $json['data'];
+                }
+                else {
+                    // 'data' doesn't exists in $json, output message to see why
+                    Log::Error($json['message']);
+                    return $json;
+                }
+                
             }
-            $quote_array = $stock_data_array;// = $json['data'];
+    
+            $quote_array = $stock_data_array;
 
             $forwardPE = null;
             $trailingDivRate = null;
@@ -119,7 +126,8 @@ class StockDataController extends Controller
                     'analystOpinion' => $recommendationKey,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
-            }   
+            }
+            
         }
         return "Stocks Updated!";// view('data.index');
     }

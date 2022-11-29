@@ -15,7 +15,7 @@ function Show() {
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/dividends/${params.name}`).then(response => {
-                setDividends(response.data)
+                setDividends(response.data);
                 })
                 .catch(error => {
                     if (error.response.status === 401){
