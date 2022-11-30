@@ -40,7 +40,7 @@ function Index() {
                     setIsLoading(false);
                     setErrorMsg(response.data.message);
                     navigate('/stockManager/stocks');
-                    resolve('Promise success')
+                    resolve('Promise success');
                 }
                 else {
                     reject('Promise failed');
