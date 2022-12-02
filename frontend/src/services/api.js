@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log(REACT_APP_BASE_URL);
+const laravel_url = process.env.REACT_APP_BASE_URL;
+
+console.log(laravel_url);
+
 const apiClient = axios.create({
-    baseURL: REACT_APP_BASE_URL,
+    baseURL: laravel_url,
     'Access-Control-Allow-Origin': '*',
     'Accept': 'application/json',
     withCredentials: true,
