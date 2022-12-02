@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 import Home from './home';
 import Login from './components/login';
-// import Todolist from './components/todolist';
+import Todolist from './components/todolist';
 import StockManager from './components/stockManager/index';
 import apiClient from './services/api';
 
@@ -45,12 +45,12 @@ function App() {
                     <NavLink className='nav-links' to='/home'>Home</NavLink>
                     {loginNavContent}
                     {stockManager}
-                    {/* <NavLink className='nav-links' to='/todolist'>Todolist</NavLink> */}
+                    <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
                 </div>
                 <Routes>
                     <Route exact path="/home" element={ <Home/>} />
                     <Route exact path='/login' element={ <Login onLogin={login}/>} />
-                    {/* <Route exact path='/todolist' element={ <Todolist />} /> */}
+                    <Route exact path='/todolist' element={ <Todolist />} />
                     <Route path='/stockManager/*' element={<StockManager />}/>
                     <Route exact path="/" element={ <Home/>} />
                 </Routes>
