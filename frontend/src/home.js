@@ -8,6 +8,7 @@ function Home() {
     const url = process.env.REACT_APP_BASE_URL;
 
     console.log(url);
+    console.log('test');
 
     return (
         <div className="align-middle">
