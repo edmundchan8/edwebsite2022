@@ -11,8 +11,6 @@ function Heading(){
                 <h1>Chi Hong Edmund Chan</h1>
                 <h3>Web Application Developer</h3>
                 <img src={profilePic} className="logo" alt="me" />
-                <h4>Test</h4>
-                <h5>{process.env.REACT_APP_BASE_URL}</h5>
             </header>   
         </div>
         
