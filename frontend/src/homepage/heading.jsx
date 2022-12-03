@@ -4,6 +4,12 @@ import profilePic from '../images/profilePic.jpeg'
 
 
 function Heading(){
+
+    const url = process.env.REACT_APP_BASE_URL;
+
+    console.log(url);
+    console.log('test');
+    
     return(
         <div>
             <header>
