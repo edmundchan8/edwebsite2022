@@ -5,6 +5,10 @@ import About from './homepage/about';
 
 function Home() {
 
+    const url = process.env.REACT_APP_BASE_URL;
+
+    console.log(url);
+
     return (
         <div className="align-middle">
             <Heading />
