@@ -10,7 +10,7 @@ function Heading(){
             <header>
                 <h1>Chi Hong Edmund Chan</h1>
                 <h3>Web Application Developer</h3>
-                <p>Trying to get app working in production</p>
+                {/* <p>Trying to get app working in production</p> */}
                 <img src={profilePic} className="logo" alt="me" />
             </header>   
         </div>

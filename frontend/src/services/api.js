@@ -12,7 +12,6 @@ const apiClient = axios.create({
     withCredentials: true,
 });
 
-console.log(baseUrl);
-console.log(apiClient);
+// console.log(baseUrl);
 
 export default apiClient;
