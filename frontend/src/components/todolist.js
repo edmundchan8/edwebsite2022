@@ -10,7 +10,6 @@ function Todolist (){
         apiClient.get('/api/todolists').then(response => {
             setTodolists(response.data)
                 console.log(response);
-                console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
