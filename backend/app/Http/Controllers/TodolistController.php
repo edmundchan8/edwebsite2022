@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Todolist;
 use Illuminate\Http\Request;
+//set up logging of errors
+use Illuminate\Support\Facades\Log;
 
 class TodolistController extends Controller
 {
@@ -14,6 +16,7 @@ class TodolistController extends Controller
      */
     public function index()
     {
+        log::info(response()->json(Todolist::all()));
         return response()->json(Todolist::all());
     }
 
