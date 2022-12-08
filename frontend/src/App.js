@@ -34,7 +34,7 @@ function App() {
     className='nav-links' to='/login'>Login</NavLink> : 
     loginNavContent = <button className='nav-links' onClick={logout}>Logout</button>;
 
-    // Make stock app appear
+    // Make stock app appear here
     var stockManager = null;
 
     loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/stocks'>Stock Manager</NavLink> : stockManager = null;
