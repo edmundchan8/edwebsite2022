@@ -17,7 +17,7 @@ function Index() {
     var [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
-        apiClient.get('/api/showAllDividends').then(response => {
+        apiClient.get('/showAllDividends').then(response => {
             setDividends(response.data);
             console.log(response.data);
             })
@@ -27,7 +27,7 @@ function Index() {
                     setErrorMsg('Please login to see your dividend data');
                 }
             });
-        apiClient.get('/api/dividendChartData').then(response => {
+        apiClient.get('/dividendChartData').then(response => {
             setchartData(response.data);
             console.log(response.data);
             })
@@ -47,7 +47,7 @@ function Index() {
         e.preventDefault();
          // set spinning logo
          setIsLoading(true);
-        apiClient.post('/api/storeDividend', {
+        apiClient.post('/storeDividend', {
             tickerSymbol: tickerSymbol,
             dividend: dividend,
             date: date
