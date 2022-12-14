@@ -7,7 +7,7 @@ function Todolist (){
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
-        apiClient.get('/todolists').then(response => { // previously /api/todolists
+        apiClient.get('/api/todolists').then(response => { // previously /api/todolists
 
             setTodolists(response.data)
                 console.log(response);

@@ -17,7 +17,7 @@ function Index() {
     var [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
-        apiClient.get('/showAllDividends').then(response => {
+        apiClient.get('/api/showAllDividends').then(response => {
             setDividends(response.data);
             console.log(response.data);
             })
@@ -27,7 +27,7 @@ function Index() {
                     setErrorMsg('Please login to see your dividend data');
                 }
             });
-        apiClient.get('/dividendChartData').then(response => {
+        apiClient.get('/api/dividendChartData').then(response => {
             setchartData(response.data);
             console.log(response.data);
             })
@@ -71,8 +71,10 @@ function Index() {
     const curDividends = dividends.map((d, index) => {      
         return (
             <tr key={index}>
-                <NavLink className='nav-links remove-link-underline' to={`/stockManager/dividends/${d.name}`} >
+                <td>
+                    <NavLink className='nav-links remove-link-underline' to={`/stockManager/dividends/${d.name}`} >
                     {d.name}</NavLink>
+                </td>
                 <td className='dividend-width'>{d.totalDividends}</td>
             </tr>
         )}

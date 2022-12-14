@@ -11,7 +11,7 @@ function Index() {
     var [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        apiClient.get('/stocks').then(response => {
+        apiClient.get('/api/stocks').then(response => {
             setStocks(response.data)
             })
             .catch(error => {
