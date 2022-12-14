@@ -8,7 +8,7 @@ function Register (props) {
     const [password, setPassword] = React.useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
-        apiClient.post('/api/register', {
+        apiClient.post('/register', {
             name: name,
             email: email,
             password: password
