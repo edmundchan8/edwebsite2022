@@ -52,7 +52,7 @@ function Index() {
             dividend: dividend,
             date: date
         }).then(response => {
-            let p = new Promise((resolve, reject) => {
+            new Promise((resolve, reject) => {
                 if(response){
                     setIsLoading(false);
                     navigate('/stockManager/dividends');

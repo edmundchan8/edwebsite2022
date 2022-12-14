@@ -35,7 +35,7 @@ function Index() {
         setIsLoading(true);
         apiClient.post('/api/getData').then(response => {
             console.log(response);
-            let p = new Promise((resolve, reject) => {
+            new Promise((resolve, reject) => {
                 if (response.data){
                     setIsLoading(false);
                     setErrorMsg(response.data.message);

@@ -8,7 +8,7 @@ function EditDividends() {
     const { state } = location;
     const navigate = useNavigate();
     const [dividendId, setDividendId] = useState();
-    const [newOrder, setNewOrder] = useState([]);
+    // const [newOrder, setNewOrder] = useState([]);
     const [date, setDate] = useState();
     const [name, setName] = useState();
     const [dividend, setDividend] = useState();
@@ -75,7 +75,7 @@ function EditDividends() {
         //set dividend id
         setDividendId(state.d['id']);
 
-        var data = Object.keys(state.d).map((key, index) => {
+        Object.keys(state.d).map((key, index) => {
             if(key === 'date'){
                 setDate(state.d[key]);
             }
@@ -85,9 +85,9 @@ function EditDividends() {
             if(key === 'dividend'){
                 setDividend(state.d[key]);
             }
+            return "data all set";
         });
-
-        setNewOrder(data);
+        // setNewOrder(data);
 
     }, [])
 

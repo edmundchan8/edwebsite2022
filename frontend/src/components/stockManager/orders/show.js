@@ -9,7 +9,7 @@ function Show() {
     
     const [stock, setStock] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
     const [owner, setOwner] = useState('Any');
     const [data, setData] = useState(); 
     const [totalInvested, setTotalInvested] = useState();
@@ -31,7 +31,7 @@ function Show() {
                     // show stocks for those that match, otherwise show all.
                     if(owner !== 'Any'){
                         if (owner !== s.name){
-                            return;
+                            return 'owner not found in stocks';
                         }
                     }
 

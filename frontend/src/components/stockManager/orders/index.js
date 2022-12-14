@@ -26,7 +26,7 @@ function Index() {
             date: date,
             owner: owner
         }).then(response => {
-            let p = new Promise((resolve, reject) => {
+            new Promise((resolve, reject) => {
                 if(response){
                     setIsLoading(false);
                     navigate('/stockManager/orders');

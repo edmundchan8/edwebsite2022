@@ -108,6 +108,7 @@ function EditStocks() {
             if(key === 'price'){
                 setPrice(state.s[key]);
             }
+            return 'no matching setstate found';
         });
     }, [])
 

@@ -18,7 +18,7 @@ class StockDataController extends Controller
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 
         $API_KEY = env('APP_API_KEY');
-        
+        log:info($API_KEY);
         // // This will ignore any ssl checks on the url, allowing the api call to go ahead
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
