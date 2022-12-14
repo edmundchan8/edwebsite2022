@@ -27,7 +27,7 @@ function DisplayOrders(){
 
             apiClient.get(`/api/showAll/${owner}`).then(response => {
                 setStocks(response.data)
-                console.log(response.data);
+                // console.log(response.data);
                 })
                 .catch(error => {
                     console.error(error);
@@ -62,7 +62,7 @@ function DisplayOrders(){
 
         return (
             <tr key={index}>
-                <NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink>
+                <td><NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
                 <td>${totalInvest}</td>
