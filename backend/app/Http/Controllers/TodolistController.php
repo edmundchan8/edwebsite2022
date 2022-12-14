@@ -16,7 +16,7 @@ class TodolistController extends Controller
      */
     public function index()
     {
-        log::info(response()->json(Todolist::all()));
+        // log::info(response()->json(Todolist::all()));
         return response()->json(Todolist::all());
     }
 

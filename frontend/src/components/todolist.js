@@ -11,7 +11,7 @@ function Todolist (){
             setTodolists(response.data)
                 console.log(response);
                 // console.log(JSON.stringify(response));
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
