@@ -12,12 +12,13 @@ function Login (props) {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
             console.log(response);
-            console.log('status 204 on sanctum/csrf-cookie');
+            console.log('status ' + response.status + ' on sanctum/csrf-cookie');
             apiClient.post('/login', {
                 email: email,
                 password: password
             }).then(response => {
                 console.log(response);
+                console.log('login details all good, navigating to home worked. ' + response.status)
                 props.onLogin();
                 navigate('/home');
             })
