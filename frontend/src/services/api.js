@@ -9,6 +9,7 @@ const apiClient = axios.create({
     baseURL: baseUrl,
     'Access-Control-Allow-Origin': '*',
     'Accept': 'application/json',
+    'Content-Type': 'text/plain;charset=utf-8',
     withCredentials: true,
 });
 
