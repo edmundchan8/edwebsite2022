@@ -12,6 +12,7 @@ function Index() {
 
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
+            console.log(response);
             setStocks(response.data)
             })
             .catch(error => {
@@ -33,7 +34,7 @@ function Index() {
     function updateData(){
         // set spinning logo
         setIsLoading(true);
-        apiClient.post('/getData').then(response => {
+        apiClient.post('/api/getData').then(response => {
             console.log(response);
             new Promise((resolve, reject) => {
                 if (response.data){

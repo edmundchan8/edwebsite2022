@@ -31,7 +31,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // LOGIN CONTROLLER
-Route::post('/loginUser', [LoginController::class, 'login']);
 // custom logout function route
 Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -43,7 +42,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
 Route::get('/todolists', [TodolistController::class, 'index']);
 Route::get('/test', function(){ return 'this is a test';});
-Route::get('foo', function(){ return 'bar or fighters';});
 
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
