@@ -12,12 +12,20 @@ function Login (props) {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
             console.log(response);
+            console.log('status 204 on sanctum/csrf-cookie');
             apiClient.post('/login', {
                 email: email,
                 password: password
             }).then(response => {
+                console.log(response);
                 props.onLogin();
                 navigate('/home');
+            })
+            .catch(error => {
+                console.error(error);
+                if (error.response.status === 422){
+                    console.log('Login unprocessable, incorrect login details');
+                }
             });
         });
 
