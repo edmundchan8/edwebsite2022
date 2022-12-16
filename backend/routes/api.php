@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // LOGIN CONTROLLER
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->middleware('cors');
 // custom logout function route
 Route::post('/logout', [LoginController::class, 'logout']);
 
