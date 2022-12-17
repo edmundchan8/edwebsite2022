@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Support\Facades\Hash;
 // use Session;
 //set up logging of errors
 use Illuminate\Support\Facades\Log;
@@ -51,13 +50,13 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        $credentials->password = Hash::make($request->password);
-
-        Log::info($credentials);
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
+
+            // Log::info($credentials);
+            // Log::info($request);
+            // Log::info($user);
 
             return response()->json($user);
         }
