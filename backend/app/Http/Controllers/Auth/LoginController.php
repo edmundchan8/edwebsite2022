@@ -50,16 +50,16 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+        $credentials->password = Hash::make($request->password);
+
+        Log::info($credentials);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
 
-            Log::info($user);
-
             return response()->json($user);
         }
-
-        Log::info($credentials);
 
         return response()->json([
             'errors' => [
