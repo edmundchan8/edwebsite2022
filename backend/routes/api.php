@@ -3,8 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodolistController;
-//use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockManagerController;
@@ -33,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // LOGIN CONTROLLER
 
-Route::post('/login', 'App\Http\Controllers\LoginController@login');
+Route::post('/login', [LoginController::class, 'login']);
 // custom logout function route
 Route::post('/logout', [LoginController::class, 'logout']);
 
