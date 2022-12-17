@@ -10,6 +10,7 @@ use Auth;
 // use Session;
 //set up logging of errors
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Auth\Hash
 
 class LoginController extends Controller
 {
