@@ -7,10 +7,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 // use Session;
 //set up logging of errors
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Auth\Hash;
 
 class LoginController extends Controller
 {
