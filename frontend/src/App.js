@@ -20,7 +20,7 @@ function App() {
     // log out sents an api post request to loginController, which sets logged in to false
     // as sets sessionStorage to false as well
     function logout(){
-        apiClient.post('/logout').then(response => {
+        apiClient.post('/api/logout').then(response => {
             if (response.status === 204){
                 setLoggedIn(false);
                 sessionStorage.setItem('loggedIn', false);
