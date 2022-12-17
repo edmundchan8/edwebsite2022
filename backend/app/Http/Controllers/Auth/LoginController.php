@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 // use Session;
+//set up logging of errors
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -52,8 +54,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
+            Log::info($user);
+
             return response()->json($user);
         }
+
+        Log::info($credentials);
 
         return response()->json([
             'errors' => [
