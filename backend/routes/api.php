@@ -44,6 +44,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
 Route::get('/todolists', [TodolistController::class, 'index']);
 Route::get('/test', function(){ return 'this is a test';});
+Route::get('/foo', function(){ return 'fighters';});
+
+
 
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
