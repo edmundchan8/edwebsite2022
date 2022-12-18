@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 import Home from './home';
 import Login from './components/login';
 import Todolist from './components/todolist';
@@ -7,6 +7,9 @@ import StockManager from './components/stockManager/index';
 import apiClient from './services/api';
 
 function App() {
+
+    //navigate to another route on logout
+    const navigate = useNavigate();
 
     // set if we are logged in
     const [loggedIn, setLoggedIn] = useState(false);
@@ -21,9 +24,11 @@ function App() {
     // as sets sessionStorage to false as well
     function logout(){
         apiClient.post('/api/logout').then(response => {
-            if (response.status === 204){
+            if (response.status === 200){
                 setLoggedIn(false);
                 sessionStorage.setItem('loggedIn', false);
+                console.log('reached here')
+                navigate('/home');
             }
         })
     }
@@ -40,7 +45,6 @@ function App() {
     loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/stocks'>Stock Manager</NavLink> : stockManager = null;
     return (
         <div>
-            <Router>
                 <div className='navigation'>
                     <NavLink className='nav-links' to='/home'>Home</NavLink>
                     {loginNavContent}
@@ -54,7 +58,6 @@ function App() {
                     <Route path='/stockManager/*' element={<StockManager />}/>
                     <Route exact path="/" element={ <Home/>} />
                 </Routes>
-            </Router>
         </div>
     );
 };

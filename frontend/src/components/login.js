@@ -17,8 +17,7 @@ function Login (props) {
                 email: email,
                 password: password
             }).then(response => {
-                console.log('login details all good, navigating to home worked. ' + response.status)
-                props.onLogin();
+                 props.onLogin();
                 navigate('/home');
             })
             .catch(error => {
