@@ -18,7 +18,7 @@ class StockDataController extends Controller
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 
         $API_KEY = env('APP_API_KEY');
-        log:info($API_KEY);
+
         // // This will ignore any ssl checks on the url, allowing the api call to go ahead
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -65,6 +65,7 @@ class StockDataController extends Controller
             }
             else{
                 $json = json_decode($response, true);
+                
                 // if data exists, set stock_data_array
                 if (array_key_exists('data', $json)){
                     $stock_data_array = $json['data'];
@@ -76,7 +77,7 @@ class StockDataController extends Controller
                 }
                 
             }
-    
+
             $quote_array = $stock_data_array;
 
             $forwardPE = null;

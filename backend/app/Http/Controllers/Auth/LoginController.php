@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+// authentication check when logging in
 use Auth;
+// return json response when logging out
+use Response;
 // use Session;
 //set up logging of errors
 use Illuminate\Support\Facades\Log;
@@ -66,5 +69,15 @@ class LoginController extends Controller
                 'email' => 'The provided credentials do not match our records.',
                 ]
         ], 422);
+    }
+
+    public function logout(Request $request)
+    {
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json('Successfully logged out');
     }
 }
