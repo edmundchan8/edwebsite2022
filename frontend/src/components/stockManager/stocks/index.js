@@ -69,15 +69,19 @@ function Index() {
 
         // setting dividendValue
         var dividendValue = '';
-        s.dividendRate > 0 ? dividendValue = '$' + s.dividendRate : dividendValue = '-';
+        s.dividendRate > 0 ? dividendValue = s.dividendRate : dividendValue = '-';
+
+        var dividendRateMonth = '';
+        dividendValue != '-' ? dividendRateMonth = '/$' + dividendValue/4 : dividendRateMonth = '';
+
         return(
             <tr key={index}>
                 <td className="td-larger">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
                 <td className="td-smaller">${s.price}</td>
-                <td className="td-smaller">{s.analystRating}</td>
-                <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td>
-                <td className="td-smaller">{dividendValue}</td>
+                {/* <td className="td-smaller">{s.analystRating}</td>
+                <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td> */}
+                <td className="td-smaller">${dividendValue}{dividendRateMonth}</td>
                 <td className={peClass}>{forPeVal}</td>
             </tr>
         )}
@@ -95,9 +99,9 @@ function Index() {
                         <th>Name</th>
                         <th>Ticker Symbol</th>
                         <th>Market Price</th>
-                        <th>Analyst Rating</th>
-                        <th>Analyst Opinion</th>
-                        <th>Dividend Rate</th>
+                        {/* <th>Analyst Rating</th>
+                        <th>Analyst Opinion</th> */}
+                        <th>Dividend Rate (Annual)/Monthly)</th>
                         <th>Forward PE</th>
                     </tr>
                         {curStocks}

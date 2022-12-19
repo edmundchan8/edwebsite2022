@@ -47,7 +47,7 @@ function App() {
         <div>
                 <div className='navigation'>
                     <NavLink className='nav-links' to='/home'>Home</NavLink>
-                    {loginNavContent}
+                    {/* {loginNavContent} */}
                     {stockManager}
                     <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
                 </div>
