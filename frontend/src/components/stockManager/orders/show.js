@@ -19,7 +19,7 @@ function Show() {
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 setStock(response.data)
                 setCurrentPrice(response.data[0].currentPrice);
                 
@@ -31,7 +31,7 @@ function Show() {
                     // show stocks for those that match, otherwise show all.
                     if(owner !== 'Any'){
                         if (owner !== s.name){
-                            return 'owner not found in stocks';
+                            return;
                         }
                     }
 
@@ -51,7 +51,7 @@ function Show() {
                             <td>{price}</td>
                             <td>{totalInvested}</td>
                             <td>{s.name}</td>
-                            <NavLink className='nav-links' to={{pathname :"edit"}} state={{s}} >Edit</NavLink>
+                            <td><NavLink className='nav-links' to={{pathname :"edit"}} state={{s}} >Edit</NavLink></td>
                         </tr>
                     );
                 });
@@ -81,7 +81,7 @@ function Show() {
         setOwner(event.target.value);
     }
 
-    console.log(stock);
+    // console.log(stock);
 
     return (
         <div className="align-middle">
