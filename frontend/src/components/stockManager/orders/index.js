@@ -19,7 +19,7 @@ function Index() {
         e.preventDefault();
         // set spinning logo
         setIsLoading(true);
-        apiClient.post('/store', {
+        apiClient.post('api/store', {
             tickerSymbol: tickerSymbol,
             price: price,
             quantity: quantity,

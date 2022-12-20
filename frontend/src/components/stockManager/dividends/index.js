@@ -47,7 +47,7 @@ function Index() {
         e.preventDefault();
          // set spinning logo
          setIsLoading(true);
-        apiClient.post('/storeDividend', {
+        apiClient.post('/api/storeDividend', {
             tickerSymbol: tickerSymbol,
             dividend: dividend,
             date: date
