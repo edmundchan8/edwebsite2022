@@ -42,11 +42,11 @@ function Show() {
     );
 
     return (
-        <div className="align-middle">
+        <div>
             <Graph chartData={dividends}/>
-            <h1>Dividends</h1>
+            <h2>Dividends</h2>
             <h2>{params.name}</h2>
-            <table>
+            <table className="align-middle">
                 <thead>
                     <tr>
                         <th>Date</th>

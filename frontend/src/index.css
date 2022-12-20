@@ -71,6 +71,27 @@ padding: 20px;
 visibility: hidden;
 }
 
+/* LOGIN COMPONENT */
+
+/*Alignment of login inputs */
+.login-attributes{
+  width:15em;
+  height: 2em;
+  font-size: 18px;
+  padding: 0.5em;
+  margin: 0.75em 0em;
+}
+
+.submit-align-right{
+  text-align: right;
+  margin: 0em 2em;
+}
+
+.submit-styling{
+  font-size: 15px;
+}
+
+
 /*  SIZE OF INPUT TEXT AREA  */
 
 .textarea-size{
@@ -123,10 +144,10 @@ color: red;
 /* STOCK MANAGER STYLING */
 
 /*  input size for adding stock orders */
-.input-styling{
+/* .input-styling{
   width: 7em;
   margin-left: 1em;
-}
+} */
 
 table{
   margin: auto;
@@ -158,11 +179,21 @@ tr:nth-child(even) {
   padding: 0 1em;
 }
 
-/* STOCK ORDER STYLING */
+/* STOCK ORDER / DISPLAY ORDER COMPONENT */
 
+/* STOCK ORDER STYLING */
+/* 
 .stock-edit-layout{
   text-align: left;
   margin: 0 17em;
+} */
+
+.order-input {
+  width: 12em;
+  height: 1em;
+  font-size: 15px;
+  padding: 0.5em;
+  margin: 0.5em 0em;
 }
 
 /* DIVIDEND STYLING */

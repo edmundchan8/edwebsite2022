@@ -92,12 +92,12 @@ function EditDividends() {
     }, [])
 
     return(
-        <div className='stock-edit-layout'>
+        <div>
             <h2>{name}</h2>
             <h4>Click submit to save your edits</h4>
             <form onSubmit={handleSubmit}>
                 <label key='date'>Date
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='date'
                         name='date'
                         value={date}
@@ -108,7 +108,7 @@ function EditDividends() {
                 <br></br>
 
                 <label key='dividend'>Dividend 
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='dividend'
                         name='dividend'
                         value={dividend}
@@ -116,11 +116,13 @@ function EditDividends() {
                         required
                     />
                 </label>
-
-                <br></br><br></br>
-                <input type="submit" ></input>
+                <div className="submit-align-right">
+                    <input className="submit-styling" type="submit" ></input>
+                </div>
             </form>
-            <button onClick={() => handleDelete(dividendId)}>Delete</button>
+            <div className="submit-align-right">
+                <button className="submit-styling" onClick={() => handleDelete(dividendId)}>Delete</button>
+            </div>
         </div>
     )
 }

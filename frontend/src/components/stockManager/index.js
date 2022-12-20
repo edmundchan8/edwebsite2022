@@ -4,8 +4,8 @@ import Navigation from './navigation';
 function Index() {
 
     return (
-        <div className="align-middle">
-            <h1>Stock Manager</h1>
+        <div>
+            <h2>Stock Manager</h2>
             < Navigation />
         </div>
     );

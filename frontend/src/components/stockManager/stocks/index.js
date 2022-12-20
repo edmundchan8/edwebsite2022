@@ -75,7 +75,7 @@ function Index() {
         dividendValue != '-' ? dividendRateMonth = '/$' + dividendValue/4 : dividendRateMonth = '';
 
         return(
-            <tr key={index}>
+            <tr className="align-middle" key={index}>
                 <td className="td-larger">{s.name}</td>
                 <td className="td-smaller">{s.tickerSymbol}</td>
                 <td className="td-smaller">${s.price}</td>
@@ -88,14 +88,17 @@ function Index() {
     );
 
     return (
-        <div className="align-middle">
+        <div>
             <h2>{errorMsg}</h2>
-            <button onClick={() => updateData()}>Update Data</button>
+            <div className="align-middle">
+                <button onClick={() => updateData()}>Update Data</button>
+            </div>
+
             {loadingContent}
-            <h1>Stocks</h1>
-            <table>
+            <h2>Stocks</h2>
+            <table >
                 <thead>
-                    <tr>
+                    <tr className="align-middle">
                         <th>Name</th>
                         <th>Ticker Symbol</th>
                         <th>Market Price</th>
@@ -104,7 +107,7 @@ function Index() {
                         <th>Dividend Rate (Annual)/Monthly)</th>
                         <th>Forward PE</th>
                     </tr>
-                        {curStocks}
+                    {curStocks}
                 </thead>
             </table>
         </div>

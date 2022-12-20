@@ -61,7 +61,7 @@ function DisplayOrders(){
         sumValue += parseFloat(valueTotal);
 
         return (
-            <tr key={index}>
+            <tr className="align-middle" key={index}>
                 <td><NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
@@ -92,7 +92,7 @@ function DisplayOrders(){
                 <option value="Yau Yau">Yau Yau</option>
             </select>
 
-            <table>
+            <table className="align-middle">
                 <thead>
                     <tr>
                         <th className="td-name">Name</th>

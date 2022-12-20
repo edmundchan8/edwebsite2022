@@ -85,25 +85,28 @@ function Index() {
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     return (
-        <div className="align-middle">
+        <div>
             <Graph chartData={chartData}/>
             {loadingContent}
-            <h1>Dividends</h1>
+            <h2>Dividends</h2>
             <h3>Add Dividend</h3>
             <form name="orderForm" onSubmit={handleSubmit}>
                 <label className='label-padding'>Ticker Symbol</label>
                 <input type="text" name="tickerSymbol" value={tickerSymbol} placeholder='e.g. AAPL' 
-                className='input-styling' onChange={e => setTickerSymbol(e.target.value)}/>
+                className='order-input' onChange={e => setTickerSymbol(e.target.value)}/>
                 <label className='label-padding'>Dividend</label>
-                <input type="text" name="dividend" value={dividend} className='input-styling' 
+                <input type="text" name="dividend" value={dividend} className='order-input' 
                 placeholder='e.g. 5' onChange={e => setDividend(e.target.value)} />
                 <label className='label-padding'>Date</label>
-                <input type="text" name="date" value={date} className='input-styling' 
+                <input type="text" name="date" value={date} className='order-input' 
                 placeholder='YYYY-MM-DD' onChange={e => setDate(e.target.value)} />
-                <button>Submit</button>
+                <div className="submit-align-right">
+                    <button className="submit-styling">Submit</button>
+                </div>
+                
             </form>
             
-            <table>
+            <table className="align-middle">
                 <thead>
                     <tr>
                         <th>Name</th>

@@ -37,10 +37,11 @@ function Login (props) {
     }
     else
     return (
-        <div className='align-middle'>
-            <h1>Login</h1>
+        <div>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input
+                    className="login-attributes"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -49,6 +50,7 @@ function Login (props) {
                     required
                 />
                 <input
+                    className="login-attributes"
                     type="password"
                     name="password"
                     placeholder="Password"
@@ -56,7 +58,10 @@ function Login (props) {
                     onChange={e => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <br></br>
+                <div className="submit-align-right">
+                    <button className="submit-styling" type="submit">Login</button>
+                </div>
             </form>
         </div>
     );

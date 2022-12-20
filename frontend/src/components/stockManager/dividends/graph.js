@@ -94,12 +94,12 @@ function Graph(chartData){
         Average Dividends per {chartDate}: ${avgDividends} {avgDivDay}</h3>
         <Bar
           data={state}
-          height="50px"
+          height="275px"
           options={{
             title:{
               display:true,
               text:'Dividends Text',
-              fontSize:20
+              fontSize:15
             },
             legend:{
               display:true,
