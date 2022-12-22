@@ -36,7 +36,7 @@ function Show() {
             <tr key={index}>
                 <td className='dividend-width'>{d.date}</td>
                 <td className='dividend-width'>${d.dividend}</td>
-                <NavLink className='nav-links' to={{pathname :"edit"}} state={{d}} >Edit</NavLink>
+                <td><NavLink className='' to={{pathname :"edit"}} state={{d}} >Edit</NavLink></td>
             </tr>
         )}
     );
@@ -44,8 +44,8 @@ function Show() {
     return (
         <div>
             <Graph chartData={dividends}/>
-            <h2>Dividends</h2>
-            <h2>{params.name}</h2>
+            <h4>Dividends</h4>
+            <h4>{params.name}</h4>
             <table className="align-middle">
                 <thead>
                     <tr>

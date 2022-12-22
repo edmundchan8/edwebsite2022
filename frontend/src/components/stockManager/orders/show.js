@@ -51,7 +51,7 @@ function Show() {
                             <td>{price}</td>
                             <td>{totalInvested}</td>
                             <td>{s.name}</td>
-                            <td><NavLink className='nav-links' to={{pathname :"edit"}} state={{s}} >Edit</NavLink></td>
+                            <td><NavLink className='' to={{pathname :"edit"}} state={{s}} >Edit</NavLink></td>
                         </tr>
                     );
                 });
@@ -86,8 +86,9 @@ function Show() {
     return (
         <div className="align-middle">
             <h1>{owner}</h1>
-            <h4>Current Share Price ${currentPrice} | Total Shares {totalQuantity}</h4>
-            <h4>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(3)}</h4>
+            <h5>Current Share Price ${currentPrice} | Break Price ${(totalInvested / totalQuantity).toFixed(2)}</h5>
+            <h5>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(2)}</h5>
+            <h5>Total Shares {totalQuantity} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(2)}</h5>
             <select value={owner} onChange={changeOwner}>
             <option value='Any'>Any</option>
                 <option value='Edmund'>Edmund</option>
@@ -101,8 +102,8 @@ function Show() {
                         <th>Date</th>
                         <th>Quantity</th>
                         <th>Buy/Sell Price</th>
-                        <td>Total Spent</td>
-                        <td>Owner</td>
+                        <th>Total Spent</th>
+                        <th>Owner</th>
                     </tr>
                     {data}
                 </thead>

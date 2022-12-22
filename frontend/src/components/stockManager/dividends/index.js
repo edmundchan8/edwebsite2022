@@ -72,10 +72,10 @@ function Index() {
         return (
             <tr key={index}>
                 <td>
-                    <NavLink className='nav-links remove-link-underline' to={`/stockManager/dividends/${d.name}`} >
+                    <NavLink className='remove-link-underline' to={`/stockManager/dividends/${d.name}`} >
                     {d.name}</NavLink>
                 </td>
-                <td className='dividend-width'>{d.totalDividends}</td>
+                <td className='dividend-width'>${d.totalDividends}</td>
             </tr>
         )}
     );
@@ -88,8 +88,8 @@ function Index() {
         <div>
             <Graph chartData={chartData}/>
             {loadingContent}
-            <h2>Dividends</h2>
-            <h3>Add Dividend</h3>
+            <h3>Dividends</h3>
+            <h4>Add Dividend</h4>
             <form name="orderForm" onSubmit={handleSubmit}>
                 <label className='label-padding'>Ticker Symbol</label>
                 <input type="text" name="tickerSymbol" value={tickerSymbol} placeholder='e.g. AAPL' 

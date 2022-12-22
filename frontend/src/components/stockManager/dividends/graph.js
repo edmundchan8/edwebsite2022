@@ -86,12 +86,12 @@ function Graph(chartData){
 
     // avg dividends per day when viewing month
     var avgDivDay = null;
-    chartDate === 'month' ? avgDivDay = ` | Average Dividends per Day: ${avgDividends / 12}` : avgDivDay = null;
+    chartDate === 'month' ? avgDivDay = <h4>Average Dividends per Day: ${(avgDividends / 12).toFixed(3)}</h4> : avgDivDay = null;
 
     return (
       <div>
-        <h3>Total Dividends: ${totalDividends} | 
-        Average Dividends per {chartDate}: ${avgDividends} {avgDivDay}</h3>
+        <h4>Total Dividends: ${totalDividends}</h4>
+        <h5>Average Dividends per {chartDate}: ${avgDividends} {avgDivDay}</h5>
         <Bar
           data={state}
           height="275px"

@@ -62,7 +62,7 @@ function DisplayOrders(){
 
         return (
             <tr className="align-middle" key={index}>
-                <td><NavLink className='nav-links remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>
+                <td><NavLink className='remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>
                 <td>{s.tickerSymbol}</td>
                 <td>{parseFloat(s.quantity).toFixed(3)}</td>
                 <td>${totalInvest}</td>
@@ -80,17 +80,18 @@ function DisplayOrders(){
 
     return (
         <div>
-            <h3 className={statusClass}>Portfolio Performance: {portfolioStatus}</h3>
-            <h3>Invested: ${sumInvestment.toFixed(2)} | 
-            Portfolio Value: ${sumValue.toFixed(2)}</h3>
-            Sort by Owner
-            <select onChange={handleChange}>
-                <option value="Any">Any</option>
-                <option value="Edmund">Edmund</option>
-                <option value="Mum">Mum</option>
-                <option value="Priscilla">Priscilla</option>
-                <option value="Yau Yau">Yau Yau</option>
-            </select>
+            <h4 className={statusClass}>Portfolio Performance: {portfolioStatus}</h4>
+            <h5>Invested: ${sumInvestment.toFixed(2)} | 
+            Portfolio Value: ${sumValue.toFixed(2)}</h5>
+            <h5>Sort by Owner 
+                <select onChange={handleChange}>
+                    <option value="Any">Any</option>
+                    <option value="Edmund">Edmund</option>
+                    <option value="Mum">Mum</option>
+                    <option value="Priscilla">Priscilla</option>
+                    <option value="Yau Yau">Yau Yau</option>
+                </select>
+            </h5>
 
             <table className="align-middle">
                 <thead>
