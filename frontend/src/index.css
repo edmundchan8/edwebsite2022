@@ -186,6 +186,34 @@ tr:nth-child(even) {
   padding: 0 1em;
 }
 
+/** Input field styling for stockmanager page*/
+.stockmanager-input {
+  width: 6.5em;
+  height: .6em;
+  font-size: 12px;
+  padding: 0.4em;
+  margin: 0.25em 0.5em;
+}
+
+/** STOCKMANAGER TABLE LIST STYLING */
+
+.stockmanager-table{
+  display: flex;
+}
+
+.stockmanager-col{
+  height: 1.5em;
+  margin: 0;
+  width: 25%;
+}
+
+.stockmanager-col-type{
+  height: 1.5em;
+  margin: 0;
+  width: 50%;
+}
+
+
 /* STOCK ORDER / DISPLAY ORDER COMPONENT */
 
 /* STOCK ORDER STYLING */

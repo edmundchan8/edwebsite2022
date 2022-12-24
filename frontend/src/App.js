@@ -42,14 +42,14 @@ function App() {
     // Make stock app appear here
     var stockManager = null;
 
-    loggedIn ? stockManager = <NavLink className='nav-links' to='/stockManager/stocks'>Stock Manager</NavLink> : stockManager = null;
+    loggedIn ? stockManager = <NavLink className='nav-links remove-link-underline' to='/stockManager/stocks'>Stock Manager</NavLink> : stockManager = null;
     return (
         <div>
                 <div className='navigation'>
-                    <NavLink className='nav-links' to='/home'>Home</NavLink>
+                    <NavLink className='nav-links remove-link-underline' to='/home'>Home</NavLink>
                     {/* {loginNavContent} */}
                     {stockManager}
-                    <NavLink className='nav-links' to='/todolist'>Todolist</NavLink>
+                    <NavLink className='nav-links remove-link-underline' to='/todolist'>Todolist</NavLink>
                 </div>
                 <Routes>
                     <Route exact path="/home" element={ <Home/>} />

@@ -27,7 +27,6 @@ function DisplayOrders(){
 
             apiClient.get(`/api/showAll/${owner}`).then(response => {
                 setStocks(response.data)
-                // console.log(response.data);
                 })
                 .catch(error => {
                     console.error(error);
@@ -40,13 +39,10 @@ function DisplayOrders(){
                 return <div><p>{errorMsg}</p></div>
             }
         }
-        // console.log('before fetchData');
         fetchData()
         .catch(console.error);
-        // console.log('after fetchdata');
     }, [owner])
 
-    // console.log('outside fetchdata');
 
     data = stocks.map((s, index) => {
         var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);

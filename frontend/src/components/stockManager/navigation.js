@@ -17,9 +17,9 @@ function Navigation() {
     return (
         <div>
             <div className="align-middle">
-                <NavLink className='nav-links' to='/stockManager/stocks'>Stocks</NavLink>
-                <NavLink className='nav-links' to='/stockManager/orders'>Stock Orders</NavLink>
-                <NavLink className='nav-links' to='/stockManager/dividends'>Dividends</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/stockManager/stocks'>Stocks</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/stockManager/orders'>Stock Orders</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/stockManager/dividends'>Dividends</NavLink>
             </div>
             <Routes>
                 <Route path="/stocks/" element={ <Stocks/>} />

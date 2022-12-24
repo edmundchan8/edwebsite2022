@@ -47,7 +47,6 @@ Route::get('/test', function(){ return 'this is a test';});
 Route::get('/foo', function(){ return 'fighters';});
 
 
-
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/showAll/{owner}', [StockManagerController::class, 'showAll']);
