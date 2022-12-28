@@ -12,7 +12,7 @@ function Login (props) {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
             console.log(response);
-            console.log('status ' + response.status + ' on sanctum/csrf-cookie');
+            // console.log('status ' + response.status + ' on sanctum/csrf-cookie');
             apiClient.post('/api/login', {
                 email: email,
                 password: password

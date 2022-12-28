@@ -1,33 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import Navigation from './navigation';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import apiClient from '../../services/api';
 // import { setDatasets } from 'react-chartjs-2/dist/utils';
 
 function Index() {
 
     let location = useLocation();
-
+    const navigate = useNavigate();
+    
     const [investmentTotal, setInvestmentTotal] = useState(0);
-    const [otherTotal, setOtherTotal] = useState();
-    const [boaChecking, setBoaChecking] = useState();
-    const [boaSavings, setBoaSavings] = useState();
-    const [becuChecking, setBecuChecking] = useState();
-    const [becuSavings, setBecuSavings] = useState();
-    const [americanExpress, setAmericanExpress] = useState();
-    const [ameritrade, setAmeritrade] = useState();
-    const [barclays, setBarclays] = useState();
-    const [crypto, setCrypto] = useState();
-    const [iBond, setIBond] = useState();
+    const [boaChecking, setBoaChecking] = useState(0);
+    const [boaSavings, setBoaSavings] = useState(0);
+    const [becuChecking, setBecuChecking] = useState(0);
+    const [becuSavings, setBecuSavings] = useState(0);
+    const [americanExpress, setAmericanExpress] = useState(0);
+    const [ameritrade, setAmeritrade] = useState(0);
+    const [barclays, setBarclays] = useState(0);
+    const [crypto, setCrypto] = useState(0);
+    const [iBond, setIBond] = useState(0);
     
     var isStockManager = false;
-    location.pathname == '/stockManager' ? isStockManager = true : isStockManager = false; 
+    location.pathname === '/stockManager' ? isStockManager = true : isStockManager = false; 
 
     useEffect(() =>{
+       
         const fetchData = async () => { 
             apiClient.get('/api/showAll/Edmund').then(response => {
                 
-                response.data.map( function(stock, i) {
+                response.data.map( function(stock) {
                     setInvestmentTotal((prev) => parseFloat(prev) + parseFloat(stock.currentValue));
                 });
             
@@ -35,7 +36,24 @@ function Index() {
             })
             .catch(error =>{
                 console.log(error);
-            })    
+            })
+
+            apiClient.get('/api/revenue').then(response => {
+                console.log(response);
+                setBoaChecking(response.data[0].boaChecking);
+                setBoaSavings(response.data[0].boaSavings);
+                setBecuChecking(response.data[0].becuChecking);
+                setBecuSavings(response.data[0].becuSavings);
+                setAmericanExpress(response.data[0].americanExpress);
+                setAmeritrade(response.data[0].ameritrade);
+                setBarclays(response.data[0].barclays);
+                setCrypto(response.data[0].crypto);
+                setIBond(response.data[0].ibond);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
         }
         fetchData()
         
@@ -47,38 +65,63 @@ function Index() {
         
         // get value and name attributes from event
         const {value, name} = (event.target);
-        if (name == 'boaChecking'){
+        if (name === 'boaChecking'){
 
             setBoaChecking(value);
         }
-        if (name == 'boaSavings'){
+        if (name === 'boaSavings'){
             setBoaSavings(value);
         }
-        if (name == 'ameritrade'){
+        if (name === 'ameritrade'){
             setAmeritrade(value);
         }
-        if (name == 'becuChecking'){
+        if (name === 'becuChecking'){
             setBecuChecking(value);
         }
-        if (name == 'becuSavings'){
+        if (name === 'becuSavings'){
             setBecuSavings(value);
         }
-        if (name == 'americanExpress'){
+        if (name === 'americanExpress'){
             setAmericanExpress(value);
         }
-        if (name == 'iBond'){
+        if (name === 'iBond'){
             setIBond(value);
         }
-        if (name == 'barclays'){
+        if (name === 'barclays'){
             setBarclays(value);
         }
-        if (name == 'crypto'){
+        if (name === 'crypto'){
             setCrypto(value);
         }
     }
 
     function handleSubmit(event){
         event.preventDefault();
+        // create object with revenue data to pass to laravel
+        var revenueData = {
+            boaChecking: boaChecking,
+            boaSavings: boaSavings,
+            becuChecking: becuChecking,
+            becuSavings: becuSavings,
+            americanExpress: americanExpress,
+            ameritrade: ameritrade,
+            barclays: barclays,
+            crypto: crypto,
+            iBond: iBond
+        }
+
+        //stringify data so that it can be used in laravel
+        revenueData = JSON.stringify(revenueData);
+        
+        apiClient.get(`/api/revenue/${revenueData}`).then(response => {
+            console.log(response);
+            //return to stock orders page
+            navigate('/stockManager');
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error in updating order');
+        });
     }
 
     return (

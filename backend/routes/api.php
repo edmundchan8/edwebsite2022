@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockManagerController;
 use App\Http\Controllers\StockDataController;
 use App\Http\Controllers\DividendController;
+use App\Http\Controllers\RevenueController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,12 @@ Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::c
 Route::middleware('auth:sanctum')->get('/dividends/{name}', [DividendController::class, 'show']);
 Route::middleware('auth:sanctum')->get('/dividends/{name}/edit/{dividend}', [DividendController::class, 'edit']);
 Route::middleware('auth:sanctum')->delete('/dividends/delete/{id}', [DividendController::class, 'delete']);
+
+// REVENUE CONTROLLER
+Route::middleware('auth:sanctum')->get('/revenue', [RevenueController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/revenue/{request}', [RevenueController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/revenue/{revenue}', [RevenueController::class, 'updateAll']);
+
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);

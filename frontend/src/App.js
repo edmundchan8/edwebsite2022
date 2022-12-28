@@ -22,22 +22,22 @@ function App() {
 
     // log out sents an api post request to loginController, which sets logged in to false
     // as sets sessionStorage to false as well
-    function logout(){
-        apiClient.post('/api/logout').then(response => {
-            if (response.status === 200){
-                setLoggedIn(false);
-                sessionStorage.setItem('loggedIn', false);
-                console.log('reached here')
-                navigate('/home');
-            }
-        })
-    }
+    // function logout(){
+    //     apiClient.post('/api/logout').then(response => {
+    //         if (response.status === 200){
+    //             setLoggedIn(false);
+    //             sessionStorage.setItem('loggedIn', false);
+    //             console.log('reached here')
+    //             navigate('/home');
+    //         }
+    //     })
+    // }
 
     // controls if the login or logout links/buttons appear
-    var loginNavContent = null;
-    !loggedIn ? loginNavContent = <NavLink 
-    className='nav-links' to='/login'>Login</NavLink> : 
-    loginNavContent = <button className='nav-links' onClick={logout}>Logout</button>;
+    // var loginNavContent = null;
+    // !loggedIn ? loginNavContent = <NavLink 
+    // className='nav-links' to='/login'>Login</NavLink> : 
+    // loginNavContent = <button className='nav-links' onClick={logout}>Logout</button>;
 
     // Make stock app appear here
     var stockManager = null;

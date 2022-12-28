@@ -118,7 +118,6 @@ class DividendController extends Controller
      */
     public function edit(Request $request)
     {
-
         // get data from react, json decode it
         // $dividendData = json_decode($request->dividend, true);
 

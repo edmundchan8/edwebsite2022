@@ -31,7 +31,7 @@ function Show() {
                     // show stocks for those that match, otherwise show all.
                     if(owner !== 'Any'){
                         if (owner !== s.name){
-                            return;
+                            return ;
                         }
                     }
 

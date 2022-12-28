@@ -72,7 +72,7 @@ class TodolistController extends Controller
      */
     public function update(Request $request, Todolist $todolist)
     {
-        //
+
     }
 
     /**
