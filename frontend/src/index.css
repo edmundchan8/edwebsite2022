@@ -205,6 +205,7 @@ tr:nth-child(even) {
   height: 1.5em;
   margin: 0;
   width: 25%;
+  font-size: 12px;
 }
 
 .stockmanager-col-type{

@@ -19,6 +19,7 @@ function Index() {
     const [barclays, setBarclays] = useState(0);
     const [crypto, setCrypto] = useState(0);
     const [iBond, setIBond] = useState(0);
+    const [revenue, setRevenue] = useState(0);
     
     var isStockManager = false;
     location.pathname === '/stockManager' ? isStockManager = true : isStockManager = false; 
@@ -40,15 +41,32 @@ function Index() {
 
             apiClient.get('/api/revenue').then(response => {
                 console.log(response);
+                var total = 0.00;
                 setBoaChecking(response.data[0].boaChecking);
+                total += response.data[0].boaChecking;
                 setBoaSavings(response.data[0].boaSavings);
+                total += response.data[0].boaSavings;
                 setBecuChecking(response.data[0].becuChecking);
+                total += response.data[0].becuChecking;
                 setBecuSavings(response.data[0].becuSavings);
+                total += response.data[0].becuSavings;
                 setAmericanExpress(response.data[0].americanExpress);
+                total += response.data[0].americanExpress;
                 setAmeritrade(response.data[0].ameritrade);
+                total += response.data[0].ameritrade;
                 setBarclays(response.data[0].barclays);
+                total += response.data[0].barclays;
                 setCrypto(response.data[0].crypto);
+                total += response.data[0].crypto;
                 setIBond(response.data[0].ibond);
+                total += response.data[0].ibond;
+
+                setRevenue(total);
+
+                response.data.map( function(revenue, i){
+                    console.log(revenue);
+                });
+
             })
             .catch(error => {
                 console.log(error);
@@ -300,8 +318,10 @@ function Index() {
                 <div className='submit-align-right'>
                     <input type="submit" value="Update"></input>
                 </div>
-                
-            <h4>Edmund's Stock Investment Total ${investmentTotal.toFixed(3)}</h4>
+
+            <h4>Edmund's Stock Total ${investmentTotal.toFixed(3)}</h4>
+            <h4>Edmund's Revenue Total ${revenue.toFixed(3)}</h4>    
+            <h4>Edmund's Total ${(investmentTotal + revenue).toFixed(3)}</h4>
             </form>
             ) : (<div></div>)}
             

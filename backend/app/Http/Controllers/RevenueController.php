@@ -18,7 +18,6 @@ class RevenueController extends Controller
     public function index()
     {
         return DB::table('revenue')->get();
-        //return response()->json(RevenueController::all());
     }
 
     /**
@@ -38,25 +37,6 @@ class RevenueController extends Controller
         */
     public function store($request)
     {
-
-        //validate request
-        // $validated = $request->validate([
-        //     $request->boaChecking => 'required'
-        // ]);
-
-        Log::info($request);
-
-/*
-'boaChecking' => $request->boaChecking, 
-                'boaSavings' => $request->boaSavings, 
-                'becuChecking' => $request->becuChecking, 
-                'becuSavings' => $request->becuSavings, 
-                'ameritrade' => $request->ameritrade, 
-                'americanExpress' => $request->americanExpress, 
-                'iBond' => $request->iBond, 
-                'barclays' => $request->barclays, 
-                'crypto' => $request->crypto
-*/
 
         DB::table('revenue')->insert(
             [
