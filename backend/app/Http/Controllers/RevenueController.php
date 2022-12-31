@@ -17,7 +17,8 @@ class RevenueController extends Controller
         */
     public function index()
     {
-        return DB::table('revenue')->get();
+        return DB::table('revenue')
+            ->get();
     }
 
     /**

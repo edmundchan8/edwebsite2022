@@ -19,7 +19,8 @@ function Index() {
     const [barclays, setBarclays] = useState(0);
     const [crypto, setCrypto] = useState(0);
     const [iBond, setIBond] = useState(0);
-    const [revenue, setRevenue] = useState(0);
+
+    const[initialState, setInitialState] = useState({});
     
     var isStockManager = false;
     location.pathname === '/stockManager' ? isStockManager = true : isStockManager = false; 
@@ -32,39 +33,25 @@ function Index() {
                 response.data.map( function(stock) {
                     setInvestmentTotal((prev) => parseFloat(prev) + parseFloat(stock.currentValue));
                 });
-            
-                console.log(investmentTotal);
+
             })
             .catch(error =>{
                 console.log(error);
             })
 
             apiClient.get('/api/revenue').then(response => {
-                console.log(response);
-                var total = 0.00;
-                setBoaChecking(response.data[0].boaChecking);
-                total += response.data[0].boaChecking;
-                setBoaSavings(response.data[0].boaSavings);
-                total += response.data[0].boaSavings;
-                setBecuChecking(response.data[0].becuChecking);
-                total += response.data[0].becuChecking;
-                setBecuSavings(response.data[0].becuSavings);
-                total += response.data[0].becuSavings;
-                setAmericanExpress(response.data[0].americanExpress);
-                total += response.data[0].americanExpress;
-                setAmeritrade(response.data[0].ameritrade);
-                total += response.data[0].ameritrade;
-                setBarclays(response.data[0].barclays);
-                total += response.data[0].barclays;
-                setCrypto(response.data[0].crypto);
-                total += response.data[0].crypto;
-                setIBond(response.data[0].ibond);
-                total += response.data[0].ibond;
 
-                setRevenue(total);
+                // initialise ['total'] so we can sum it below
+                initialState['total'] = 0;
 
-                response.data.map( function(revenue, i){
-                    console.log(revenue);
+                Object.keys(response.data[0]).map((key, index) => {
+                    //key = name revenue, response.data[0][key] = value revenue
+                    if (key !== 'id' && key !== 'created_at' && key !== 'updated_at'){
+                        // set revenue type to initial state as key value pair
+                        initialState[key] = response.data[0][key];
+                        // sum up values to total
+                        initialState['total'] += parseFloat(response.data[0][key]);
+                    }
                 });
 
             })
@@ -78,7 +65,7 @@ function Index() {
         .catch(console.error);
         
     }, [])
-
+    
     function handleChange(event){
         
         // get value and name attributes from event
@@ -167,13 +154,13 @@ function Index() {
                         <label className="label-padding">Bank of America Checking</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${boaChecking}
+                        ${initialState.boaChecking}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="boaChecking" 
-                            value={boaChecking}
+                            value={initialState.boaChecking}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -184,13 +171,13 @@ function Index() {
                         <label className="label-padding">Bank of America Savings</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${boaSavings}
+                        ${initialState.boaSavings}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="boaSavings" 
-                            value={boaSavings}
+                            value={initialState.boaSavings}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -201,13 +188,13 @@ function Index() {
                         <label className="label-padding">Ameritrade Balance</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${ameritrade}
+                        ${initialState.ameritrade}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="ameritrade" 
-                            value={ameritrade}
+                            value={initialState.ameritrade}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -218,13 +205,13 @@ function Index() {
                         <label className="label-padding">BECU Checking</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${becuChecking}
+                        ${initialState.becuChecking}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="becuChecking" 
-                            value={becuChecking}
+                            value={initialState.becuChecking}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -235,13 +222,13 @@ function Index() {
                         <label className="label-padding">BECU Savings</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${becuSavings}
+                        ${initialState.becuSavings}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="becuSavings" 
-                            value={becuSavings}
+                            value={initialState.becuSavings}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -252,13 +239,13 @@ function Index() {
                         <label className="label-padding">American Express Savings</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${americanExpress}
+                        ${initialState.americanExpress}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="americanExpress" 
-                            value={americanExpress}
+                            value={initialState.americanExpress}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -269,13 +256,13 @@ function Index() {
                         <label className="label-padding">IBond</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${iBond}
+                        ${initialState.ibond}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="iBond" 
-                            value={iBond}
+                            value={initialState.ibond}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -286,13 +273,13 @@ function Index() {
                         <label className="label-padding">Barclays</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${barclays}
+                        ${initialState.barclays}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="barclays" 
-                            value={barclays}
+                            value={initialState.barclays}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -303,13 +290,13 @@ function Index() {
                         <label className="label-padding">Crypto</label>
                     </div>
                     <div className="stockmanager-col">
-                        ${crypto}
+                        ${initialState.crypto}
                     </div>
                     <div className="stockmanager-col">
                         <input className="stockmanager-input"   
                             type="text" 
                             name="crypto" 
-                            value={crypto}
+                            value={initialState.crypto}
                             onChange={e => handleChange(e)}
                         />
                     </div>
@@ -320,8 +307,8 @@ function Index() {
                 </div>
 
             <h4>Edmund's Stock Total ${investmentTotal.toFixed(3)}</h4>
-            <h4>Edmund's Revenue Total ${revenue.toFixed(3)}</h4>    
-            <h4>Edmund's Total ${(investmentTotal + revenue).toFixed(3)}</h4>
+            <h4>Edmund's Revenue Total ${initialState.total}</h4>    
+            <h4>Edmund's Total ${(investmentTotal + initialState.total).toFixed(3)}</h4>
             </form>
             ) : (<div></div>)}
             

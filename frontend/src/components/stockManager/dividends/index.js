@@ -94,9 +94,11 @@ function Index() {
                 <label className='label-padding'>Ticker Symbol</label>
                 <input type="text" name="tickerSymbol" value={tickerSymbol} placeholder='e.g. AAPL' 
                 className='order-input' onChange={e => setTickerSymbol(e.target.value)}/>
+                <br></br>
                 <label className='label-padding'>Dividend</label>
                 <input type="text" name="dividend" value={dividend} className='order-input' 
                 placeholder='e.g. 5' onChange={e => setDividend(e.target.value)} />
+                <br></br>
                 <label className='label-padding'>Date</label>
                 <input type="text" name="date" value={date} className='order-input' 
                 placeholder='YYYY-MM-DD' onChange={e => setDate(e.target.value)} />

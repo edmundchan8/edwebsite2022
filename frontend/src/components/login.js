@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../services/api';
 
@@ -8,6 +8,16 @@ function Login (props) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        apiClient.get('/api/todolists').then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }, []);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {

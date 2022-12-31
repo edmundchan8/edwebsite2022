@@ -5,6 +5,7 @@ import Login from './components/login';
 import Todolist from './components/todolist';
 import StockManager from './components/stockManager/index';
 import apiClient from './services/api';
+import TcgTracker from './components/tcgTracker';
 
 function App() {
 
@@ -50,11 +51,13 @@ function App() {
                     {/* {loginNavContent} */}
                     {stockManager}
                     <NavLink className='nav-links remove-link-underline' to='/todolist'>Todolist</NavLink>
+                    <NavLink className='nav-links remove-link-underline' to='/tcgtracker'>TCG Tracker</NavLink>
                 </div>
                 <Routes>
                     <Route exact path="/home" element={ <Home/>} />
                     <Route exact path='/login' element={ <Login onLogin={login}/>} />
                     <Route exact path='/todolist' element={ <Todolist />} />
+                    <Route exact path='/tcgtracker' element={ <TcgTracker />} />
                     <Route path='/stockManager/*' element={<StockManager />}/>
                     <Route exact path="/" element={ <Home/>} />
                 </Routes>
