@@ -50,32 +50,27 @@ function Index() {
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     return (
-        <div>
+        <div >
             {loadingContent}
             <h1>Stocks</h1>
             {/* Add an order */}
             <h3>Add Stock Order</h3>
-            <form name="orderForm" onSubmit={handleSubmit}>
-                <label className='label-padding'>Ticker Symbol</label>
+            <form name="orderForm" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column'}}>
+                <label className='label-padding'>Ticker Symbol: 
                 <input type="text" name="tickerSymbol" value={tickerSymbol} placeholder='e.g. AAPL' 
-                className='order-input' onChange={e => setTickerSymbol(e.target.value)}/>
-                <br></br>
-                <label className='label-padding' >Buy/Sell Price</label>
+                className='order-input' onChange={e => setTickerSymbol(e.target.value)}/></label>
+                <label className='label-padding' >Buy/Sell Price: 
                 <input type="text" name="price" value={price} className='order-input' 
-                placeholder='e.g. 1.23' onChange={e => setPrice(e.target.value)} />
-                <br></br>
-                <label className='label-padding'>Quantity</label>
+                placeholder='e.g. 1.23' onChange={e => setPrice(e.target.value)} /></label>
+                <label className='label-padding'>Quantity: 
                 <input type="text" name="quantity" value={quantity} className='order-input' 
-                placeholder='e.g. 5' onChange={e => setQuantity(e.target.value)} />
-                <br></br>
-                <label className='label-padding'>Date</label>
+                placeholder='e.g. 5' onChange={e => setQuantity(e.target.value)} /></label>
+                <label className='label-padding'>Date: 
                 <input type="text" name="date" value={date} className='order-input' 
-                placeholder='YYYY-MM-DD' onChange={e => setDate(e.target.value)} />
-                <br></br>
-                <label className='label-padding'>Owner</label>
+                placeholder='YYYY-MM-DD' onChange={e => setDate(e.target.value)} /></label>
+                <label className='label-padding'>Owner: 
                 <input type="text" name="owner" value={owner} className='order-input' 
-                placeholder='e.g. Edmund' onChange={e => setOwner(e.target.value)} />
-                <br></br>
+                placeholder='e.g. Edmund' onChange={e => setOwner(e.target.value)} /></label>
                 <div className="submit-align-right">
                     <button className="submit-styling">Submit</button>
                 </div>

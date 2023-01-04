@@ -10,15 +10,15 @@ function Index() {
     const navigate = useNavigate();
     
     const [investmentTotal, setInvestmentTotal] = useState(0);
-    const [boaChecking, setBoaChecking] = useState(0);
-    const [boaSavings, setBoaSavings] = useState(0);
-    const [becuChecking, setBecuChecking] = useState(0);
-    const [becuSavings, setBecuSavings] = useState(0);
-    const [americanExpress, setAmericanExpress] = useState(0);
-    const [ameritrade, setAmeritrade] = useState(0);
-    const [barclays, setBarclays] = useState(0);
-    const [crypto, setCrypto] = useState(0);
-    const [iBond, setIBond] = useState(0);
+    // const [boaChecking, setBoaChecking] = useState(0);
+    // const [boaSavings, setBoaSavings] = useState(0);
+    // const [becuChecking, setBecuChecking] = useState(0);
+    // const [becuSavings, setBecuSavings] = useState(0);
+    // const [americanExpress, setAmericanExpress] = useState(0);
+    // const [ameritrade, setAmeritrade] = useState(0);
+    // const [barclays, setBarclays] = useState(0);
+    // const [crypto, setCrypto] = useState(0);
+    // const [iBond, setIBond] = useState(0);
 
     const[initialState, setInitialState] = useState({});
     
@@ -71,32 +71,39 @@ function Index() {
         // get value and name attributes from event
         const {value, name} = (event.target);
         if (name === 'boaChecking'){
-
-            setBoaChecking(value);
+            setInitialState({...initialState, boaChecking: value});
+            // setBoaChecking(value);
         }
         if (name === 'boaSavings'){
-            setBoaSavings(value);
+            setInitialState({...initialState, boaSavings: value});
         }
         if (name === 'ameritrade'){
-            setAmeritrade(value);
+            setInitialState({...initialState, ameritrade: value});
+            // setAmeritrade(value);
         }
         if (name === 'becuChecking'){
-            setBecuChecking(value);
+            setInitialState({...initialState, becuChecking: value});
+            // setBecuChecking(value);
         }
         if (name === 'becuSavings'){
-            setBecuSavings(value);
+            setInitialState({...initialState, becuSavings: value});
+            // setBecuSavings(value);
         }
         if (name === 'americanExpress'){
-            setAmericanExpress(value);
+            setInitialState({...initialState, americanExpress: value});
+            // setAmericanExpress(value);
         }
         if (name === 'iBond'){
-            setIBond(value);
+            setInitialState({...initialState, ibond: value});
+            // setIBond(value);
         }
         if (name === 'barclays'){
-            setBarclays(value);
+            setInitialState({...initialState, barclays: value});
+            // setBarclays(value);
         }
         if (name === 'crypto'){
-            setCrypto(value);
+            setInitialState({...initialState, crypto: value});
+            // setCrypto(value);
         }
     }
 
@@ -104,15 +111,15 @@ function Index() {
         event.preventDefault();
         // create object with revenue data to pass to laravel
         var revenueData = {
-            boaChecking: boaChecking,
-            boaSavings: boaSavings,
-            becuChecking: becuChecking,
-            becuSavings: becuSavings,
-            americanExpress: americanExpress,
-            ameritrade: ameritrade,
-            barclays: barclays,
-            crypto: crypto,
-            iBond: iBond
+            boaChecking: initialState.boaChecking,
+            boaSavings: initialState.boaSavings,
+            becuChecking: initialState.becuChecking,
+            becuSavings: initialState.becuSavings,
+            americanExpress: initialState.americanExpress,
+            ameritrade: initialState.ameritrade,
+            barclays: initialState.barclays,
+            crypto: initialState.crypto,
+            iBond: initialState.ibond
         }
 
         //stringify data so that it can be used in laravel
