@@ -16,6 +16,8 @@ function Index() {
     const [chartData, setchartData] = useState([]);
     var [isLoading, setIsLoading] = useState(false);
     
+    
+
     useEffect(() => {
         apiClient.get('/api/showAllDividends').then(response => {
             setDividends(response.data);

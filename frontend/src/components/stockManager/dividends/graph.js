@@ -8,18 +8,18 @@ function Graph(chartData){
   var [label, setLabel]  = useState([]);
   // chartDate affects useEffect, it can change from thisYear, thisMonth, years or months,
   var [chartDate, setChartDate] = useState('thisMonth');
-
   var [chartIncrementer, setChartIncrementer] = useState(3);
+  var [data, setData] = useState();
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData(){
       var curDate = 0;
       var dateIndex = 0;
       var curTotal = 0;
       var labelArr = [];
       var dividendArr = [];
 
-      var date = new Date("");
+      var date = new Date();
       var month = date.getMonth() + 1;
       // padding 0 to start of month, otherwise it returns, for the month, 2023-1 instead of 2023-01
       if (month < 10) {
@@ -51,7 +51,7 @@ function Graph(chartData){
       }
       
       //data passed from props
-      var data = chartData['chartData'];//response.data;
+      setData(chartData['chartData']);//response.data;
 
       var currentDataMonth = "";
       var currentDataYear = "";
@@ -85,10 +85,13 @@ function Graph(chartData){
 
         dataDividend = data[i].dividend;
 
+
+
         // if chartDate = thisMonth or thisYear
         if (dataDate.includes(curDate) && chartIncrementer !== 2 && chartIncrementer !== 3){
           // add dividend to curTotal
-            curTotal += parseFloat(dataDividend);
+
+          curTotal += parseFloat(dataDividend);
         }
         
 
@@ -179,7 +182,7 @@ function Graph(chartData){
 
   // avg dividends per day when viewing month
   var avgDivDay = null;
-  chartDate === 'month' ? avgDivDay = <h4>Average Dividends per Day: ${(avgDividends / 12).toFixed(3)}</h4> : avgDivDay = null;
+  chartDate === 'allMonths' ? avgDivDay = <div><h4>Average Dividends per Day: ${(avgDividends / 30).toFixed(3)}</h4><h4>Average Dividends per Hour: ${((avgDividends/30)/24).toFixed(2)}</h4></div> : avgDivDay = null;
 
   var averageDivContent = "";
   chartDate === 'thisMonth' || chartDate === 'thisYear' ? averageDivContent = "" : averageDivContent = <h5>Average Dividends per {(chartDate.replace('all','').slice(0, -1))}: ${avgDividends} {avgDivDay}</h5>;
