@@ -19,7 +19,6 @@ function Index() {
     useEffect(() => {
         apiClient.get('/api/showAllDividends').then(response => {
             setDividends(response.data);
-            console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
@@ -29,7 +28,6 @@ function Index() {
             });
         apiClient.get('/api/dividendChartData').then(response => {
             setchartData(response.data);
-            console.log(response.data);
             })
             .catch(error => {
                 console.error(error);

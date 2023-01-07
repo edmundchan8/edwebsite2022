@@ -83,7 +83,6 @@ function EditStocks() {
     useEffect(() => {
         // set order id to use later
         setOrderId(state.s['id']);
-        console.log(state.s);
         // first, filter out keys that includes currentPrice and ownerId, don't want to show them here
         Object.keys(state.s).filter ((key, index) => {
             if (key === 'currentPrice' || key === 'ownerID' || key === 'id'){

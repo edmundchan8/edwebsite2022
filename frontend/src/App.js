@@ -28,7 +28,6 @@ function App() {
     //         if (response.status === 200){
     //             setLoggedIn(false);
     //             sessionStorage.setItem('loggedIn', false);
-    //             console.log('reached here')
     //             navigate('/home');
     //         }
     //     })

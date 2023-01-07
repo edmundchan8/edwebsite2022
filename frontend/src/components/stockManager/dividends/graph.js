@@ -6,110 +6,226 @@ function Graph(chartData){
   
   var [dividendTotal, setDividendTotal] = useState([]);
   var [label, setLabel]  = useState([]);
-  var [chartDate, setChartDate] = useState('year');
+  // chartDate affects useEffect, it can change from thisYear, thisMonth, years or months,
+  var [chartDate, setChartDate] = useState('thisMonth');
+
+  var [chartIncrementer, setChartIncrementer] = useState(3);
 
   useEffect(() => {
     const fetchData = async () => {
-        var curDate = 0;
-        var dateIndex = 0;
-        var curTotal = 0;
-        var labelArr = [];
-        var dividendArr = [];
+      var curDate = 0;
+      var dateIndex = 0;
+      var curTotal = 0;
+      var labelArr = [];
+      var dividendArr = [];
 
-        chartDate === 'year' ? dateIndex = 0 : dateIndex = 1;
+      var date = new Date("");
+      var month = date.getMonth() + 1;
+      // padding 0 to start of month, otherwise it returns, for the month, 2023-1 instead of 2023-01
+      if (month < 10) {
+        month = month.toString().padStart(2, '0');
+      }
+      if (month > 12){
+        month = 1;
+      }
 
-        //data passed from props
-        var data = chartData['chartData'];//response.data;
-        
-        //loop through api data
-        for (var i = 0; i < data.length; i++) {
-          var dataDate = data[i].date.split('-')[dateIndex];
-          // if dateIndex == 'month', add the year to the dataDate too using dateIndex = 0
-          chartDate === 'month' ? dataDate += "-" + data[i].date.split('-')[0]: dataDate = dataDate;
-          var dataDividend = data[i].dividend;
-          // if curDate is 0 / is not set, set it and reset total to 0
-          if (curDate === 0) {
-            curDate = dataDate;
-            curTotal = 0;
+      var dataDate = month + "-" + date.getFullYear();
+      // everytime we click chartDate, it increments by 1.  0 = thisMonth, 1 = thisYear, 2 = allMonths, 3 = allYear, then goes back to 0
+      
+      if (chartIncrementer === 0){
+        setChartDate('thisMonth');
+        curDate = date.getFullYear() +  "-" + month;// e.g. 2023-01
+      }
+      if (chartIncrementer === 1){
+        setChartDate('thisYear');
+        dataDate = date.getFullYear();
+        curDate = dataDate.toString();
+      }
+      if (chartIncrementer === 2){
+        setChartDate('allMonths');
+        dateIndex = 0;
+      }
+      if (chartIncrementer === 3){
+        setChartDate('allYears');
+        dateIndex = 1;
+      }
+      
+      //data passed from props
+      var data = chartData['chartData'];//response.data;
+
+      var currentDataMonth = "";
+      var currentDataYear = "";
+      var currentArrMonth = "";
+      var currentArrYear = "";
+      // var currentDate = "";
+      var currentYear = "";
+      var dataDividend = 0;
+
+      // returns data from dividend index page as array
+      // { {date: "2021-04-19", name:apple, dividend: 123} }
+
+      //loop through api data
+      for (var i = 0; i < data.length; i++) {
+
+        // set curDate when i = 0
+        if (i === 0){
+          currentArrYear = data[i].date.split('-')[0];
+          currentArrMonth = data[i].date.split('-')[1];
+          if (curDate == ""){
+            curDate = currentArrYear + "-" + currentArrMonth;
           }
-          // if current year is not the next year date, then we push data to array
-          if (curDate === dataDate) {
-            // increment the total again
+          // currentDate = currentArrYear + "-" + currentArrMonth;
+          currentYear = currentArrYear;
+        }
+
+        //set dataDate to first date YYYY-MM in data (e.g. 2020-09, then 2020-10 etc -> today)
+        currentDataYear = data[i].date.split('-')[0];
+        currentDataMonth = data[i].date.split('-')[1];
+        dataDate = currentDataYear + "-" + currentDataMonth;
+
+        dataDividend = data[i].dividend;
+
+        // if chartDate = thisMonth or thisYear
+        if (dataDate.includes(curDate) && chartIncrementer !== 2 && chartIncrementer !== 3){
+          // add dividend to curTotal
             curTotal += parseFloat(dataDividend);
-          } else {
-            labelArr.push(curDate);
+        }
+        
+
+        // if chartDate = allMonths or allYear
+        if (chartIncrementer === 2){
+          if (dataDate.includes(curDate)){
+            curTotal += parseFloat(dataDividend);
+          }
+          else {
+            labelArr.push(curDate); //2020-11
             dividendArr.push(curTotal);
-            // then set current year to new year, and reset total to 0 again
+
+            // note, the dataDate is already the next date, as well as the data Dividends, so we need to start addign them in now
             curDate = dataDate;
             curTotal = parseFloat(dataDividend);
           }
+        }
 
-          // if we reach the end of the loop
-          if (i === data.length - 1){
-            labelArr.push(curDate);
+        if (chartIncrementer === 3){
+          if (dataDate.includes(currentYear)){
+            curTotal += parseFloat(dataDividend);
+          }
+          else {
+            labelArr.push(currentYear); //2020-11
             dividendArr.push(curTotal);
+
+            // note, the dataDate is already the next date, as well as the data Dividends, so we need to start addign them in now
+            currentYear = dataDate.split('-')[0];
+            curTotal = parseFloat(dataDividend);
           }
         }
-        setDividendTotal(dividendArr);
-        setLabel(labelArr);
-      }; 
-      fetchData()
-      .catch(console.error);
-    }, [chartDate]);
-
-    const state = {
-      labels: label,
-      datasets: [
-        {
-          label: 'Dividends',
-          borderColor: 'rgba(143, 29, 224, 1)',
-          type: 'line',
-          lineTension: .2,
-          data: dividendTotal
-        },
-        {
-          backgroundColor: 'rgba(75,192,192,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-          data: dividendTotal
+        
+        // if we reach the end of the loop
+        if (i === data.length - 1){
+          if (chartIncrementer === 0){
+            var month = new Date();
+            labelArr.push(month.getMonth() + 1);
+          }
+          else if (chartIncrementer === 1){
+            var year = new Date();
+            labelArr.push(year.getFullYear());
+          }
+          else {
+            curDate = dataDate;
+            labelArr.push(curDate);
+          }
+          dividendArr.push(curTotal);
         }
-      ]
+
+      }
+      setDividendTotal(dividendArr);
+      setLabel(labelArr);
+    }; 
+    fetchData()
+    .catch(console.error);
+  }, [chartIncrementer]);
+
+  const state = {
+    labels: label,
+    datasets: [
+      {
+        label: 'Dividends',
+        borderColor: 'rgba(143, 29, 224, 1)',
+        type: 'line',
+        lineTension: .2,
+        data: dividendTotal
+      },
+      {
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        data: dividendTotal
+      }
+    ]
+  }
+
+  function changeData(){
+    chartIncrementer = chartIncrementer + 1;
+    if (chartIncrementer > 3){
+      chartIncrementer = 0;
     }
+    // chartDate === 'year' ? chartDate = 'month' : chartDate = 'year';
+    setChartIncrementer(chartIncrementer);
+  }
 
-    function changeData(){
-      chartDate === 'year' ? chartDate = 'month' : chartDate = 'year';
-      setChartDate(chartDate);
-    }
+  var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
+  var avgDividends = (totalDividends/dividendTotal.length).toFixed(2);
 
-    var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
-    var avgDividends = (totalDividends/dividendTotal.length).toFixed(2);
+  // avg dividends per day when viewing month
+  var avgDivDay = null;
+  chartDate === 'month' ? avgDivDay = <h4>Average Dividends per Day: ${(avgDividends / 12).toFixed(3)}</h4> : avgDivDay = null;
 
-    // avg dividends per day when viewing month
-    var avgDivDay = null;
-    chartDate === 'month' ? avgDivDay = <h4>Average Dividends per Day: ${(avgDividends / 12).toFixed(3)}</h4> : avgDivDay = null;
+  var averageDivContent = "";
+  chartDate === 'thisMonth' || chartDate === 'thisYear' ? averageDivContent = "" : averageDivContent = <h5>Average Dividends per {(chartDate.replace('all','').slice(0, -1))}: ${avgDividends} {avgDivDay}</h5>;
 
-    return (
-      <div>
-        <h4>Total Dividends: ${totalDividends}</h4>
-        <h5>Average Dividends per {chartDate}: ${avgDividends} {avgDivDay}</h5>
-        <Bar
-          data={state}
-          height="275px"
-          options={{
-            title:{
-              display:true,
-              text:'Dividends Text',
-              fontSize:15
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-        <button onClick={() => changeData()}>Month/Year</button>
-      </div>
-    );
+  var dividendTitle = "";
+  var titleDate = new Date();
+
+  if (chartDate === 'thisMonth'){
+   
+    dividendTitle = titleDate.toLocaleString('en-US', { month: 'long', year: "numeric", });
+  }
+  else if (chartDate === 'thisYear'){
+    dividendTitle = titleDate.toLocaleString('en-US', { year: "numeric", });
+  }
+  else if (chartDate === 'allMonths'){
+    dividendTitle = "All Months";
+  }
+  else{
+    dividendTitle = "All Years";
+  }
+  
+
+
+  return (
+    <div>
+      <h4>{dividendTitle}</h4>
+      <h5>Total Dividends: ${totalDividends}</h5>
+      {averageDivContent}
+      <Bar
+        data={state}
+        height="275px"
+        options={{
+          title:{
+            display:true,
+            text:'Dividends Text',
+            fontSize:15
+          },
+          legend:{
+            display:true,
+            position:'right'
+          }
+        }}
+      />
+      <button onClick={() => changeData()}>Month/Year</button>
+    </div>
+  );
 }
 
 export default Graph
