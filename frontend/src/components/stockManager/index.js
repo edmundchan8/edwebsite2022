@@ -44,7 +44,9 @@ function Index() {
                 // initialise ['total'] so we can sum it below
                 initialState['total'] = 0;
 
-                Object.keys(response.data[0]).map((key, index) => {
+                const sortedStocks = Object.keys(response.data[0]).sort();
+
+                sortedStocks.map((key, index) => {
                     //key = name revenue, response.data[0][key] = value revenue
                     if (key !== 'id' && key !== 'created_at' && key !== 'updated_at'){
                         // set revenue type to initial state as key value pair

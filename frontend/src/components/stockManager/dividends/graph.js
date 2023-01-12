@@ -178,6 +178,9 @@ function Graph(chartData){
   }
 
   var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
+
+  console.log(dividendTotal.length);
+
   var avgDividends = (totalDividends/dividendTotal.length).toFixed(2);
 
   // avg dividends per day when viewing month
@@ -209,24 +212,27 @@ function Graph(chartData){
   return (
     <div>
       <h4>{dividendTitle}</h4>
+      <div >
+        <Bar className="graph-styling"
+          data={state}
+          height="100%"
+          options={{
+            title:{
+              display:true,
+              text:'Dividends Text',
+              fontSize:15,
+              maintainAspectRatio : false
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+      </div>
+      <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>
       {averageDivContent}
-      <Bar
-        data={state}
-        height="275px"
-        options={{
-          title:{
-            display:true,
-            text:'Dividends Text',
-            fontSize:15
-          },
-          legend:{
-            display:true,
-            position:'right'
-          }
-        }}
-      />
-      <button onClick={() => changeData()}>Month/Year</button>
     </div>
   );
 }

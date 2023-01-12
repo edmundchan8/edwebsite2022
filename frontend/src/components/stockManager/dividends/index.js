@@ -17,7 +17,6 @@ function Index() {
     var [isLoading, setIsLoading] = useState(false);
     
     
-
     useEffect(() => {
         apiClient.get('/api/showAllDividends').then(response => {
             setDividends(response.data);
@@ -68,7 +67,8 @@ function Index() {
         });
     }
 
-    const curDividends = dividends.map((d, index) => {      
+    const sortedDividends = dividends.sort();
+    const curDividends = sortedDividends.map((d, index) => {      
         return (
             <tr key={index}>
                 <td>

@@ -242,6 +242,20 @@ tr:nth-child(even) {
   text-align: left;
 }
 
+
+/* DIVIDEND GRAPH STYLING*/
+#graph-styling {
+  height: 30vh;
+  width: 30vw;
+  position: relative;
+}
+@media (max-width: 768px) {
+  #graph-styling {
+      height: auto;
+   }
+}
+
+
 /* LOADING SPINNER */
 
 .loader {
