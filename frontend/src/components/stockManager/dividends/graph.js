@@ -127,12 +127,12 @@ function Graph(chartData){
         // if we reach the end of the loop
         if (i === data.length - 1){
           if (chartIncrementer === 0){
-            var month = new Date();
-            labelArr.push(month.getMonth() + 1);
+            var newMonth = new Date();
+            labelArr.push(newMonth.getMonth() + 1);
           }
           else if (chartIncrementer === 1){
-            var year = new Date();
-            labelArr.push(year.getFullYear());
+            var newYear = new Date();
+            labelArr.push(newYear.getFullYear());
           }
           else {
             curDate = dataDate;
@@ -179,9 +179,11 @@ function Graph(chartData){
 
   var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
 
-  console.log(dividendTotal.length);
+  const actualTotal = dividendTotal.length;
 
-  var avgDividends = (totalDividends/dividendTotal.length).toFixed(2);
+  // we need to multiple actualTotal by 3 IF the stock is not JEPI or O
+
+  var avgDividends = (totalDividends/actualTotal).toFixed(2);
 
   // avg dividends per day when viewing month
   var avgDivDay = null;
