@@ -14,7 +14,6 @@ function Graph(chartData){
   useEffect(() => {
     async function fetchData(){
       var curDate = 0;
-      var dateIndex = 0;
       var curTotal = 0;
       var labelArr = [];
       var dividendArr = [];
@@ -43,11 +42,9 @@ function Graph(chartData){
       }
       if (chartIncrementer === 2){
         setChartDate('allMonths');
-        dateIndex = 0;
       }
       if (chartIncrementer === 3){
         setChartDate('allYears');
-        dateIndex = 1;
       }
       
       //data passed from props
@@ -71,7 +68,7 @@ function Graph(chartData){
         if (i === 0){
           currentArrYear = data[i].date.split('-')[0];
           currentArrMonth = data[i].date.split('-')[1];
-          if (curDate == ""){
+          if (curDate === ""){
             curDate = currentArrYear + "-" + currentArrMonth;
           }
           // currentDate = currentArrYear + "-" + currentArrMonth;
@@ -127,12 +124,12 @@ function Graph(chartData){
         // if we reach the end of the loop
         if (i === data.length - 1){
           if (chartIncrementer === 0){
-            var month = new Date();
-            labelArr.push(month.getMonth() + 1);
+            var newMonth = new Date();
+            labelArr.push(newMonth.getMonth() + 1);
           }
           else if (chartIncrementer === 1){
-            var year = new Date();
-            labelArr.push(year.getFullYear());
+            var newYear = new Date();
+            labelArr.push(newYear.getFullYear());
           }
           else {
             curDate = dataDate;

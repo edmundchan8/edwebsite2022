@@ -43,8 +43,8 @@ function DisplayOrders(){
         .catch(console.error);
     }, [owner])
 
-
-    data = stocks.map((s, index) => {
+    const sortedData = stocks.sort();
+    data = sortedData.map((s, index) => {
         var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
         var diffColor = '';
         difference < 0 ? diffColor = 'text-warning' : diffColor = '';
