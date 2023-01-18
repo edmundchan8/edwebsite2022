@@ -10,7 +10,7 @@ use App\Http\Controllers\StockManagerController;
 use App\Http\Controllers\StockDataController;
 use App\Http\Controllers\DividendController;
 use App\Http\Controllers\RevenueController;
-
+use App\Http\Controllers\TcgsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +74,10 @@ Route::middleware('auth:sanctum')->get('/revenue', [RevenueController::class, 'i
 Route::middleware('auth:sanctum')->post('/revenue/{request}', [RevenueController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/revenue/{revenue}', [RevenueController::class, 'updateAll']);
 
+// TCG CONTROLLER
+Route::get('/getTcgs', [TcgsController::class, 'index']);
+Route::post('/storeTcg', [TcgsController::class, 'store']);
+Route::delete('/deleteTcg/{id}', [TcgsController::class, 'delete']);
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);
