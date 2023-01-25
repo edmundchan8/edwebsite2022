@@ -22,7 +22,8 @@ function tcgBought(){
                     navigate('/tcgtracker');
                     resolve('Promise success')
                     console.error(response);
-
+                    // alert(tcgName + " saved!")
+                    navigate(0);
                 }
                 else {
                     reject('Promise failed');

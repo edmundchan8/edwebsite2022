@@ -1,15 +1,22 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+import TcgSold from './tcgSold';
+import TcgBought from './tcgBought';
 import apiClient from '../../services/api';
 
-function tcgList (){
+function tcgList (props){
+
+    const navigate = useNavigate();
 
     const [list, setList] = useState([]);
+    const [currentTcg, setCurrentTcg] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             apiClient.get('/api/getTcgs').then(response => {
                 console.log(response.data);
                 setList(response.data);
+                setCurrentTcg(response.data[0]);
             })
             .catch(error => {
                 console.error(error);
@@ -27,17 +34,22 @@ function tcgList (){
         console.log(e);
         apiClient.delete(`/api/deleteTcg/${e}`).then(response => {
             console.log(response);
-            alert("TCG Item removed");
+            // refreshes the page
+            navigate(0);
         })
         .catch(error => {
             console.log(error.response.status);
         })
     }
 
+    function updateListItem(e){
+        setCurrentTcg(list[e]);
+    }
+
     const tcgList = list.map((value, key) => {
         return (
             <tr key={key}>
-                <td>{value.name}</td>
+                <td onClick={() => updateListItem(key)} >{value.name}</td>
                 <td>{value.buyPrice}</td>
                 <td>{value.sellPrice}</td>
                 <td>{value.fees}</td>
@@ -48,18 +60,23 @@ function tcgList (){
     );
 
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <td>TCG Product</td>
-                    <td>Buy Price</td>
-                    <td>Sell Price</td>
-                    <td>Fees</td>
-                    <td>Profit?</td>
-                </tr>
-                    {tcgList}
-            </tbody>
-        </table>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>TCG Product</th>
+                        <th>Buy Price</th>
+                        <th>Sell Price</th>
+                        <th>Fees</th>
+                        <th>Profit?</th>
+                    </tr>
+                        {tcgList}
+                </tbody>
+            </table>
+            
+            <TcgBought />
+            <TcgSold item={currentTcg} />
+        </div>
     );
 }
 

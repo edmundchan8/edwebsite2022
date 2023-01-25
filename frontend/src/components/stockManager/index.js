@@ -10,15 +10,6 @@ function Index() {
     const navigate = useNavigate();
     
     const [investmentTotal, setInvestmentTotal] = useState(0);
-    // const [boaChecking, setBoaChecking] = useState(0);
-    // const [boaSavings, setBoaSavings] = useState(0);
-    // const [becuChecking, setBecuChecking] = useState(0);
-    // const [becuSavings, setBecuSavings] = useState(0);
-    // const [americanExpress, setAmericanExpress] = useState(0);
-    // const [ameritrade, setAmeritrade] = useState(0);
-    // const [barclays, setBarclays] = useState(0);
-    // const [crypto, setCrypto] = useState(0);
-    // const [iBond, setIBond] = useState(0);
 
     const[initialState, setInitialState] = useState({});
     
@@ -74,38 +65,33 @@ function Index() {
         const {value, name} = (event.target);
         if (name === 'boaChecking'){
             setInitialState({...initialState, boaChecking: value});
-            // setBoaChecking(value);
         }
         if (name === 'boaSavings'){
             setInitialState({...initialState, boaSavings: value});
         }
         if (name === 'ameritrade'){
             setInitialState({...initialState, ameritrade: value});
-            // setAmeritrade(value);
         }
         if (name === 'becuChecking'){
             setInitialState({...initialState, becuChecking: value});
-            // setBecuChecking(value);
         }
         if (name === 'becuSavings'){
             setInitialState({...initialState, becuSavings: value});
-            // setBecuSavings(value);
         }
         if (name === 'americanExpress'){
             setInitialState({...initialState, americanExpress: value});
-            // setAmericanExpress(value);
         }
         if (name === 'iBond'){
             setInitialState({...initialState, ibond: value});
-            // setIBond(value);
+        }
+        if (name === 'rothIra'){
+            setInitialState({...initialState, rothIra: value});
         }
         if (name === 'barclays'){
             setInitialState({...initialState, barclays: value});
-            // setBarclays(value);
         }
         if (name === 'crypto'){
             setInitialState({...initialState, crypto: value});
-            // setCrypto(value);
         }
     }
 
@@ -121,7 +107,8 @@ function Index() {
             ameritrade: initialState.ameritrade,
             barclays: initialState.barclays,
             crypto: initialState.crypto,
-            iBond: initialState.ibond
+            iBond: initialState.ibond,
+            rothIra: initialState.rothIra,
         }
 
         //stringify data so that it can be used in laravel
@@ -255,6 +242,23 @@ function Index() {
                             type="text" 
                             name="americanExpress" 
                             value={initialState.americanExpress}
+                            onChange={e => handleChange(e)}
+                        />
+                    </div>
+                </div>
+
+                <div className="stockmanager-table">
+                    <div className="stockmanager-col-type">
+                        <label className="label-padding">Roth IRA</label>
+                    </div>
+                    <div className="stockmanager-col">
+                        ${initialState.rothIra}
+                    </div>
+                    <div className="stockmanager-col">
+                        <input className="stockmanager-input"   
+                            type="text" 
+                            name="rothIra" 
+                            value={initialState.rothIra}
                             onChange={e => handleChange(e)}
                         />
                     </div>

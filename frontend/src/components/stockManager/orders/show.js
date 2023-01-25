@@ -10,7 +10,7 @@ function Show() {
     const [stock, setStock] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     // const [name, setName] = useState('');
-    const [owner, setOwner] = useState('Any');
+    const [owner, setOwner] = useState('');
     const [data, setData] = useState(); 
     const [totalInvested, setTotalInvested] = useState();
     const [currentPrice, setCurrentPrice] = useState();
@@ -22,19 +22,20 @@ function Show() {
                 // console.log(response.data);
                 setStock(response.data)
                 setCurrentPrice(response.data[0].currentPrice);
-                
+
                 var totalInvest = 0;
                 var totalQuant = 0;
                 
-                var currentData = stock.map((s, index) => {
+                var currentData = response.data.map((s, index) => {
                     // if owner is not Any (the default), check if owner's name exists, and only 
                     // show stocks for those that match, otherwise show all.
-                    if(owner !== 'Any'){
-                        if (owner !== s.name){
-                            return ;
+                    if (owner !== ''){
+                        if (s.name !== null){
+                            if (owner !== s.name){
+                                return;
+                            }
                         }
                     }
-
                     var price = 0;
                     s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
                     

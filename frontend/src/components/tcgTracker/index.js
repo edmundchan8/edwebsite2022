@@ -8,14 +8,7 @@ function index(){
     return(
         <div>
             <h1>TCG Tracker</h1>
-
             <TcgList />
-            
-            <br></br>
-            <TcgBought />
-            
-            <br></br>
-            <TcgSold />
         </div>
     );
 
