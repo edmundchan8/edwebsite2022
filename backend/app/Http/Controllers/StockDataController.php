@@ -12,14 +12,20 @@ class StockDataController extends Controller
 {
     public function index()
     {
+        // current stocks I own, obtained from database and with foreach loop
+        $stocks = DB::table('stock_data')
+        -> select('tickersymbol')
+        -> get();
 
-        // current stocks I own
-        $ticker_stocks_array = ['AAPL', 'AMZN', 'COST', 'GOOG', 'HAS', 'HD', 'JEPI', 'JPM', 'META', 'MSFT', 
-        'O', 'SBUX', 'SCHD', 'TROW', 'TSLA', 'VICI', 'BAT-USD', 'BTC-USD', 'ETH-USD', 'LINK-USD'];
+        $new_arr = [];
+        foreach(json_decode($stocks) as $key => $value){
+            array_push($new_arr, $value->tickersymbol);
+        }
 
         // current stocks I own as a single string
-        $ticker_stock_str = implode(",",$ticker_stocks_array);
+        $ticker_stock_str = implode(",", $new_arr);
 
+        
         $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 

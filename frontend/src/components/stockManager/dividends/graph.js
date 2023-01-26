@@ -3,13 +3,14 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 
 function Graph(chartData){
-  
+
   var [dividendTotal, setDividendTotal] = useState([]);
   var [label, setLabel]  = useState([]);
   // chartDate affects useEffect, it can change from thisYear, thisMonth, years or months,
   var [chartDate, setChartDate] = useState('thisMonth');
   var [chartIncrementer, setChartIncrementer] = useState(3);
   var [data, setData] = useState();
+  var [grandTotal, setGrandTotal] = useState(0);
 
   useEffect(() => {
     async function fetchData(){
@@ -18,6 +19,9 @@ function Graph(chartData){
       var curTotal = 0;
       var labelArr = [];
       var dividendArr = [];
+
+      // reset grandTotal
+      setGrandTotal(0);
 
       var date = new Date();
       var month = date.getMonth() + 1;
@@ -85,7 +89,7 @@ function Graph(chartData){
 
         dataDividend = data[i].dividend;
 
-
+        setGrandTotal(prev => prev + parseFloat(dataDividend));
 
         // if chartDate = thisMonth or thisYear
         if (dataDate.includes(curDate) && chartIncrementer !== 2 && chartIncrementer !== 3){
@@ -142,7 +146,9 @@ function Graph(chartData){
         }
 
       }
+      
       setDividendTotal(dividendArr);
+      
       setLabel(labelArr);
     }; 
     fetchData()
@@ -177,7 +183,14 @@ function Graph(chartData){
     setChartIncrementer(chartIncrementer);
   }
 
-  var totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
+  var totalDividends = 0;
+  if (window.location.pathname.split("/").pop() == 'dividends' && chartIncrementer > 1){
+    totalDividends = grandTotal;
+  }
+  else {
+    totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);
+  }
+  //var
 
   const actualTotal = dividendTotal.length;
 
