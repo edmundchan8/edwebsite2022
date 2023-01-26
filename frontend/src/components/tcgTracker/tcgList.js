@@ -4,7 +4,7 @@ import TcgSold from './tcgSold';
 import TcgBought from './tcgBought';
 import apiClient from '../../services/api';
 
-function tcgList (props){
+function tcgList (){
 
     const navigate = useNavigate();
 

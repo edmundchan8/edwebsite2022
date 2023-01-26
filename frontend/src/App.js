@@ -4,7 +4,7 @@ import Home from './home';
 import Login from './components/login';
 import Todolist from './components/todolist';
 import StockManager from './components/stockManager/index';
-import apiClient from './services/api';
+// import apiClient from './services/api';
 import TcgTracker from './components/tcgTracker/index';
 
 function App() {
