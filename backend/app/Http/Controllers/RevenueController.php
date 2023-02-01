@@ -50,6 +50,7 @@ class RevenueController extends Controller
                 'iBond' => 0.00,
                 'barclays' => 0.00,
                 'crypto' => 0.00,
+                'rothIra' => 0.00
         ]);
 
         return $request;
@@ -108,6 +109,8 @@ class RevenueController extends Controller
         $barclays = $revenueData['barclays'];
         $crypto = $revenueData['crypto'];
         $iBond = $revenueData['iBond'];
+        $rothIra = $revenueData['rothIra'];
+        
         
         $revenue = DB::table('revenue')
             -> update([
@@ -119,7 +122,8 @@ class RevenueController extends Controller
                 'ameritrade' => $ameritrade,
                 'barclays' => $barclays,
                 'crypto' => $crypto,
-                'iBond' => $iBond
+                'iBond' => $iBond,
+                'rothIra' => $rothIra
             ]);
 
         return $revenue;

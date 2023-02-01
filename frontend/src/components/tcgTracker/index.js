@@ -1,5 +1,5 @@
 import React from 'react'
-import TcgList from './tcgList';
+import TcgList from './tcgList'
 
 function index(){
 

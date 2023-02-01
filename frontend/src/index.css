@@ -245,8 +245,8 @@ tr:nth-child(even) {
 
 /* DIVIDEND GRAPH STYLING*/
 #graph-styling {
-  height: 30vh;
-  width: 30vw;
+  height: 40vh;
+  width: 40vw;
   position: relative;
 }
 @media (max-width: 768px) {

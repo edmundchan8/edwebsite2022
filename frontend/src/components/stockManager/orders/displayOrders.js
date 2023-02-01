@@ -27,6 +27,7 @@ function DisplayOrders(){
 
             apiClient.get(`/api/showAll/${owner}`).then(response => {
                 setStocks(response.data)
+                console.log(response.data);
                 })
                 .catch(error => {
                     console.error(error);

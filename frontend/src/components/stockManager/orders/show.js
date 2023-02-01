@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink, useParams } from "react-router-dom";
+import LowestOrder from './lowestOrder';
 import apiClient from '../../../services/api';
 
 function Show() {
@@ -9,17 +10,42 @@ function Show() {
     
     const [stock, setStock] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
-    // const [name, setName] = useState('');
     const [owner, setOwner] = useState('');
     const [data, setData] = useState(); 
     const [totalInvested, setTotalInvested] = useState();
     const [currentPrice, setCurrentPrice] = useState();
     const [totalQuantity, setTotalQuantity] = useState();
+    const [newResponse, setNewResponse] = useState({});
 
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
+                
                 // console.log(response.data);
+
+                
+                if (owner !== ''){
+                    Object.keys(response.data).map((key, index) => {
+                        if (owner === response.data[key].name){
+                            let data = response.data[key];
+                            setNewResponse(prev => 
+                                ({
+                                    ...prev, 
+                                    data
+                                })
+                            );
+                        // if (response.data[key].name === owner){
+                        //     return response.data[key];
+                        // }
+
+                        }
+                    })
+                    
+                    console.log(newResponse);
+                }
+
+                
+                
                 setStock(response.data)
                 setCurrentPrice(response.data[0].currentPrice);
 
@@ -86,6 +112,8 @@ function Show() {
 
     return (
         <div className="align-middle">
+            
+            <LowestOrder stockData={stock} />
             <h1>{owner}</h1>
             <h5>Current Share Price ${currentPrice} | Break Price ${(totalInvested / totalQuantity).toFixed(2)}</h5>
             <h5>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(2)}</h5>
