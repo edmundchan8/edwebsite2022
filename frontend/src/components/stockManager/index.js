@@ -121,6 +121,7 @@ function Index() {
         })
         .catch(error => {
             console.error(error);
+            console.log("not working");
             alert('Error in updating order');
         });
     }

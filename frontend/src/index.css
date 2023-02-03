@@ -244,16 +244,17 @@ tr:nth-child(even) {
 
 
 /* DIVIDEND GRAPH STYLING*/
-#graph-styling {
-  height: 40vh;
-  width: 40vw;
+.graph-styling {
+  height: 100px;
+  width: 70vw;
   position: relative;
+  display: inline;
 }
-@media (max-width: 768px) {
-  #graph-styling {
+/* @media (max-width: 768px) {
+  .graph-styling {
       height: auto;
    }
-}
+} */
 
 
 /* LOADING SPINNER */

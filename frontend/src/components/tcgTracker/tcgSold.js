@@ -27,7 +27,7 @@ function tcgSold (props) {
         const tempList = Object.keys(props.item).map(key => {
             if (props.item[key] !== null && key !== 'created_at' && key !== 'updated_at'){
                 return (
-                    <td>{props.item[key]}</td>
+                    <td key={props.item['id']}>{props.item[key]}</td>
                 )}
             }
         );

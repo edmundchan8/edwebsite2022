@@ -227,10 +227,10 @@ function Graph(chartData){
   return (
     <div>
       <h4>{dividendTitle}</h4>
-      <div >
-        <Bar className="graph-styling"
+      <div className="graph-styling">
+        <Bar 
           data={state}
-          height="100%"
+          // width={"100%"}
           options={{
             title:{
               display:true,

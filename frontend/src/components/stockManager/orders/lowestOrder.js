@@ -11,12 +11,12 @@ function LowestOrder(props){
             setLowPrice(props.stockData[key].price);
         }
 
-        if (index === length - 1 && recentPrice === null){
-            setRecentPrice(props.stockData[key].price);
+        if (recentPrice === null){
+            if (props.stockData[key].quantity > 0){
+                setRecentPrice(props.stockData[key].price);
+            }
         }
     });
-
-
 
     return (
         <div>

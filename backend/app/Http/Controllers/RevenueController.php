@@ -99,6 +99,8 @@ class RevenueController extends Controller
     {
         $revenueData = json_decode($request, true);
 
+        Log::info($request);
+
         // access individual data from react like an array
         $boaChecking = $revenueData['boaChecking'];
         $boaSavings = $revenueData['boaSavings'];
