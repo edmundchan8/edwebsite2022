@@ -1,27 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function LowestOrder(props){
 
     const [lowPrice, setLowPrice] = useState(null);
     const [recentPrice, setRecentPrice] = useState(null);
-    
-    const length = props.stockData.length;
-    Object.keys(props.stockData).map((key, index) => {
-        if (lowPrice === null || lowPrice > props.stockData[key].price && props.stockData[key].price > 1){
-            setLowPrice(props.stockData[key].price);
-        }
 
-        if (recentPrice === null){
-            if (props.stockData[key].quantity > 0){
-                setRecentPrice(props.stockData[key].price);
+    useEffect( () => {
+
+        // when component re-renders, we need to reset the temp values so that we can 
+        // set new state values
+        let tempLowPrice = null;
+        let tempRecentPrice = null;
+
+        // grab the length of props data minus 1, which will grab the very last price from props
+        let length = props.stockData.length - 1;
+
+        Object.keys(props.stockData).map((key, index) => {
+            if (tempLowPrice === null || tempLowPrice > props.stockData[key].price && props.stockData[key].price > 1){
+                tempLowPrice = props.stockData[key].price;
             }
-        }
-    });
-
+    
+            if (index === length){
+                tempRecentPrice = props.stockData[length].price;
+            }
+        });
+        
+        setLowPrice(tempLowPrice);
+        setRecentPrice(tempRecentPrice);
+    }, [props]);
+    
     return (
         <div>
-            <p>The lowest buy price for this stock is: ${lowPrice} </p>
-            <p>Last buy price for this stock is: ${recentPrice} </p>
+            <p>Lowest buy price: ${lowPrice} | Last buy price: ${recentPrice} </p>
         </div>
     );
 }
