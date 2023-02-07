@@ -4,24 +4,22 @@ import { NavLink } from 'react-router-dom';
 function OrdersTable(props){
 
     const [data, setData] = useState();
+    const [investmentSum, setInvestmentSum] = useState(0);
+    const [portfolioStatus, setPortfolioStatus] = useState('');
+    const [statusClass, setStatusClass] = useState('');
+    const [sumTotal, setSumTotal] = useState(0);
+    // const [breakPriceArr, setBreakPriceArr] = useState();
+    
 
-    // var tempData = null;
-    // var valueTotal = 0;
-    // var investmentDiff = 0;
-    var portfolioStatus = '';
-    var statusClass = '';
-    var sumInvestment = 0;
     var sumValue = 0;
-    // var breakPrice = 0;
 
     useEffect(()=>{
         var tempData = null;
         var valueTotal = 0;
         var investmentDiff = 0;
-        // var portfolioStatus = '';
-        // var sumInvestment = 0;
-        // var sumValue = 0;
-        var breakPrice = 0;
+        var sumInvestment = 0;
+
+        console.log(props.stockData);
 
         tempData = props.stockData.map((s, index) => {
             var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
@@ -31,12 +29,13 @@ function OrdersTable(props){
             var totalInvest = parseFloat(s.totalInvested).toFixed(2);
     
             valueTotal = parseFloat(s.currentValue).toFixed(2);
-    
+
             sumInvestment += parseFloat(totalInvest);
+
             sumValue += parseFloat(valueTotal);
-    
-            // calculate the stock break price - Current Value / number of stocks
-            breakPrice = valueTotal / s.quantity;
+            
+            let breakPrice = s.breakPrice;
+
             return (
                 <tr className="align-middle" key={index}>
                     <td><NavLink className='remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>
@@ -48,12 +47,16 @@ function OrdersTable(props){
                     <td className={diffColor}><strong>{difference}%</strong></td>
                 </tr>
             )
+
         });
-    
+        setInvestmentSum(sumInvestment);
+        setSumTotal(sumValue);
         // calculation done outside of .map as it won't work within .map function above
         investmentDiff = -((sumInvestment - sumValue)/sumInvestment) * 100;
-        investmentDiff > 0 ? portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Gains' : portfolioStatus = parseFloat(investmentDiff).toFixed(2) + '% in Losses';
-        investmentDiff < 0 ? statusClass = 'text-warning' : statusClass = '';
+        
+        investmentDiff > 0 ? setPortfolioStatus(parseFloat(investmentDiff).toFixed(2) + '% in Gains') : setPortfolioStatus(parseFloat(investmentDiff).toFixed(2) + '% in Losses');
+        
+        investmentDiff < 0 ? setStatusClass('text-warning') : setStatusClass('');
         
         setData(tempData);
 
@@ -62,7 +65,7 @@ function OrdersTable(props){
     return(
         <div>
             <p className={statusClass}><b>Portfolio Performance: {portfolioStatus}</b> |
-            Invested: ${sumInvestment.toFixed(2)} | <b>Portfolio Value: ${sumValue.toFixed(2)}</b></p>
+            Invested: ${investmentSum.toFixed(2)} | <b>Portfolio Value: ${sumTotal.toFixed(2)}</b></p>
             <table className="align-middle">
                 <thead>
                     <tr>
