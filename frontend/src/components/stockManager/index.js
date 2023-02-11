@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Navigation from './navigation';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import apiClient from '../../services/api';
-// import { setDatasets } from 'react-chartjs-2/dist/utils';
 
 function Index() {
 
@@ -93,6 +92,12 @@ function Index() {
         if (name === 'crypto'){
             setInitialState({...initialState, crypto: value});
         }
+        if (name === 'mum'){
+            setInitialState({...initialState, mum: value});
+        }
+        if (name === 'yauyau'){
+            setInitialState({...initialState, yauyau: value});
+        }
     }
 
     function handleSubmit(event){
@@ -109,6 +114,8 @@ function Index() {
             crypto: initialState.crypto,
             iBond: initialState.ibond,
             rothIra: initialState.rothIra,
+            mum: initialState.mum,
+            yauyau: initialState.yauyau,
         }
 
         //stringify data so that it can be used in laravel
@@ -311,6 +318,40 @@ function Index() {
                             type="text" 
                             name="crypto" 
                             value={initialState.crypto}
+                            onChange={e => handleChange(e)}
+                        />
+                    </div>
+                </div>
+
+                <div className="stockmanager-table">
+                    <div className="stockmanager-col-type">
+                        <label className="label-padding">Mum</label>
+                    </div>
+                    <div className="stockmanager-col">
+                        ${initialState.mum}
+                    </div>
+                    <div className="stockmanager-col">
+                        <input className="stockmanager-input"   
+                            type="text" 
+                            name="mum" 
+                            value={initialState.mum}
+                            onChange={e => handleChange(e)}
+                        />
+                    </div>
+                </div>
+
+                <div className="stockmanager-table">
+                    <div className="stockmanager-col-type">
+                        <label className="label-padding">Yau Yau</label>
+                    </div>
+                    <div className="stockmanager-col">
+                        ${initialState.yauyau}
+                    </div>
+                    <div className="stockmanager-col">
+                        <input className="stockmanager-input"   
+                            type="text" 
+                            name="yauyau" 
+                            value={initialState.yauyau}
                             onChange={e => handleChange(e)}
                         />
                     </div>

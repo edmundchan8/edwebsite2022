@@ -64,8 +64,12 @@ function OrdersTable(props){
 
     return(
         <div>
-            <p className={statusClass}><b>Portfolio Performance: {portfolioStatus}</b> |
-            Invested: ${investmentSum.toFixed(2)} | <b>Portfolio Value: ${sumTotal.toFixed(2)}</b></p>
+            <div className="align-middle margin-top-bottom">
+                <span className={statusClass}>Portfolio Performance: {portfolioStatus}</span>|
+                <span>Invested: ${investmentSum.toFixed(2)}</span>|
+                <span>Portfolio Value: ${sumTotal.toFixed(2)}</span>    
+            </div>
+            
             <table className="align-middle">
                 <thead>
                     <tr>

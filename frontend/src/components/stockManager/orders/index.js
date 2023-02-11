@@ -32,7 +32,6 @@ function Index() {
                     navigate('/stockManager/orders');
                     resolve('Promise success')
                     console.error(response);
-
                 }
                 else {
                     reject('Promise failed');

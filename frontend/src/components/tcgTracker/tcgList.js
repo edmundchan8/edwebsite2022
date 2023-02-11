@@ -14,7 +14,6 @@ function tcgList (){
     useEffect(() => {
         const fetchData = async () => {
             apiClient.get('/api/getTcgs').then(response => {
-                console.log(response.data);
                 setList(response.data);
                 setCurrentTcg(response.data[0]);
             })

@@ -6,21 +6,26 @@ function tcgSold (props) {
 
     useEffect(() => {
         if(props.item !== undefined) {
-            buildProduct();
+            buildProduct(props.item);
         }
     }, [props.item]);
 
-    function buildProduct(){
-        const data = Array.from(props.item);
+    function buildProduct(product){
+        // const data = Array.from(props.item);
         
-        const tempList = Object.keys(props.item).map(key => {
-            if (props.item[key] !== null && key !== 'created_at' && key !== 'updated_at'){
+        const tempList = Object.keys(product).map(key => {
+            if (product[key] !== null && key !== 'created_at' && key !== 'updated_at'){
                 return (
-                    <td key={props.item['id']}>{props.item[key]}</td>
+                    <td key={product['id']}>{product[key]}</td>
                 )}
             }
         );
         setProduct(tempList);
+        return;
+    }
+
+    function handleSubmit(){
+        buildProduct(props.item);
     }
     
     return (
@@ -38,9 +43,8 @@ function tcgSold (props) {
                     </tr>
                 </tbody>
             </table>
-            <form style={{display: 'flex', flexDirection: 'column'}} >
+            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={() => handleSubmit}>
                 <label>TCG Product: </label>
-                <img src="https://upload.wikimedia.org/wikipedia/en/a/a0/Force_of_Will_card_back.jpg" width={100} />
                 <label>Price Sold: </label>
                 <input type="text" name="sell-price" value="" />
                 <label>Shipping Cost: </label>

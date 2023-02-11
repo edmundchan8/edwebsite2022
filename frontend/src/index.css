@@ -214,6 +214,13 @@ tr:nth-child(even) {
   width: 50%;
 }
 
+span {
+    margin: 0em 3em;
+}
+
+.margin-top-bottom{
+  margin: 2em 0em;
+}
 
 /* STOCK ORDER / DISPLAY ORDER COMPONENT */
 
@@ -251,8 +258,9 @@ tr:nth-child(even) {
   display: inline;
 }
 /* @media (max-width: 768px) {
-  .graph-styling {
-      height: auto;
+  .graph-styling > canvas{
+      width: 100em;
+      border: 2px solid red;
    }
 } */
 

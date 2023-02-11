@@ -12,6 +12,8 @@ function Graph(chartData){
   var [data, setData] = useState();
   var [grandTotal, setGrandTotal] = useState(0);
 
+  console.log(chartData);
+
   useEffect(() => {
     async function fetchData(){
       var curDate = 0;
@@ -22,6 +24,8 @@ function Graph(chartData){
 
       // reset grandTotal
       setGrandTotal(0);
+      console.log(grandTotal);
+
 
       var date = new Date();
       var month = date.getMonth() + 1;
@@ -57,19 +61,16 @@ function Graph(chartData){
       //data passed from props
       setData(chartData['chartData']);//response.data;
 
+
       var currentDataMonth = "";
       var currentDataYear = "";
       var currentArrMonth = "";
       var currentArrYear = "";
-      // var currentDate = "";
       var currentYear = "";
       var dataDividend = 0;
 
-      // returns data from dividend index page as array
-      // { {date: "2021-04-19", name:apple, dividend: 123} }
-
       //loop through api data
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i < chartData['chartData'].length; i++) {
 
         // set curDate when i = 0
         if (i === 0){
@@ -155,6 +156,7 @@ function Graph(chartData){
     .catch(console.error);
   }, [chartIncrementer]);
 
+
   const state = {
     labels: label,
     datasets: [
@@ -230,7 +232,7 @@ function Graph(chartData){
       <div className="graph-styling">
         <Bar 
           data={state}
-          // width={"100%"}
+          // height={"75%"}
           options={{
             title:{
               display:true,

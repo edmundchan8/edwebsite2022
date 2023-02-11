@@ -62,7 +62,8 @@ Route::middleware('auth:sanctum')->delete('/orders/delete/{id}', [StockManagerCo
 Route::middleware('auth:sanctum')->post('/getData', [StockDataController::class, 'index']);
 
 // DIVIDEND CONTROLLER
-Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/dividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/showCurrentDividendsSummed', [DividendController::class, 'showCurrentDividendsSummed']);
 Route::middleware('auth:sanctum')->get('/dividendChartData', [DividendController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/dividends/{name}', [DividendController::class, 'show']);

@@ -50,7 +50,9 @@ class RevenueController extends Controller
                 'iBond' => 0.00,
                 'barclays' => 0.00,
                 'crypto' => 0.00,
-                'rothIra' => 0.00
+                'rothIra' => 0.00,
+                'mum' => 0.00,
+                'yauyau' => 0.00
         ]);
 
         return $request;
@@ -99,8 +101,6 @@ class RevenueController extends Controller
     {
         $revenueData = json_decode($request, true);
 
-        Log::info($request);
-
         // access individual data from react like an array
         $boaChecking = $revenueData['boaChecking'];
         $boaSavings = $revenueData['boaSavings'];
@@ -112,6 +112,8 @@ class RevenueController extends Controller
         $crypto = $revenueData['crypto'];
         $iBond = $revenueData['iBond'];
         $rothIra = $revenueData['rothIra'];
+        $mum = $revenueData['mum'];
+        $yauyau = $revenueData['yauyau'];
         
         
         $revenue = DB::table('revenue')
@@ -125,7 +127,9 @@ class RevenueController extends Controller
                 'barclays' => $barclays,
                 'crypto' => $crypto,
                 'iBond' => $iBond,
-                'rothIra' => $rothIra
+                'rothIra' => $rothIra,
+                'mum' => $mum,
+                'yauyau' => $yauyau
             ]);
 
         return $revenue;
