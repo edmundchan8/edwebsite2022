@@ -46,13 +46,22 @@ function tcgList (){
     }
 
     const tcgList = list.map((value, key) => {
+
+            // Calculate Profit, but only if sellPrice exists
+            var profit = 0;
+            if (value.sellPrice !== null){
+                profit = value.sellPrice - value.buyPrice - value.fees - value.shipping;    
+            } else {
+                profit = 0;
+            }
+
         return (
-            <tr key={key}>
+            <tr key={key} className='tcg-table-td'>
                 <td onClick={() => updateListItem(key)} >{value.name}</td>
-                <td>{value.buyPrice}</td>
-                <td>{value.sellPrice}</td>
-                <td>{value.fees}</td>
-                <td></td>
+                <td>${value.buyPrice}</td>
+                <td>${value.sellPrice}</td>
+                <td>${value.fees}</td>
+                <td>${profit}</td>
                 <td><button onClick={() => deleteTcg(value.id)}>Delete </button></td>
             </tr>
         )}
@@ -60,6 +69,7 @@ function tcgList (){
 
     return (
         <div>
+            {/* <table className='tcg-table'> */}
             <table>
                 <tbody>
                     <tr>

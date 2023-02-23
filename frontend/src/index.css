@@ -264,6 +264,16 @@ span {
    }
 } */
 
+/* TCG TRACKER STYLING */
+.tcg-table{
+  display: flex;
+}
+
+.tcg-table-td{
+  flex: auto;
+  text-align: center;
+}
+
 
 /* LOADING SPINNER */
 

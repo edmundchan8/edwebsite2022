@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tcg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use DB;
 
 class TcgsController extends Controller
@@ -70,9 +71,24 @@ class TcgsController extends Controller
      * @param  \App\Models\Tcg  $tcg
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tcg $tcg)
+    public function edit(Request $request)
     {
-        //
+        $product = json_decode($request->product, true);
+        
+        $id = $product['id'];
+        $sellPrice = $product['sellPrice'];
+        $shipping = $product['shipping'];
+        $fee = $product['fee'];
+        
+        $tcgProduct = DB::table('tcgs')
+            ->where('id', $id)
+            ->update([
+                'sellPrice' => $sellPrice,
+                'shipping' => $shipping,
+                'fees' => $fee,
+            ]);
+
+        return $tcgProduct;
     }
 
     /**

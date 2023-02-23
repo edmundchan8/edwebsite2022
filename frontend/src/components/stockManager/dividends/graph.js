@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
+import FilterDividendData from './filterDividendData';
 
 function Graph(chartData){
 
@@ -11,8 +12,6 @@ function Graph(chartData){
   var [chartIncrementer, setChartIncrementer] = useState(3);
   var [data, setData] = useState();
   var [grandTotal, setGrandTotal] = useState(0);
-
-  console.log(chartData);
 
   useEffect(() => {
     async function fetchData(){
@@ -57,6 +56,8 @@ function Graph(chartData){
         setChartDate('allYears');
         dateIndex = 1;
       }
+
+      console.log(chartDate);
       
       //data passed from props
       setData(chartData['chartData']);//response.data;
@@ -249,6 +250,7 @@ function Graph(chartData){
       </div>
       <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>
+      <FilterDividendData dividends={chartData.chartData} />
       {averageDivContent}
     </div>
   );
