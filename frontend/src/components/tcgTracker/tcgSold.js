@@ -70,6 +70,14 @@ function tcgSold (props) {
         }
     }
     
+    var itemKey = 0;
+    // if statement because if props is undefined (i.e. no tcg items), it causes program to crash
+    if (props.item > 0){
+        itemKey = props.item.id;
+    }else {
+        itemKey = 0;
+    }
+
     return (
         <div>
             {/* <table className='tcg-table'> */}
@@ -81,12 +89,12 @@ function tcgSold (props) {
                         <th>Buy Price</th>
                         <th>Shipping</th>
                     </tr>
-                    <tr key={props.item.id}>
+                    <tr key={itemKey}>
                         {product}
                     </tr>
                 </tbody>
             </table>
-            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit}>
+            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={e => handleSubmit(e)}>
                 <label>TCG Product: </label>
                 <label>Price Sold: </label>
                 <input type="text" name="sell-price" value={sellPrice} onChange={e => handleChange(e)} />

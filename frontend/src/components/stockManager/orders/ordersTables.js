@@ -9,7 +9,6 @@ function OrdersTable(props){
     const [statusClass, setStatusClass] = useState('');
     const [sumTotal, setSumTotal] = useState(0);
     // const [breakPriceArr, setBreakPriceArr] = useState();
-    
 
     var sumValue = 0;
 
@@ -60,7 +59,7 @@ function OrdersTable(props){
         
         setData(tempData);
 
-    },[props]);
+    },[props.stockData]);
 
     return(
         <div>
