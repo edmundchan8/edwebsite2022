@@ -80,7 +80,7 @@ function tcgSold (props) {
 
     return (
         <div>
-            {/* <table className='tcg-table'> */}
+            <h4>Sold</h4>
             <table>
                 <tbody>
                     <tr>
@@ -94,7 +94,7 @@ function tcgSold (props) {
                     </tr>
                 </tbody>
             </table>
-            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={e => handleSubmit(e)}>
+            <form className="tcg-form" onSubmit={e => handleSubmit(e)}>
                 <label>TCG Product: </label>
                 <label>Price Sold: </label>
                 <input type="text" name="sell-price" value={sellPrice} onChange={e => handleChange(e)} />

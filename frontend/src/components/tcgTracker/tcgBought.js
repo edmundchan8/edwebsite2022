@@ -39,7 +39,7 @@ function tcgBought(){
     return(
         <div>
             <h4>Bought</h4>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="tcg-form" >
                 <label>TCG Product: </label>
                 <input 
                     type="text" 
