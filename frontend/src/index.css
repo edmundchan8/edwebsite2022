@@ -253,7 +253,7 @@ span {
 /* DIVIDEND GRAPH STYLING*/
 .graph-styling {
   position: relative;
-  height: 50vh;
+  /* height: 50vh; */
   width: 50vw;
   margin: auto;
   /* display: inline; */
@@ -261,9 +261,8 @@ span {
 
 @media (max-width: 768px) {
   .graph-styling{
-      height: 38vh;
+      /* height: 38vh; */
       width: 78vw;
-      border: 2px solid red;
    }
 }
 

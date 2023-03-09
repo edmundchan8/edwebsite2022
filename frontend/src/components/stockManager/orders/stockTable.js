@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { NavLink } from "react-router-dom";
+import Data from './data';
+import { NavLink, useParams } from "react-router-dom";
 
 function StockTable (props) {
+
+    const params = useParams();
 
     var totalInvest = 0;
     var totalQuant = 0;
@@ -47,7 +50,10 @@ function StockTable (props) {
         <div>
             <h5>Current Share Price ${currentPrice} | Break Price ${(totalInvested / totalQuantity).toFixed(2)}</h5>
             <h5>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(2)}</h5>
-            <h5>Total Shares {totalQuantity} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(2)}</h5>
+            <h5>Total Shares {totalQuantity.toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(2)}</h5>
+            
+            <Data tickerSymbol={params.tickerSymbol}/>
+            
             <table>
                 <thead>
                     <tr>

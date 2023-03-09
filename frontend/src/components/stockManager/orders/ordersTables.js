@@ -18,8 +18,6 @@ function OrdersTable(props){
         var investmentDiff = 0;
         var sumInvestment = 0;
 
-        console.log(props.stockData);
-
         tempData = props.stockData.map((s, index) => {
             var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
             var diffColor = '';

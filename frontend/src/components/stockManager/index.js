@@ -133,6 +133,8 @@ function Index() {
         });
     }
 
+    var totalRevenue = (initialState.total > 0) ? initialState.total : 0; 
+
     return (
         <div>
             <NavLink className='nav-links remove-link-underline' to='/stockManager'><h2>Stock Manager</h2></NavLink>
@@ -362,7 +364,7 @@ function Index() {
                 </div>
 
             <h4>Edmund's Stock Total ${investmentTotal.toFixed(3)}</h4>
-            <h4>Edmund's Revenue Total ${initialState.total}</h4>    
+            <h4>Edmund's Revenue Total ${totalRevenue.toFixed(3)}</h4>    
             <h4>Edmund's Total ${(investmentTotal + initialState.total).toFixed(3)}</h4>
             </form>
             ) : (<div></div>)}

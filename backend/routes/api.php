@@ -60,6 +60,9 @@ Route::middleware('auth:sanctum')->delete('/orders/delete/{id}', [StockManagerCo
 
 // STOCK DATA CONTROLLER
 Route::middleware('auth:sanctum')->post('/getData', [StockDataController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/updateIncomeData/{stock}', [StockDataController::class, 'updateIncomeData']);
+Route::middleware('auth:sanctum')->get('/getIncomeData/{stock}', [StockDataController::class, 'getIncomeData']);
+
 
 // DIVIDEND CONTROLLER
 Route::middleware('auth:sanctum')->get('/dividends', [DividendController::class, 'index']);

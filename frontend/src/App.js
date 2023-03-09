@@ -6,6 +6,7 @@ import Todolist from './components/todolist';
 import StockManager from './components/stockManager/index';
 // import apiClient from './services/api';
 import TcgTracker from './components/tcgTracker/index';
+import AdventureGame from './components/textAdventure/adventureGame';
 
 function App() {
 
@@ -51,12 +52,14 @@ function App() {
                 {stockManager}
                 <NavLink className='nav-links remove-link-underline' to='/todolist'>Todolist</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/tcgtracker'>TCG Tracker</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/adventure'>Adventure</NavLink>
             </div>
             <Routes>
                 <Route exact path="/home" element={ <Home/>} />
                 <Route exact path='/login' element={ <Login onLogin={login}/>} />
                 <Route exact path='/todolist' element={ <Todolist />} />
                 <Route exact path='/tcgtracker' element={ <TcgTracker />} />
+                <Route exact path='/adventure' element={ <AdventureGame />} />
                 <Route path='/stockManager/*' element={<StockManager />}/>
                 <Route exact path="/" element={ <Home/>} />
             </Routes>

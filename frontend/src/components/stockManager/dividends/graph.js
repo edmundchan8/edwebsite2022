@@ -188,7 +188,7 @@ function Graph(chartData){
 
   var totalDividends = 0;
   if (window.location.pathname.split("/").pop() == 'dividends' && chartIncrementer > 1){
-    totalDividends = grandTotal;
+    totalDividends = grandTotal.toFixed(3);
   }
   else {
     totalDividends = dividendTotal.reduce((partialSum, dividend) => partialSum + parseFloat(dividend), 0).toFixed(2);

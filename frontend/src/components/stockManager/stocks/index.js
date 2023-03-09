@@ -21,7 +21,7 @@ function Index() {
                     setErrorMsg('Please login to see your stock data');
                 }
             });
-        }, []);
+    }, []);
 
     if(errorMsg){
         return (
