@@ -15,6 +15,7 @@ function tcgList (){
         const fetchData = async () => {
             apiClient.get('/api/getTcgs').then(response => {
                 setList(response.data);
+                console.log(response.data);
                 setCurrentTcg(response.data[0]);
             })
             .catch(error => {
