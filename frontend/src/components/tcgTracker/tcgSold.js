@@ -26,6 +26,8 @@ function tcgSold (props) {
                     <td key={key} className='tcg-table-td'>{product[key]}</td>
                 )
             }
+            else
+                return '';
         });
         setProduct(tempList);
         return;

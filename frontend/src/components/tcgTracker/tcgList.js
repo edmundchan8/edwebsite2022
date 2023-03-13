@@ -61,7 +61,7 @@ function tcgList (){
                 <td>${value.buyPrice}</td>
                 <td>${value.sellPrice}</td>
                 <td>${value.fees}</td>
-                <td>${profit}</td>
+                <td>${profit.toFixed(3)}</td>
                 <td><button onClick={() => deleteTcg(value.id)}>Delete </button></td>
             </tr>
         )}
