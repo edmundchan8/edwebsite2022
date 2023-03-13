@@ -74,8 +74,6 @@ class TcgsController extends Controller
     public function edit(Request $request)
     {
         $product = json_decode($request->product, true);
-
-        Log::info($request->product);
         
         $id = $product['id'];
         $sellPrice = $product['sellPrice'];
@@ -89,6 +87,12 @@ class TcgsController extends Controller
                 'shipping' => $shipping,
                 'fees' => $fee,
             ]);
+
+        Log::info($sellPrice);
+        Log::info($shipping);
+        Log::info($fee);
+        Log::info($id);
+        Log::info($tcgProduct);
 
         return $tcgProduct;
     }
