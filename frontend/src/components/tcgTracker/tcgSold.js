@@ -45,8 +45,8 @@ function tcgSold (props) {
         }
 
         var newProduct = JSON.stringify(product);
-        
-        apiClient.get(`/api/editTcg/${newProduct}`).then(response => {
+
+        apiClient.post(`/api/editTcg/${newProduct}`).then(response => {
             console.log(response.status);
             console.log(response);
             // refreshes the page

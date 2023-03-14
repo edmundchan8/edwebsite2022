@@ -28,7 +28,7 @@ function EditDividends() {
         //stringify data so that it can be used in laravel
         dividendData = JSON.stringify(dividendData);
         
-        apiClient.get(`/api/dividends/${name}/edit/${dividendData}`).then(response => {
+        apiClient.post(`/api/dividends/${name}/edit/${dividendData}`).then(response => {
             console.log(response);
             //return to dividends page
             navigate('/stockManager/dividends');
