@@ -106,7 +106,7 @@ class TcgsController extends Controller
      */
     public function update(Request $request)
     {
-        $product = json_decode($request->product, true);
+        $product = json_decode($request->newProduct, true);
         
         $id = $product['id'];
         $sellPrice = $product['sellPrice'];
@@ -121,13 +121,7 @@ class TcgsController extends Controller
                 'fees' => $fee,
             ]);
 
-        Log::info($sellPrice);
-        Log::info($shipping);
-        Log::info($fee);
-        Log::info($id);
-        Log::info($tcgProduct);
-
-        return $id;
+        return $tcgProduct;
     }
 
     /**
