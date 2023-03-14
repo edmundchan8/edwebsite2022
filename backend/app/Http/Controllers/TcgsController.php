@@ -127,7 +127,7 @@ class TcgsController extends Controller
         Log::info($id);
         Log::info($tcgProduct);
 
-        return $tcgProduct;
+        return $id;
     }
 
     /**
