@@ -73,6 +73,39 @@ class TcgsController extends Controller
      */
     public function edit(Request $request)
     {
+        // $product = json_decode($request->product, true);
+        
+        // $id = $product['id'];
+        // $sellPrice = $product['sellPrice'];
+        // $shipping = $product['shipping'];
+        // $fee = $product['fee'];
+        
+        // $tcgProduct = DB::table('tcgs')
+        //     ->where('id', $id)
+        //     ->update([
+        //         'sellPrice' => $sellPrice,
+        //         'shipping' => $shipping,
+        //         'fees' => $fee,
+        //     ]);
+
+        // Log::info($sellPrice);
+        // Log::info($shipping);
+        // Log::info($fee);
+        // Log::info($id);
+        // Log::info($tcgProduct);
+
+        // return $tcgProduct;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Tcg  $tcg
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
         $product = json_decode($request->product, true);
         
         $id = $product['id'];
@@ -95,18 +128,6 @@ class TcgsController extends Controller
         Log::info($tcgProduct);
 
         return $tcgProduct;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tcg  $tcg
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tcg $tcg)
-    {
-        //
     }
 
     /**
