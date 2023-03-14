@@ -81,7 +81,7 @@ Route::middleware('auth:sanctum')->get('/revenue/{revenue}', [RevenueController:
 // TCG CONTROLLER
 Route::get('/getTcgs', [TcgsController::class, 'index']);
 Route::post('/storeTcg', [TcgsController::class, 'store']);
-Route::put('/editTcg/{product}', [TcgsController::class, 'update']);
+Route::get('/editTcg/{product}', [TcgsController::class, 'update']);
 Route::delete('/deleteTcg/{id}', [TcgsController::class, 'delete']);
 
 // HOME CONTROLLER
