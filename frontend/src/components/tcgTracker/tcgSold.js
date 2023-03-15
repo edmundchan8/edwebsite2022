@@ -22,6 +22,9 @@ function tcgSold (props) {
         // console.log(product);
         const tempList = Object.keys(product).map(key => {
             if (product[key] !== null && key !== 'created_at' && key !== 'updated_at'){
+                setSellPrice(product['sellPrice']);
+                setShipping(product['shipping']);
+                setFee(product['fees']);
                 return (
                     <td key={key} className='tcg-table-td'>{product[key]}</td>
                 )

@@ -10,6 +10,7 @@ function tcgList (){
 
     const [list, setList] = useState([]);
     const [currentTcg, setCurrentTcg] = useState(0);
+    const [totalProfit, setTotalProfit] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,6 +18,18 @@ function tcgList (){
                 setList(response.data);
                 console.log(response.data);
                 setCurrentTcg(response.data[0]);
+
+                var total = 0;
+
+                response.data.map( (tcg) => {
+                    if (tcg.sellPrice > 0){
+                            var profit = tcg.sellPrice - tcg.buyPrice - tcg.fees - tcg.shipping;
+                            total += profit;
+                        }
+                        setTotalProfit(total)
+                    }
+                    
+                )
             })
             .catch(error => {
                 console.error(error);
@@ -28,6 +41,7 @@ function tcgList (){
         
         fetchData()
             .catch(console.error);
+
     }, []);
 
     function deleteTcg(e){
@@ -48,13 +62,13 @@ function tcgList (){
 
     const tcgList = list.map((value, key) => {
 
-            // Calculate Profit, but only if sellPrice exists
-            var profit = 0;
-            if (value.sellPrice !== null){
-                profit = value.sellPrice - value.buyPrice - value.fees - value.shipping;    
-            } else {
-                profit = 0;
-            }
+        // Calculate Profit, but only if sellPrice exists
+        var profit = 0;
+        if (value.sellPrice !== null){
+            profit = value.sellPrice - value.buyPrice - value.fees - value.shipping;    
+        } else {
+            profit = 0;
+        }
 
         return (
             <tr key={key} className='tcg-table-td'>
@@ -68,6 +82,9 @@ function tcgList (){
         )}
     );
 
+    var displayTotalProfit = 0;
+    totalProfit > 0 ? displayTotalProfit = "Total Profits: $" + totalProfit : displayTotalProfit = 0;
+
     return (
         <div>
             {/* <table className='tcg-table'> */}
@@ -80,7 +97,14 @@ function tcgList (){
                         <th>Fees</th>
                         <th>Profit?</th>
                     </tr>
-                        {tcgList}
+                    {tcgList}
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>{displayTotalProfit}</th>
+                    </tr>
                 </tbody>
             </table>
             

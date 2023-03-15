@@ -16,7 +16,7 @@ function LowestOrder(props){
         let length = props.stockData.length - 1;
 
         Object.keys(props.stockData).map((key, index) => {
-            if (tempLowPrice === null || tempLowPrice > props.stockData[key].price && props.stockData[key].price > 1){
+            if ((tempLowPrice === null || tempLowPrice > props.stockData[key].price) && props.stockData[key].price > 1){
                 tempLowPrice = props.stockData[key].price;
             }
     
