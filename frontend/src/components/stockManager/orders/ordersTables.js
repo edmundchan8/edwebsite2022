@@ -19,6 +19,11 @@ function OrdersTable(props){
         var sumInvestment = 0;
 
         tempData = props.stockData.map((s, index) => {
+
+            // stop stocks with 0 quantity (stocks I sold out of) from appearing
+            if (s.quantity <= 0){
+                return;
+            }
             var difference = parseFloat(-((s.totalInvested - s.currentValue)/s.totalInvested)*100).toFixed(2);
             var diffColor = '';
             difference < 0 ? diffColor = 'text-warning' : diffColor = '';
@@ -32,7 +37,7 @@ function OrdersTable(props){
             sumValue += parseFloat(valueTotal);
             
             let breakPrice = s.breakPrice;
-
+   
             return (
                 <tr className="align-middle" key={index}>
                     <td><NavLink className='remove-link-underline' to={`/stockManager/orders/${s.tickerSymbol}`} >{s.name}</NavLink></td>

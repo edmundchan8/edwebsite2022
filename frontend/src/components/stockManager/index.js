@@ -20,7 +20,7 @@ function Index() {
         const fetchData = async () => { 
             apiClient.get('/api/showAll/Edmund').then(response => {
                 
-                response.data.map( function(stock) {
+                response.data.forEach( function(stock) {
                     setInvestmentTotal((prev) => parseFloat(prev) + parseFloat(stock.currentValue));
                 });
 
@@ -36,7 +36,7 @@ function Index() {
 
                 const sortedStocks = Object.keys(response.data[0]).sort();
 
-                sortedStocks.map((key, index) => {
+                sortedStocks.forEach((key, index) => {
                     //key = name revenue, response.data[0][key] = value revenue
                     if (key !== 'id' && key !== 'created_at' && key !== 'updated_at'){
                         // set revenue type to initial state as key value pair

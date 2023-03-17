@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 import Home from './home';
 import Login from './components/login';
 import Todolist from './components/todolist';
@@ -11,7 +11,7 @@ import AdventureGame from './components/textAdventure/adventureGame';
 function App() {
 
     //navigate to another route on logout
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // set if we are logged in
     const [loggedIn, setLoggedIn] = useState(false);

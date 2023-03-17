@@ -21,7 +21,7 @@ function tcgList (){
 
                 var total = 0;
 
-                response.data.map( (tcg) => {
+                response.data.forEach( (tcg) => {
                     if (tcg.sellPrice > 0){
                             var profit = tcg.sellPrice - tcg.buyPrice - tcg.fees - tcg.shipping;
                             total += profit;

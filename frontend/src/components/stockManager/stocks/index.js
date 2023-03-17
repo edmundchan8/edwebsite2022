@@ -60,6 +60,11 @@ function Index() {
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     const curStocks = stocks.map((s, index) => {
+        // stop stocks with 0 quantity (stocks I sold out of) from appearing
+        if (s.quantity <= 0){
+            return;
+        }
+        
         // styling and setting forwardPE
         var peClass = '';
         var forPeVal = null;

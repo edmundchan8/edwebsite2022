@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
-import FilterDividendData from './filterDividendData';
 
 function Graph(chartData){
 
@@ -16,7 +15,7 @@ function Graph(chartData){
   useEffect(() => {
     async function fetchData(){
       var curDate = 0;
-      var dateIndex = 0;
+      // var dateIndex = 0;
       var curTotal = 0;
       var labelArr = [];
       var dividendArr = [];
@@ -50,11 +49,11 @@ function Graph(chartData){
       }
       if (chartIncrementer === 2){
         setChartDate('allMonths');
-        dateIndex = 0;
+        // dateIndex = 0;
       }
       if (chartIncrementer === 3){
         setChartDate('allYears');
-        dateIndex = 1;
+        // dateIndex = 1;
       }
 
       console.log(chartDate);
@@ -77,7 +76,7 @@ function Graph(chartData){
         if (i === 0){
           currentArrYear = data[i].date.split('-')[0];
           currentArrMonth = data[i].date.split('-')[1];
-          if (curDate == ""){
+          if (curDate === ""){
             curDate = currentArrYear + "-" + currentArrMonth;
           }
           // currentDate = currentArrYear + "-" + currentArrMonth;
@@ -187,7 +186,7 @@ function Graph(chartData){
   }
 
   var totalDividends = 0;
-  if (window.location.pathname.split("/").pop() == 'dividends' && chartIncrementer > 1){
+  if (window.location.pathname.split("/").pop() === 'dividends' && chartIncrementer > 1){
     totalDividends = grandTotal.toFixed(3);
   }
   else {
@@ -250,7 +249,6 @@ function Graph(chartData){
       </div>
       <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>
-      <FilterDividendData dividends={chartData.chartData} />
       {averageDivContent}
     </div>
   );

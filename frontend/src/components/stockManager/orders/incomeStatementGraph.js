@@ -5,7 +5,7 @@ function IncomeStatementGraph(props){
 
     useEffect( () => {
         apiClient.get(`/api/getIncomeData/${props.tickerSymbol}`).then(response => {
-            console.log(response.data[0]['incomeStatement']);
+            // console.log(response.data[0]['incomeStatement']);
         })
         .catch( error => {
             console.error(error);

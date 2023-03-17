@@ -166,7 +166,10 @@ class StockDataController extends Controller
 
         $API_KEY = env('APP_API_KEY');
 
-        $stock_url = "https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/" . $request->stock . "/income-statement";
+        // $stock_url = "https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/" . $request->stock . "/income-statement";
+
+        //https://macrotrends-finance.p.rapidapi.com/statements/cash?symbol=AMZN&freq=Q&formstyle=dataframe
+        $stock_url = "https://macrotrends-finance.p.rapidapi.com/statements/cash?symbol=" . $request->stock . "&freq=Q&formstyle=dataframe";
 
         // Initiate the curl request
         $ch = curl_init();
@@ -186,7 +189,7 @@ class StockDataController extends Controller
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
                 "X-RapidAPI-Key: " . $API_KEY,
-                "X-RapidAPI-Host: yahoo-finance15.p.rapidapi.com",
+                "X-RapidAPI-Host: macrotrends-finance.p.rapidapi.com",
                 "content-type: application/x-www-form-urlencoded"
             ],
         ]);
@@ -208,6 +211,14 @@ class StockDataController extends Controller
             //$json should return all stocks, each as an array
             $json = json_decode($response, true);
         }
+
+        Log::info($json);
+        $stock_table = DB::table('stock_data')
+        -> where('tickersymbol', $request->stock)
+        -> limit(1)
+        -> update(['incomeStatement' => $json]);
+
+        return;
 
         $json_quarterly = $json['incomeStatementHistoryQuarterly']['incomeStatementHistory'];
 
