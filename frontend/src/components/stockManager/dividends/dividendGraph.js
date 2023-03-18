@@ -253,7 +253,7 @@ console.log(label);
           }}
         />
 
-        {propsState};
+        {/* {propsState}; */}
       </div>
 
       <button onClick={() => changeData()}>Month/Year</button>
