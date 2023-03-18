@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../services/api';
 
@@ -8,16 +8,33 @@ function Login (props) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        apiClient.get('/api/todolists').then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }, []);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         apiClient.get('/sanctum/csrf-cookie').then(response => {
             console.log(response);
-            apiClient.post('/login', {
+            // console.log('status ' + response.status + ' on sanctum/csrf-cookie');
+            apiClient.post('/api/login', {
                 email: email,
                 password: password
             }).then(response => {
-                props.onLogin();
+                 props.onLogin();
                 navigate('/home');
+            })
+            .catch(error => {
+                console.error(error);
+                if (error.response.status === 422){
+                    console.log('Login unprocessable, incorrect login details');
+                }
             });
         });
 
@@ -30,10 +47,11 @@ function Login (props) {
     }
     else
     return (
-        <div className='align-middle'>
-            <h1>Login</h1>
+        <div>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input
+                    className="login-attributes"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -42,6 +60,7 @@ function Login (props) {
                     required
                 />
                 <input
+                    className="login-attributes"
                     type="password"
                     name="password"
                     placeholder="Password"
@@ -49,7 +68,10 @@ function Login (props) {
                     onChange={e => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <br></br>
+                <div className="submit-align-right">
+                    <button className="submit-styling" type="submit">Login</button>
+                </div>
             </form>
         </div>
     );

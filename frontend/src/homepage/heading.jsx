@@ -4,6 +4,7 @@ import profilePic from '../images/profilePic.jpeg'
 
 
 function Heading(){
+
     return(
         <div>
             <header>

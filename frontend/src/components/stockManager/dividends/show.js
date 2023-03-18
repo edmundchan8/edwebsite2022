@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { NavLink, useParams } from "react-router-dom";
 import apiClient from '../../../services/api';
-import Graph from './graph';
+import DividendGraph from './dividendGraph';
 
 function Show() {
 
@@ -36,17 +36,17 @@ function Show() {
             <tr key={index}>
                 <td className='dividend-width'>{d.date}</td>
                 <td className='dividend-width'>${d.dividend}</td>
-                <NavLink className='nav-links' to={{pathname :"edit"}} state={{d}} >Edit</NavLink>
+                <td><NavLink className='' to={{pathname :"edit"}} state={{d}} >Edit</NavLink></td>
             </tr>
         )}
     );
 
     return (
-        <div className="align-middle">
-            <Graph chartData={dividends}/>
-            <h1>Dividends</h1>
-            <h2>{params.name}</h2>
-            <table>
+        <div>
+            <DividendGraph chartData={dividends}/>
+            <h4>Dividends</h4>
+            <h4>{params.name}</h4>
+            <table className="align-middle">
                 <thead>
                     <tr>
                         <th>Date</th>

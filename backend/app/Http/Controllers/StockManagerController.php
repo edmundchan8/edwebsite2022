@@ -125,7 +125,8 @@ class StockManagerController extends Controller
                 'stock_orders.tickerSymbol',
                 DB::raw('SUM(stock_orders.quantity) as quantity'), 
                 DB::raw('SUM(stock_orders.quantity * stock_orders.price) as totalInvested'),
-                DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'))
+                DB::raw('SUM(stock_orders.quantity * stock_data.price) as currentValue'),
+                DB::raw('SUM(stock_orders.quantity * stock_orders.price) / SUM(stock_orders.quantity) as breakPrice'))
             ->groupBy('stock_orders.tickerSymbol', 'stock_data.name')
             ->where('owners.name', 'like', $owner_param)
             ->get();

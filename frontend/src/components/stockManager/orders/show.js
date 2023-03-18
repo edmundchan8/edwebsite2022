@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import LowestOrder from './lowestOrder';
+import StockTable from './stockTable';
 import apiClient from '../../../services/api';
 
 function Show() {
@@ -9,56 +11,29 @@ function Show() {
     
     const [stock, setStock] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
-    const [name, setName] = useState('');
-    const [owner, setOwner] = useState('Any');
-    const [data, setData] = useState(); 
-    const [totalInvested, setTotalInvested] = useState();
-    const [currentPrice, setCurrentPrice] = useState();
-    const [totalQuantity, setTotalQuantity] = useState();
+    const [owner, setOwner] = useState('');
 
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
-                console.log(response.data);
-                setStock(response.data)
-                setCurrentPrice(response.data[0].currentPrice);
                 
-                var totalInvest = 0;
-                var totalQuant = 0;
-                
-                var currentData = stock.map((s, index) => {
-                    // if owner is not Any (the default), check if owner's name exists, and only 
-                    // show stocks for those that match, otherwise show all.
-                    if(owner !== 'Any'){
-                        if (owner !== s.name){
-                            return;
-                        }
-                    }
+                // filter the stock data based on whether we have a specific owner or not
+                // If we have an owner, then we filter the stock data to only return those
+                // that match the owner, then set that to our stock data
+                let tempResponseData = null;
 
-                    var price = 0;
-                    s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
-                    
-                    var totalInvested = 0;
-                    s.price === 0 ? totalInvested = '-' : totalInvested = '$' + (parseFloat(s.quantity) * parseFloat(s.price)).toFixed(3);
-                    totalInvest += parseFloat(s.quantity) * parseFloat(s.price);
+                if (owner !== ''){
+                    tempResponseData = response.data.filter(s => {
+                        return s.name === owner;
+                    })
+                    setStock(tempResponseData);
+                } else {
+                    setStock(response.data)
+                }
 
-                    totalQuant += parseFloat(s.quantity);
-
-                    return (
-                        <tr key={index}>
-                            <td>{s.date}</td>
-                            <td>{parseFloat(s.quantity).toFixed(3)}</td>
-                            <td>{price}</td>
-                            <td>{totalInvested}</td>
-                            <td>{s.name}</td>
-                            <NavLink className='nav-links' to={{pathname :"edit"}} state={{s}} >Edit</NavLink>
-                        </tr>
-                    );
-                });
-
-                setTotalInvested(totalInvest.toFixed(2));
-                setData(currentData);
-                setTotalQuantity(totalQuant);
+                if (owner === 'Any'){
+                    setStock(response.data)
+                }
 
                 })
                 .catch(error => {
@@ -81,32 +56,19 @@ function Show() {
         setOwner(event.target.value);
     }
 
-    console.log(stock);
-
     return (
         <div className="align-middle">
+            <LowestOrder stockData={stock} />
             <h1>{owner}</h1>
-            <h4>Current Share Price ${currentPrice} | Total Shares {totalQuantity}</h4>
-            <h4>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(3)}</h4>
             <select value={owner} onChange={changeOwner}>
             <option value='Any'>Any</option>
                 <option value='Edmund'>Edmund</option>
                 <option value='Yau Yau'>Yau Yau</option>
                 <option value='Mum'>Mum</option>
                 <option value='Priscilla'>Priscilla</option>
+                <option value="RothIRA">RothIRA</option>
             </select>
-             <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Quantity</th>
-                        <th>Buy/Sell Price</th>
-                        <td>Total Spent</td>
-                        <td>Owner</td>
-                    </tr>
-                    {data}
-                </thead>
-            </table>
+            <StockTable stockData={stock}/>
         </div>
     );
 };

@@ -12,6 +12,7 @@ function Index() {
 
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
+            console.log(response);
             setStocks(response.data)
             })
             .catch(error => {
@@ -20,7 +21,7 @@ function Index() {
                     setErrorMsg('Please login to see your stock data');
                 }
             });
-        }, []);
+    }, []);
 
     if(errorMsg){
         return (
@@ -35,7 +36,7 @@ function Index() {
         setIsLoading(true);
         apiClient.post('/api/getData').then(response => {
             console.log(response);
-            let p = new Promise((resolve, reject) => {
+            new Promise((resolve, reject) => {
                 if (response.data){
                     setIsLoading(false);
                     setErrorMsg(response.data.message);
@@ -59,6 +60,11 @@ function Index() {
     isLoading ? loadingContent = <Loading /> : loadingContent = null;
 
     const curStocks = stocks.map((s, index) => {
+        // stop stocks with 0 quantity (stocks I sold out of) from appearing
+        if (s.quantity <= 0){
+            return;
+        }
+        
         // styling and setting forwardPE
         var peClass = '';
         var forPeVal = null;
@@ -68,38 +74,45 @@ function Index() {
 
         // setting dividendValue
         var dividendValue = '';
-        s.dividendRate > 0 ? dividendValue = '$' + s.dividendRate : dividendValue = '-';
+        s.dividendRate > 0 ? dividendValue = s.dividendRate : dividendValue = '-';
+
+        var dividendRateMonth = '';
+        dividendValue !== '-' ? dividendRateMonth = '/$' + dividendValue/4 : dividendRateMonth = '';
+
         return(
-            <tr key={index}>
-                <td className="td-larger">{s.name}</td>
-                <td className="td-smaller">{s.tickerSymbol}</td>
-                <td className="td-smaller">${s.price}</td>
-                <td className="td-smaller">{s.analystRating}</td>
-                <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td>
-                <td className="td-smaller">{dividendValue}</td>
+            <tr className="align-middle" key={index}>
+                <td className="">{s.name}</td>
+                <td className="">{s.tickerSymbol}</td>
+                <td className="">${s.price}</td>
+                {/* <td className="td-smaller">{s.analystRating}</td>
+                <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td> */}
+                <td className="td-smaller">${dividendValue}{dividendRateMonth}</td>
                 <td className={peClass}>{forPeVal}</td>
             </tr>
         )}
     );
 
     return (
-        <div className="align-middle">
+        <div>
             <h2>{errorMsg}</h2>
-            <button onClick={() => updateData()}>Update Data</button>
+            <div className="align-middle">
+                <button onClick={() => updateData()}>Update Data</button>
+            </div>
+
             {loadingContent}
-            <h1>Stocks</h1>
-            <table>
+            <h2>Stocks</h2>
+            <table >
                 <thead>
-                    <tr>
+                    <tr className="align-middle">
                         <th>Name</th>
                         <th>Ticker Symbol</th>
                         <th>Market Price</th>
-                        <th>Analyst Rating</th>
-                        <th>Analyst Opinion</th>
-                        <th>Dividend Rate</th>
+                        {/* <th>Analyst Rating</th>
+                        <th>Analyst Opinion</th> */}
+                        <th className="td-smaller">Dividend Rate (Annual)/Monthly)</th>
                         <th>Forward PE</th>
                     </tr>
-                        {curStocks}
+                    {curStocks}
                 </thead>
             </table>
         </div>

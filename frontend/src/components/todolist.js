@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+// import {  } from 'react-router-dom';
 import apiClient from '../services/api';
 
 function Todolist (){
@@ -8,7 +8,9 @@ function Todolist (){
 
     useEffect(() => {
         apiClient.get('/api/todolists').then(response => {
+
             setTodolists(response.data)
+                console.log(response);
             })
             .catch(error => {
                 console.error(error);
@@ -21,11 +23,10 @@ function Todolist (){
     if (errorMsg){
         return (
         <div>
-            <h1 className="align-middle">
+            <h2>
                 TodoList
-            </h1>
+            </h2>
             <p>{errorMsg}</p>
-            <Link to='/login'>Login</Link>
         </div>
         )
     }
@@ -34,10 +35,10 @@ function Todolist (){
         <li key={todo.id}>{todo.note}</li>
     );
     return (
-        <div className="align-middle">
-            <h1>
+        <div>
+            <h2>
                 TodoList
-            </h1>
+            </h2>
             <ul>{todoList}</ul>
         </div>
     );

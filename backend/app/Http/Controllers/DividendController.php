@@ -16,17 +16,25 @@ class DividendController extends Controller
      */
     public function index()
     {
+        // returns all dividends
+        $data = DB::table('dividends')
+        -> get();
+
+        return $data;
+    }
+
+    public function showCurrentDividendsSummed(){
         // get dividend data
         // to use sum(dividend), must groupBy the name because we aggregate using a function
         $data = DB::table('dividends')
-            -> join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
-            -> select(
-                'stock_data.name',
-                DB::raw('SUM(dividend) as totalDividends')
-                )
-            -> groupBy('stock_data.name')
-            -> get();
-
+        -> join('stock_data', 'dividends.tickerSymbol', '=', 'stock_data.tickerSymbol')
+        -> select(
+            'stock_data.name',
+            DB::raw('SUM(dividend) as totalDividends')
+            )
+        -> groupBy('stock_data.name')
+        -> get();
+    
         return $data;
     }
 
@@ -94,9 +102,8 @@ class DividendController extends Controller
     }
 
 
-
     /**
-     * Shows all orders 
+     * Shows all Dividends and Stock ticker symbol, tickersymbol is null if they don't exist in stock data
      *
      * @return \Illuminate\Http\Response
      */
@@ -118,10 +125,7 @@ class DividendController extends Controller
      */
     public function edit(Request $request)
     {
-
         // get data from react, json decode it
-        // $dividendData = json_decode($request->dividend, true);
-
         $dividendData = json_decode($request->dividend, true);
 
         // access individual data from react like an array

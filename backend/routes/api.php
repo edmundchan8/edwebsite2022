@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockManagerController;
 use App\Http\Controllers\StockDataController;
 use App\Http\Controllers\DividendController;
+use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\TcgsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // LOGIN CONTROLLER
+
+Route::post('/login', [LoginController::class, 'login']);
 // custom logout function route
 Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -39,7 +43,11 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::post('/register', [RegisterController::class, 'register']);
 
 // TODOLIST CONTROLLER
-Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
+// Route::middleware('auth:sanctum')->get('/todolists', [TodolistController::class, 'index']);
+Route::get('/todolists', [TodolistController::class, 'index']);
+Route::get('/test', function(){ return 'this is a test';});
+Route::get('/foo', function(){ return 'fighters';});
+
 
 // STOCK CONTROLLER
 Route::middleware('auth:sanctum')->get('/stocks', [StockManagerController::class, 'index']);
@@ -52,14 +60,29 @@ Route::middleware('auth:sanctum')->delete('/orders/delete/{id}', [StockManagerCo
 
 // STOCK DATA CONTROLLER
 Route::middleware('auth:sanctum')->post('/getData', [StockDataController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/updateIncomeData/{stock}', [StockDataController::class, 'updateIncomeData']);
+Route::middleware('auth:sanctum')->get('/getIncomeData/{stock}', [StockDataController::class, 'getIncomeData']);
+
 
 // DIVIDEND CONTROLLER
-Route::middleware('auth:sanctum')->get('/showAllDividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/dividends', [DividendController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/showCurrentDividendsSummed', [DividendController::class, 'showCurrentDividendsSummed']);
 Route::middleware('auth:sanctum')->get('/dividendChartData', [DividendController::class, 'showAll']);
 Route::middleware('auth:sanctum')->post('/storeDividend', [DividendController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/dividends/{name}', [DividendController::class, 'show']);
 Route::middleware('auth:sanctum')->get('/dividends/{name}/edit/{dividend}', [DividendController::class, 'edit']);
 Route::middleware('auth:sanctum')->delete('/dividends/delete/{id}', [DividendController::class, 'delete']);
+
+// REVENUE CONTROLLER
+Route::middleware('auth:sanctum')->get('/revenue', [RevenueController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/revenue/{request}', [RevenueController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/revenue/{revenue}', [RevenueController::class, 'updateAll']);
+
+// TCG CONTROLLER
+Route::get('/getTcgs', [TcgsController::class, 'index']);
+Route::post('/storeTcg', [TcgsController::class, 'store']);
+Route::post('/editTcg/{newProduct}', [TcgsController::class, 'edit']);
+Route::delete('/deleteTcg/{id}', [TcgsController::class, 'delete']);
 
 // HOME CONTROLLER
 //Route::get('/home', [HomeController::class, 'index']);

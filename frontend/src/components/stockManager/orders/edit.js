@@ -83,7 +83,6 @@ function EditStocks() {
     useEffect(() => {
         // set order id to use later
         setOrderId(state.s['id']);
-        console.log(state.s);
         // first, filter out keys that includes currentPrice and ownerId, don't want to show them here
         Object.keys(state.s).filter ((key, index) => {
             if (key === 'currentPrice' || key === 'ownerID' || key === 'id'){
@@ -108,6 +107,7 @@ function EditStocks() {
             if(key === 'price'){
                 setPrice(state.s[key]);
             }
+            return 'no matching setstate found';
         });
     }, [])
 
@@ -116,7 +116,7 @@ function EditStocks() {
             <h4>Click submit to save your edits</h4>
             <form onSubmit={handleSubmit}>
                 <label key='date'>Date
-                <input className='input-styling'
+                <input className='order-input'
                     type='date'
                     name='date'
                     value={date}
@@ -127,7 +127,7 @@ function EditStocks() {
                 <br></br>
 
                 <label key='name'>Name
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='name'
                         name='name'
                         value={name}
@@ -138,7 +138,7 @@ function EditStocks() {
                 <br></br>
 
                 <label key='tickerSymbol'>Ticker Symbol
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='tickerSymbol'
                         name='tickerSymbol'
                         value={tickerSymbol}
@@ -149,7 +149,7 @@ function EditStocks() {
                 <br></br>
 
                 <label key='quantity'>Quantity
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='quantity'
                         name='quantity'
                         value={quantity}
@@ -160,7 +160,7 @@ function EditStocks() {
                 <br></br>
 
                 <label key='price'>Price
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='price'
                         name='price'
                         value={price}
@@ -168,11 +168,14 @@ function EditStocks() {
                         required
                     />
                 </label>
-                <br></br><br></br>
-                <input type="submit" ></input>
+                <div className="submit-align-right">
+                    <input className="submit-styling" type="submit" ></input>
+                </div>
+                
             </form>
-            <br></br>
-            <button onClick={() => handleDelete(orderId)}>Delete</button>
+            <div className="submit-align-right">
+                <button className="submit-styling" onClick={() => handleDelete(orderId)}>Delete</button>
+            </div>
         </div>
     )
 }

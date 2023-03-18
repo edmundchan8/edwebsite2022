@@ -8,7 +8,7 @@ function EditDividends() {
     const { state } = location;
     const navigate = useNavigate();
     const [dividendId, setDividendId] = useState();
-    const [newOrder, setNewOrder] = useState([]);
+    // const [newOrder, setNewOrder] = useState([]);
     const [date, setDate] = useState();
     const [name, setName] = useState();
     const [dividend, setDividend] = useState();
@@ -28,7 +28,7 @@ function EditDividends() {
         //stringify data so that it can be used in laravel
         dividendData = JSON.stringify(dividendData);
         
-        apiClient.get(`/api/dividends/${name}/edit/${dividendData}`).then(response => {
+        apiClient.post(`/api/dividends/${name}/edit/${dividendData}`).then(response => {
             console.log(response);
             //return to dividends page
             navigate('/stockManager/dividends');
@@ -75,7 +75,7 @@ function EditDividends() {
         //set dividend id
         setDividendId(state.d['id']);
 
-        var data = Object.keys(state.d).map((key, index) => {
+        Object.keys(state.d).map((key, index) => {
             if(key === 'date'){
                 setDate(state.d[key]);
             }
@@ -85,19 +85,19 @@ function EditDividends() {
             if(key === 'dividend'){
                 setDividend(state.d[key]);
             }
+            return "data all set";
         });
-
-        setNewOrder(data);
+        // setNewOrder(data);
 
     }, [])
 
     return(
-        <div className='stock-edit-layout'>
+        <div>
             <h2>{name}</h2>
             <h4>Click submit to save your edits</h4>
             <form onSubmit={handleSubmit}>
                 <label key='date'>Date
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='date'
                         name='date'
                         value={date}
@@ -108,7 +108,7 @@ function EditDividends() {
                 <br></br>
 
                 <label key='dividend'>Dividend 
-                    <input className='input-styling'
+                    <input className='order-input'
                         type='dividend'
                         name='dividend'
                         value={dividend}
@@ -116,11 +116,13 @@ function EditDividends() {
                         required
                     />
                 </label>
-
-                <br></br><br></br>
-                <input type="submit" ></input>
+                <div className="submit-align-right">
+                    <input className="submit-styling" type="submit" ></input>
+                </div>
             </form>
-            <button onClick={() => handleDelete(dividendId)}>Delete</button>
+            <div className="submit-align-right">
+                <button className="submit-styling" onClick={() => handleDelete(dividendId)}>Delete</button>
+            </div>
         </div>
     )
 }

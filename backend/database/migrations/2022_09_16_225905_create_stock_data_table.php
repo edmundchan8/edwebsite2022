@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stock_Data', function (Blueprint $table) {
+        Schema::create('stock_data', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('tickerSymbol');
