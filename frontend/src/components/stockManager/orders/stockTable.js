@@ -14,6 +14,8 @@ function StockTable (props) {
     const [totalQuantity, setTotalQuantity] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentData, setCurrentData] = useState(null);
+    const [hasParams, setHasParams] = useState(false);
+    const [dataContent, setDataContent] = useState(null);
 
     useEffect( () => {
         data = props.stockData.map((s, index) => {
@@ -46,14 +48,22 @@ function StockTable (props) {
         setCurrentData(data);
     }, [props]);
 
+    
+    // attempt to prevent <Data> being called multiple times.  check params is not null and hasParams is false
+    // then set hasParams to true and set data html content, this should only run ONCE hence prevent constant revents in incomeStatementGraph component
+    if (params !== null && !hasParams){
+        setHasParams(true);
+        setDataContent(<Data tickerSymbol={params.tickerSymbol} />);
+    }
+
     return(
         <div>
             <h5>Current Share Price ${currentPrice} | Break Price ${(totalInvested / totalQuantity).toFixed(2)}</h5>
             <h5>Total Invested: ${totalInvested} | Current Value ${(totalQuantity * currentPrice).toFixed(2)}</h5>
             <h5>Total Shares {totalQuantity.toFixed(3)} | Difference ${((totalQuantity * currentPrice) - totalInvested).toFixed(2)}</h5>
             
-            <Data tickerSymbol={params.tickerSymbol}/>
-            
+            {/* <Data tickerSymbol={params.tickerSymbol}/> */}
+            {dataContent}
             <table>
                 <thead>
                     <tr>

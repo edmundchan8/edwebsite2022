@@ -6,15 +6,14 @@ function Data(props) {
 
     // const [incomeData, setIncomeData] = useState([]); 
 
-
     function updateStockIncome(){
         apiClient.post(`/api/updateIncomeData/${props.tickerSymbol}`).then(response => {
-            // console.log(response);
+            console.log(response);
         }).catch( error => {
             console.error(error);
         });
     }    
-
+    
     return (
         <div>
             <button onClick={() => updateStockIncome()}>Update Quarterly Report</button>

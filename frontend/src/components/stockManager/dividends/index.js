@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../../services/api';
-import Graph from './graph';
+import DividendGraph from './dividendGraph';
 import DividendsTable from './dividendsTable';
 import DividendsForm from './dividendsForm';
 
@@ -40,7 +40,7 @@ function Index() {
 
     return (
         <div>
-            <Graph chartData={chartData}/>
+            <DividendGraph chartData={chartData}/>
             <DividendsForm />
             <DividendsTable dividends={heldDividends} />
             <br></br>
