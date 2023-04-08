@@ -11,7 +11,7 @@ function OrdersTable(props){
     // const [breakPriceArr, setBreakPriceArr] = useState();
 
     var sumValue = 0;
-
+    
     useEffect(()=>{
         var tempData = null;
         var valueTotal = 0;

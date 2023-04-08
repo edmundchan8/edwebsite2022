@@ -281,6 +281,46 @@ span {
   flex-direction: column;
 }
 
+/* INCOME STATEMENT GRAPH STYLING */
+
+.financial-graph-styling{
+  display:inline-block;
+  width: 30%;
+
+}
+
+
+/* ACCORDION STYLING */
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 24px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-weight: bold;
+  font-size: large;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  /* background-color: #ccc; */
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+
+
 
 /* LOADING SPINNER */
 

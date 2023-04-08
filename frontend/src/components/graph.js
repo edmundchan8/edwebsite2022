@@ -3,50 +3,39 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 
 function Graph(props){
-console.log(props.state.datasets[0].label);
-    var labelA = props.state.datasets[0].label;
-    var labelB = props.state.datasets[1].label;
-    var dataA;
-    var dataB;
-    var stateA;
-    
-console.log(labelA);
-    const state = {
-        labels: labelA,
-        datasets: [
-            {
-            label: labelB,
-            borderColor: 'rgba(143, 29, 224, 1)',
-            type: 'line',
-            lineTension: .2,
-            data: dataA
-            },
-            {
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: dataB
-            }
-        ]
-    }
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true
+      },
+    },
+  };
 
-    return (
-        <Bar 
-          data={stateA}
-          options={{
-            title:{
-              display:true,
-              text:props.text,
-              fontSize:15,
-              maintainAspectRatio : false
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-    )
+  if (props['financials'] !== undefined){
+
+      const labels = props.financials[1];
+      
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: props.financials[0],
+            data: props.financials[2],
+            backgroundColor: 'rgba(0, 156, 45, 0.5)',
+          },
+        ],
+      };
+    
+      return <Bar options={options} data={data} />;
+  }
+
 }
 
 export default Graph;
+
+  
+  

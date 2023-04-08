@@ -6,6 +6,19 @@ function Data(props) {
 
     // const [incomeData, setIncomeData] = useState([]); 
 
+    // useEffect(){
+    //     apiClient.post('/api/getData').then(response => {
+    //         console.log(response);
+    //         if (response.data){
+    //             console.log(response);
+    //             console.log('success');
+    //         } else {
+    //             console.log('error')
+    //         }
+    //     });
+    // }
+
+
     function updateStockIncome(){
         apiClient.post(`/api/updateIncomeData/${props.tickerSymbol}`).then(response => {
             console.log(response);
