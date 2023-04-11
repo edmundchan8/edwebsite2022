@@ -42,7 +42,7 @@ function IncomeStatementGraph(props){
 
     return (
         <div>
-            <Accordion data={graph} />
+            <Accordion  data={graph} />
         </div>
     )
 

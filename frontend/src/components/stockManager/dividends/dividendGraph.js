@@ -12,7 +12,7 @@ function DividendGraph(chartData){
   var [chartIncrementer, setChartIncrementer] = useState(3);
   var [data, setData] = useState();
   var [grandTotal, setGrandTotal] = useState(0);
-
+console.log(chartData);
   useEffect(() => {
     async function fetchData(){
       var curDate = 0;
@@ -23,7 +23,7 @@ function DividendGraph(chartData){
 
       // reset grandTotal
       setGrandTotal(0);
-      console.log(grandTotal);
+      // console.log(grandTotal);
 
 
       var date = new Date();
@@ -57,11 +57,10 @@ function DividendGraph(chartData){
         // dateIndex = 1;
       }
 
-      console.log(chartDate);
+      // console.log(chartDate);
       
       //data passed from props
       setData(chartData['chartData']);//response.data;
-
 
       var currentDataMonth = "";
       var currentDataYear = "";
@@ -160,7 +159,7 @@ function DividendGraph(chartData){
     .catch(console.error);
   }, [chartIncrementer]);
 
-console.log(label);
+// console.log(label);
   const state = {
     labels: label,
     datasets: [

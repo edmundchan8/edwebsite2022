@@ -283,11 +283,25 @@ span {
 
 /* INCOME STATEMENT GRAPH STYLING */
 
-.financial-graph-styling{
-  display:inline-block;
-  width: 30%;
-
+.parent-graph-styling{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 30px;
+  text-align: center;
 }
+
+
+.child-graph-styling {
+  width: 33%;
+}
+
+@media(max-width:768px) {
+  .child-graph-styling {
+    width: 100%;
+  }
+}
+
 
 
 /* ACCORDION STYLING */
@@ -304,11 +318,6 @@ span {
   transition: 0.4s;
   font-weight: bold;
   font-size: large;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-  /* background-color: #ccc; */
 }
 
 /* Style the accordion panel. Note: hidden by default */

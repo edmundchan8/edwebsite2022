@@ -24,16 +24,16 @@ function Accordion(props){
 
     return(
         <div>
-            <button class="accordion">Financial Graphs</button>
-            <div class="panel">
-            
-            {/* Loop through graph data and create graph component for each */}
-            {Object.keys(props.data).map((key) => (
-                <div class="financial-graph-styling">
-                    <Graph financials={props.data[key]} />
-                </div>     
-            ))}
-
+            <button className="accordion">Financial Graphs</button>
+            <div className="panel">
+                <div className="parent-graph-styling">
+                    {/* Loop through graph data and create graph component for each */}
+                    {Object.keys(props.data).map((key, i) => (
+                        <div key={i} className="child-graph-styling">
+                            <Graph data={props.data[key]} />
+                        </div>     
+                    ))}
+                </div>
             </div>
         </div>
     )
