@@ -1,7 +1,8 @@
 import React, {useState, useEffect } from 'react';
 import { NavLink, useParams } from "react-router-dom";
 import apiClient from '../../../services/api';
-import DividendGraph from './dividendGraph';
+import HandleDividendData from './handleDividendData';
+// import DividendGraph from './dividendGraph';
 
 function Show() {
 
@@ -43,7 +44,8 @@ function Show() {
 
     return (
         <div>
-            <DividendGraph chartData={dividends}/>
+            {/* <DividendGraph chartData={dividends}/> */}
+            <HandleDividendData dividendData={dividends} />
             <h4>Dividends</h4>
             <h4>{params.name}</h4>
             <table className="align-middle">

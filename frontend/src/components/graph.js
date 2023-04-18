@@ -25,7 +25,6 @@ function Graph(props){
     var time = props[key][1];
     var values = props[key][2];
     
-
       const labels = time;
       
       const data = {
@@ -35,7 +34,7 @@ function Graph(props){
             label: title,
             data: values,
             backgroundColor: 'rgba(0, 156, 45, 0.5)',
-          },
+          }
         ],
         options: {
         }

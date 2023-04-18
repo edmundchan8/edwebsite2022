@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Bar, Chart } from 'react-chartjs-2'
+import { Chart as ChartJS } from 'chart.js/auto';
+import { Bar, Chart } from 'react-chartjs-2';
+import HandleDividendData from './handleDividendData';
 import Graph from '../../graph';
 
 function DividendGraph(chartData){
-
+console.log(chartData['chartData']);
   var [dividendTotal, setDividendTotal] = useState([]);
   var [label, setLabel]  = useState([]);
   // chartDate affects useEffect, it can change from thisYear, thisMonth, years or months,
@@ -12,7 +13,7 @@ function DividendGraph(chartData){
   var [chartIncrementer, setChartIncrementer] = useState(3);
   var [data, setData] = useState();
   var [grandTotal, setGrandTotal] = useState(0);
-console.log(chartData);
+
   useEffect(() => {
     async function fetchData(){
       var curDate = 0;
@@ -234,7 +235,8 @@ console.log(chartData);
   return (
     <div>
       <h4>{dividendTitle}</h4>
-      <div className="graph-styling">
+      {/* <HandleDividendData data={chartData.chartData} /> */}
+      {/* <div className="graph-styling">
         <Bar 
           data={state}
           // height={"75%"}
@@ -252,8 +254,8 @@ console.log(chartData);
           }}
         />
 
-        {/* {propsState}; */}
-      </div>
+        {propsState};
+      </div> */}
 
       <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>

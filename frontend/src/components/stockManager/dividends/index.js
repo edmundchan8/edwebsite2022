@@ -3,6 +3,7 @@ import apiClient from '../../../services/api';
 import DividendGraph from './dividendGraph';
 import DividendsTable from './dividendsTable';
 import DividendsForm from './dividendsForm';
+import HandleDividendData from './handleDividendData';
 
 function Index() {
 
@@ -40,7 +41,8 @@ function Index() {
 
     return (
         <div>
-            <DividendGraph chartData={chartData}/>
+            {/* <DividendGraph chartData={chartData}/> */}
+            <HandleDividendData dividendData={chartData} />
             <DividendsForm />
             <DividendsTable dividends={heldDividends} />
             <br></br>

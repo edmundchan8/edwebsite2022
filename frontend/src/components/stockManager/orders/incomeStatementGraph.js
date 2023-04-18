@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Graph from '../../graph';
 import Accordion from '../../accordion';
 import apiClient from '../../../services/api';
 
@@ -42,7 +41,7 @@ function IncomeStatementGraph(props){
 
     return (
         <div>
-            <Accordion  data={graph} />
+            <Accordion data={graph} />
         </div>
     )
 
