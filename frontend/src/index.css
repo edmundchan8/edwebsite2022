@@ -232,7 +232,7 @@ span {
 } */
 
 .order-input {
-  width: 17em;
+  width: 16em;
   height: .7em;
   font-size: 13px;
   padding: 0.5em;
@@ -259,10 +259,14 @@ span {
   /* display: inline; */
 }
 
+.dividendStat tr td {
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .graph-styling{
       /* height: 38vh; */
-      width: 78vw;
+      width: 92vw;
    }
 }
 

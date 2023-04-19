@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Graph from '../../graph';
+import DividendStat from './dividendStats';
 
 function HandleDividendData(props){
-
+    
     var output = [];
     var dateLabel = [];
     var dividendsLabel = [];
     var runningTotal = 0;
 
     const [filter, setFilter] = useState('Years');
-    // const [outputData, setOutputData] = useState([]);
 
     useEffect( () => {
     },);
@@ -101,11 +101,12 @@ function HandleDividendData(props){
                  
         });
     }
-
+console.log(dividendsLabel);
     return (
         <div className="graph-styling">
             <Graph data={[filter, dateLabel, dividendsLabel]} />
             <button onClick={() => handleChange()} >Month/Year</button>
+            <DividendStat data={props.dividendData} />
         </div>
     )
 }
