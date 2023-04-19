@@ -21,7 +21,7 @@ function DividendStat(props){
         });
 
         // use year from first index and last index to calculate how many years of dividends we have (remember to plus 1)
-        numYears = lastYear - firstYear;
+        numYears = lastYear - firstYear + 1;
     }
 
     var perYear = totalDividends / numYears;
