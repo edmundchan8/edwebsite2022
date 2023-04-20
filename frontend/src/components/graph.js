@@ -4,8 +4,22 @@ import { Bar, Chart } from 'react-chartjs-2'
 
 // props data that comes in should be ['key name'][0:title, 1:years array, 2:data array]
 function Graph(props){
+
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        display: props.data[0]
+      },
+      y: {
+        ticks: {
+          font: {
+              size: 6,
+          }
+        },
+        display: true
+      }
+    },
     plugins: {
       legend: {
         position: 'top',
@@ -19,11 +33,13 @@ function Graph(props){
   if (props !== undefined){
 
     //get key from props
-    var key = Object.keys(props)[0];
+    // var key = Object.keys(props.data[1])[0];
     
-    var title = props[key][0];
-    var time = props[key][1];
-    var values = props[key][2];
+    // console.log(key);
+
+    var title = props.data[1][0];
+    var time = props.data[1][1];
+    var values = props.data[1][2];
     
       const labels = time;
       
@@ -35,11 +51,9 @@ function Graph(props){
             data: values,
             backgroundColor: 'rgba(0, 156, 45, 0.5)',
           }
-        ],
-        options: {
-        }
+        ]
       };
-    
+      
       return <Bar options={options} data={data} />;
   }
 

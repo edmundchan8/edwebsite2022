@@ -235,28 +235,6 @@ console.log(chartData['chartData']);
   return (
     <div>
       <h4>{dividendTitle}</h4>
-      {/* <HandleDividendData data={chartData.chartData} /> */}
-      {/* <div className="graph-styling">
-        <Bar 
-          data={state}
-          // height={"75%"}
-          options={{
-            title:{
-              display:true,
-              text:'Dividends Text',
-              fontSize:15,
-              maintainAspectRatio : false
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-
-        {propsState};
-      </div> */}
-
       <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>
       {averageDivContent}

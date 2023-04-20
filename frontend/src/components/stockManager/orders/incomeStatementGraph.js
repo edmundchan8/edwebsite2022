@@ -41,7 +41,10 @@ function IncomeStatementGraph(props){
 
     return (
         <div>
-            <Accordion data={graph} />
+            <div id="large-graph">
+                <h1>Here</h1>
+            </div>
+            <Accordion data={["Financial Graphs", false, graph]} />
         </div>
     )
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../../services/api';
+import DividendGraph from './dividendGraph';
 import DividendsTable from './dividendsTable';
 import DividendsForm from './dividendsForm';
 import HandleDividendData from './handleDividendData';

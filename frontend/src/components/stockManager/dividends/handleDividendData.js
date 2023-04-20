@@ -104,7 +104,7 @@ function HandleDividendData(props){
 console.log(dividendsLabel);
     return (
         <div className="graph-styling">
-            <Graph data={[filter, dateLabel, dividendsLabel]} />
+            <Graph data={[true, [filter, dateLabel, dividendsLabel]]} />
             <button onClick={() => handleChange()} >Month/Year</button>
             <DividendStat data={props.dividendData} />
         </div>

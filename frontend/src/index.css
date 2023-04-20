@@ -295,6 +295,16 @@ span {
   text-align: center;
 }
 
+/* Hide the large-graph div */
+
+#large-graph{
+  display: none;
+  position: fixed;
+  background-color: white;
+  width: 90%;
+  height: 50%;
+  bottom: 12em;
+}
 
 .child-graph-styling {
   width: 33%;

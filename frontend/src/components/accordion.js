@@ -3,6 +3,9 @@ import Graph from './graph';
 
 function Accordion(props){
 
+    var accordionTitle = props.data[0];
+    var displayAxis = props.data[1];
+
     var acc = document.getElementsByClassName("accordion");
     var i;
 
@@ -22,15 +25,19 @@ function Accordion(props){
         });
     }
 
+    function handleGraph(){
+        document.getElementById("large-graph").style.display = "block";
+    }
+
     return(
         <div>
-            <button className="accordion">Financial Graphs</button>
+            <button className="accordion">{accordionTitle}</button>
             <div className="panel">
                 <div className="parent-graph-styling">
                     {/* Loop through graph data and create graph component for each */}
-                    {Object.keys(props.data).map((key, i) => (
+                    {Object.keys(props.data[2]).map((key, i) => (
                         <div key={i} className="child-graph-styling">
-                            <Graph data={props.data[key]} />
+                            <Graph data={[displayAxis, props.data[2][key]]} />
                         </div>     
                     ))}
                 </div>
