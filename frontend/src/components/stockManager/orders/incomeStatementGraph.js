@@ -8,7 +8,7 @@ function IncomeStatementGraph(props){
 
     useEffect( () => {
         apiClient.get(`/api/getIncomeData/${props.tickerSymbol}`).then(response => {
-            // console.log(response.data[0]['incomeStatement']);
+            console.log(response.data[0]['incomeStatement']);
             setData(response.data[0]['incomeStatement']);
         })
         .catch( error => {
@@ -19,7 +19,8 @@ function IncomeStatementGraph(props){
     var graph = {};
 
     // when data variable is set
-    if (data.length > 0 ){
+    if (typeof data !== 'undefined' && data.length > 0){
+        console.log(data);
         // convert json to an OBJECT
         var parsedData = JSON.parse(data);
         
@@ -31,9 +32,10 @@ function IncomeStatementGraph(props){
             if (x === 'Years'){
                 yearsArr = parsedData[x];
             }
-
-            if (x !== 'Years'){
+            console.log(yearsArr);
+            if (x !== 'Years' && typeof yearsArr !== 'undefined' && typeof parsedData[x] !== 'undefined'){
                 // build up graph data
+
                 graph[x] = [x, yearsArr.sort(), parsedData[x].sort()];
             }
         }
@@ -41,10 +43,7 @@ function IncomeStatementGraph(props){
 
     return (
         <div>
-            <div id="large-graph">
-                <h1>Here</h1>
-            </div>
-            <Accordion data={["Financial Graphs", false, graph]} />
+            <Accordion data={["Financial Graphs", false, graph]}/>
         </div>
     )
 

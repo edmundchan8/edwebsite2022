@@ -297,13 +297,21 @@ span {
 
 /* Hide the large-graph div */
 
-#large-graph{
+.popup-parent{
   display: none;
-  position: fixed;
+}
+
+.popup-child{
   background-color: white;
-  width: 90%;
-  height: 50%;
-  bottom: 12em;
+  border: 1px solid black;
+  position: fixed;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+}
+
+.close-button{
+  float: right;
 }
 
 .child-graph-styling {
@@ -313,6 +321,17 @@ span {
 @media(max-width:768px) {
   .child-graph-styling {
     width: 100%;
+  }
+
+  .popup-child{
+    background-color: white;
+    border: 1px solid black;
+    position: fixed;
+    width: 100%;
+    height: 30%;
+    /* left: 50%;
+    top: 30%; */
+    transform: translateX(-50%);
   }
 }
 

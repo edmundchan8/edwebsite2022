@@ -25,10 +25,6 @@ function Accordion(props){
         });
     }
 
-    function handleGraph(){
-        document.getElementById("large-graph").style.display = "block";
-    }
-
     return(
         <div>
             <button className="accordion">{accordionTitle}</button>
