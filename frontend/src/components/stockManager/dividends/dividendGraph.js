@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Bar, Chart } from 'react-chartjs-2'
+import { Chart as ChartJS } from 'chart.js/auto';
+import { Bar, Chart } from 'react-chartjs-2';
+import HandleDividendData from './handleDividendData';
 import Graph from '../../graph';
 
 function DividendGraph(chartData){
-
+console.log(chartData['chartData']);
   var [dividendTotal, setDividendTotal] = useState([]);
   var [label, setLabel]  = useState([]);
   // chartDate affects useEffect, it can change from thisYear, thisMonth, years or months,
@@ -23,7 +24,7 @@ function DividendGraph(chartData){
 
       // reset grandTotal
       setGrandTotal(0);
-      console.log(grandTotal);
+      // console.log(grandTotal);
 
 
       var date = new Date();
@@ -57,11 +58,10 @@ function DividendGraph(chartData){
         // dateIndex = 1;
       }
 
-      console.log(chartDate);
+      // console.log(chartDate);
       
       //data passed from props
       setData(chartData['chartData']);//response.data;
-
 
       var currentDataMonth = "";
       var currentDataYear = "";
@@ -160,7 +160,7 @@ function DividendGraph(chartData){
     .catch(console.error);
   }, [chartIncrementer]);
 
-console.log(label);
+// console.log(label);
   const state = {
     labels: label,
     datasets: [
@@ -235,27 +235,6 @@ console.log(label);
   return (
     <div>
       <h4>{dividendTitle}</h4>
-      <div className="graph-styling">
-        <Bar 
-          data={state}
-          // height={"75%"}
-          options={{
-            title:{
-              display:true,
-              text:'Dividends Text',
-              fontSize:15,
-              maintainAspectRatio : false
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-
-        {/* {propsState}; */}
-      </div>
-
       <button onClick={() => changeData()}>Month/Year</button>
       <h5>Total Dividends: ${totalDividends}</h5>
       {averageDivContent}

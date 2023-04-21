@@ -2,51 +2,83 @@ import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 
+// props data that comes in should be ['key name'][0:title, 1:years array, 2:data array]
 function Graph(props){
-console.log(props.state.datasets[0].label);
-    var labelA = props.state.datasets[0].label;
-    var labelB = props.state.datasets[1].label;
-    var dataA;
-    var dataB;
-    var stateA;
-    
-console.log(labelA);
-    const state = {
-        labels: labelA,
-        datasets: [
-            {
-            label: labelB,
-            borderColor: 'rgba(143, 29, 224, 1)',
-            type: 'line',
-            lineTension: .2,
-            data: dataA
-            },
-            {
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: dataB
-            }
-        ]
-    }
 
-    return (
-        <Bar 
-          data={stateA}
-          options={{
-            title:{
-              display:true,
-              text:props.text,
-              fontSize:15,
-              maintainAspectRatio : false
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-    )
+  function handleGraph(event){
+      event.target.previousSibling.style.display = 'block';    
+  }
+
+  function handleClose(event){
+    event.target.parentNode.parentNode.style.display = 'none';
+// console.log(event.target.parentNode.parentNode.style.display);
+  }
+
+  const options = {
+    responsive: true,
+    scales: {
+      x: {
+        display: props.data[0]
+      },
+      y: {
+        ticks: {
+          font: {
+              size: 6,
+          }
+        },
+        display: true
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true
+      },
+    },
+  };
+
+  if (props !== undefined){
+
+    //get key from props
+    // var key = Object.keys(props.data[1])[0];
+    
+    // console.log(key);
+
+    var title = props.data[1][0];
+    var time = props.data[1][1];
+    var values = props.data[1][2];
+    
+      const labels = time;
+      
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: title,
+            data: values,
+            backgroundColor: 'rgba(0, 156, 45, 0.5)',
+          }
+        ]
+      };
+      
+      return (
+        <div>
+          <div className="popup-parent">
+            <div className="popup-child">
+              <button className="close-button" onClick={(e) => handleClose(e)}>X Close</button>
+              <Bar options={options} data={data} />
+            </div>
+          </div>
+          <Bar options={options} data={data} onClick={(e) => handleGraph(e)} />
+        </div>
+      );
+  }
+
 }
 
 export default Graph;
+
+  
+  

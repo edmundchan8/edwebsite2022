@@ -22,6 +22,7 @@ function StockTable (props) {
             if (index === 0){
                 setCurrentPrice(props.stockData[0].currentPrice);
             }
+            
             var price = 0;
             s.price === 0 ? price = 'Stock Split' : price = '$' + parseFloat(s.price).toFixed(3);
             

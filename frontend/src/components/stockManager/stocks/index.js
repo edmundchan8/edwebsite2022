@@ -9,7 +9,7 @@ function Index() {
     const [stocks, setStocks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     var [isLoading, setIsLoading] = useState(false);
-
+    
     useEffect(() => {
         apiClient.get('/api/stocks').then(response => {
             console.log(response);

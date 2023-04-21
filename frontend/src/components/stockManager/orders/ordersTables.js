@@ -11,14 +11,14 @@ function OrdersTable(props){
     // const [breakPriceArr, setBreakPriceArr] = useState();
 
     var sumValue = 0;
-
+    
     useEffect(()=>{
         var tempData = null;
         var valueTotal = 0;
         var investmentDiff = 0;
         var sumInvestment = 0;
 
-        tempData = props.stockData.forEach((s, index) => {
+        tempData = props.stockData.map((s, index) => {
 
             // stop stocks with 0 quantity (stocks I sold out of) from appearing
             if (s.quantity <= 0){

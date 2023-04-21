@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 function DividendsTable(props){
 
-    // console.log(props);
-
     const curDividends = props.dividends.map((d, index) => {      
         return (
             <tr key={index}>
