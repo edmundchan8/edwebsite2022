@@ -2,9 +2,8 @@ import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 
-// props data that comes in should be ['key name'][0:title, 1:years array, 2:data array]
+// props data that comes in should be ['key name',[0:title, 1:years array, 2:data array]]
 function Graph(props){
-console.log(props)
   function handleGraph(event){
       event.target.previousSibling.style.display = 'block';    
   }
