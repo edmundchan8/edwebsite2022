@@ -62,6 +62,9 @@ Route::middleware('auth:sanctum')->delete('/orders/delete/{id}', [StockManagerCo
 Route::middleware('auth:sanctum')->post('/getData', [StockDataController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/updateIncomeData/{stock}', [StockDataController::class, 'updateIncomeData']);
 Route::middleware('auth:sanctum')->get('/getIncomeData/{stock}', [StockDataController::class, 'getIncomeData']);
+Route::middleware('auth:sanctum')->post('/addStockToDatabase',   [StockDataController::class, 'addStockToDatabase']);
+Route::middleware('auth:sanctum')->post('/deleteStockDatabase',   [StockDataController::class, 'deleteStockDatabase']);
+
 
 
 // DIVIDEND CONTROLLER

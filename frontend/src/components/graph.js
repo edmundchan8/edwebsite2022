@@ -10,7 +10,6 @@ function Graph(props){
 
   function handleClose(event){
     event.target.parentNode.parentNode.style.display = 'none';
-// console.log(event.target.parentNode.parentNode.style.display);
   }
 
   const options = {
@@ -70,7 +69,8 @@ function Graph(props){
               <Bar options={options} data={data} />
             </div>
           </div>
-          <Bar options={options} data={data} onClick={(e) => handleGraph(e)} />
+          <button className="close-button" onClick={(e) => handleGraph(e)}>Expand</button>
+          <Bar options={options} data={data} />
         </div>
       );
   }

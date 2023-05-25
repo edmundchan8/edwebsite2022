@@ -18,6 +18,7 @@ function OrdersTable(props){
         var investmentDiff = 0;
         var sumInvestment = 0;
 
+        // sort props.stockData based on name, if a.name is alphabetically behind b.name, return -1, meaningn swap position
         var sortedArray = props.stockData.sort((a, b) => {
             // console.log( `a and b is ${a.name} / ${b.name}`)
             return a.name.localeCompare(b.name);

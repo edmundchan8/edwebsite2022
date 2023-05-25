@@ -270,4 +270,36 @@ class StockDataController extends Controller
 
         return $income_data;
     }
+
+    /** Adding a new stock to the database */
+    public function addStockToDatabase(Request $request){
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'tickersymbol' => 'required',
+            'price' => 'required',
+            'twoHundredDayAverage' => 'required',
+            'forwardPE' => 'required',
+            'dividendRate' => 'required'
+        ]);
+        
+        $tickersymbol = $request->tickersymbol;
+        $name = $request->name;
+
+        DB::table('stock_data')->insert(
+            [
+                'name' =>$name, 'tickersymbol' => $tickersymbol, 'price' => $request->price,
+                'twoHundredDayAverage' => $request->twoHundredDayAverage,
+                'forwardPE' => $request->forwardPE, 'dividendRate' => $request->dividendRate,
+                'incomeStatement' => json_encode($request->incomeStatement)
+            ]
+        );
+
+        echo "Stock added successfully!";
+    }
+
+    public function deleteStockDatabase(Request $request){
+Log::info($request);
+        DB::table('stock_data')->where('id', '=', $request->id)->delete();
+    }
 }
