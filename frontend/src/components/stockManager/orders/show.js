@@ -16,7 +16,6 @@ function Show() {
     useEffect(() => {
         const fetchData = async () => { 
             apiClient.get(`/api/orders/${params.tickerSymbol}`).then(response => {
-                
                 // filter the stock data based on whether we have a specific owner or not
                 // If we have an owner, then we filter the stock data to only return those
                 // that match the owner, then set that to our stock data
@@ -55,9 +54,10 @@ function Show() {
     function changeOwner(event){
         setOwner(event.target.value);
     }
-
+    
     return (
         <div className="align-middle">
+            <h2>{params.tickerSymbol}</h2>
             <LowestOrder stockData={stock} />
             <h1>{owner}</h1>
             <select value={owner} onChange={changeOwner}>

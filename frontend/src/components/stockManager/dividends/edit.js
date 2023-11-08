@@ -29,7 +29,6 @@ function EditDividends() {
         dividendData = JSON.stringify(dividendData);
         
         apiClient.post(`/api/dividends/${name}/edit/${dividendData}`).then(response => {
-            console.log(response);
             //return to dividends page
             navigate('/stockManager/dividends');
         })

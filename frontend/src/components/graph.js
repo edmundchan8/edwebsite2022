@@ -2,16 +2,14 @@ import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Chart } from 'react-chartjs-2'
 
-// props data that comes in should be ['key name'][0:title, 1:years array, 2:data array]
+// props data that comes in should be ['key name',[0:title, 1:years array, 2:data array]]
 function Graph(props){
-
   function handleGraph(event){
       event.target.previousSibling.style.display = 'block';    
   }
 
   function handleClose(event){
     event.target.parentNode.parentNode.style.display = 'none';
-// console.log(event.target.parentNode.parentNode.style.display);
   }
 
   const options = {
@@ -71,7 +69,8 @@ function Graph(props){
               <Bar options={options} data={data} />
             </div>
           </div>
-          <Bar options={options} data={data} onClick={(e) => handleGraph(e)} />
+          <button className="close-button" onClick={(e) => handleGraph(e)}>Expand</button>
+          <Bar options={options} data={data} />
         </div>
       );
   }

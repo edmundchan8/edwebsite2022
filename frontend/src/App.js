@@ -7,6 +7,7 @@ import StockManager from './components/stockManager/index';
 // import apiClient from './services/api';
 import TcgTracker from './components/tcgTracker/index';
 import FowPeasant from './components/fowPeasant/index';
+import Admin from './components/admin/index';
 
 function App() {
 
@@ -42,25 +43,30 @@ function App() {
 
     // Make stock app appear here
     var stockManager = null;
+    var admin = null;
 
     loggedIn ? stockManager = <NavLink className='nav-links remove-link-underline' to='/stockManager'>Stock Manager</NavLink> : stockManager = null;
+    loggedIn ? admin = <NavLink className='nav-links remove-link-underline' to='/admin'>Admin</NavLink> : admin = null;
+    
     return (
         <div>
             <div className='navigation'>
                 <NavLink className='nav-links remove-link-underline' to='/home'>Home</NavLink>
                 {/* {loginNavContent} */}
                 {stockManager}
+                {admin}
                 <NavLink className='nav-links remove-link-underline' to='/todolist'>Todolist</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/tcgtracker'>TCG Tracker</NavLink>
-                <NavLink className='nav-links remove-link-underline' to='/fowPeasant'>FOW Peasant</NavLink>
+                {/* <NavLink className='nav-links remove-link-underline' to='/fowPeasant'>FOW Peasant</NavLink> */}
             </div>
             <Routes>
                 <Route exact path="/home" element={ <Home/>} />
                 <Route exact path='/login' element={ <Login onLogin={login}/>} />
                 <Route exact path='/todolist' element={ <Todolist />} />
                 <Route exact path='/tcgtracker' element={ <TcgTracker />} />
-                <Route exact path='/fowPeasant' element={ <FowPeasant />} />
+                {/* <Route exact path='/fowPeasant' element={ <FowPeasant />} /> */}
                 <Route path='/stockManager/*' element={<StockManager />}/>
+                <Route path='/admin/*' element={<Admin />} />
                 <Route exact path="/" element={ <Home/>} />
             </Routes>
         </div>

@@ -18,7 +18,13 @@ function OrdersTable(props){
         var investmentDiff = 0;
         var sumInvestment = 0;
 
-        tempData = props.stockData.map((s, index) => {
+        // sort props.stockData based on name, if a.name is alphabetically behind b.name, return -1, meaningn swap position
+        var sortedArray = props.stockData.sort((a, b) => {
+            // console.log( `a and b is ${a.name} / ${b.name}`)
+            return a.name.localeCompare(b.name);
+        })
+
+        tempData = sortedArray.map((s, index) => {
 
             // stop stocks with 0 quantity (stocks I sold out of) from appearing
             if (s.quantity <= 0){
