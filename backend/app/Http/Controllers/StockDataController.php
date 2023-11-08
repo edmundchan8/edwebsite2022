@@ -93,9 +93,9 @@ class StockDataController extends Controller
 
         foreach ($json['body'] as $key => $stock_data){
           if (isset($stock_data['symbol'])){
-
+            Log::info($stock_data['symbol']);
             $current_stock_symbol = $stock_data['symbol'];
-            Log::info($current_stock_symbol);
+            
             if (in_array($current_stock_symbol, $new_arr)){
               $quote_array = $stock_data;
 
