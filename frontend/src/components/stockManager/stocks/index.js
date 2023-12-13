@@ -79,15 +79,23 @@ function Index() {
         var dividendRateMonth = '';
         dividendValue !== '-' ? dividendRateMonth = '/$' + dividendValue/4 : dividendRateMonth = '';
 
+        var dividendDate = '';
+        s.dividendDate > 0 ? dividendDate = new Date(s.dividendDate * 1000).toLocaleDateString("en-GB") : dividendDate = '';
+
         return(
             <tr className="align-middle" key={index}>
                 <td className="">{s.name}</td>
-                <td className="">{s.tickerSymbol}</td>
+                {/* <td className="">{s.tickerSymbol}</td> */}
                 <td className="">${s.price}</td>
+                <td className="td-smaller">${s.fiftyDayAverage}</td>
+                <td className="td-smaller">${s.twoHundredDayAverage}</td>
                 {/* <td className="td-smaller">{s.analystRating}</td>
                 <td className="td-smaller">{s.analystOpinion.replace('_', ' ')}</td> */}
                 <td className="td-smaller">${dividendValue}{dividendRateMonth}</td>
-                <td className={peClass}>{forPeVal}</td>
+                <td className="td-smaller">{dividendDate}</td>
+                {/* 'dividendDate' => $dividendDate,
+                      'fiftyDayAverage' => $fiftyDateAverage, */}
+                {/* <td className={peClass}>{forPeVal}</td> */}
             </tr>
         )}
     );
@@ -105,12 +113,13 @@ function Index() {
                 <thead>
                     <tr className="align-middle">
                         <th>Name</th>
-                        <th>Ticker Symbol</th>
                         <th>Market Price</th>
+                        <th>50 Day Avg</th>
+                        <th>200 Day Avg</th>
                         {/* <th>Analyst Rating</th>
                         <th>Analyst Opinion</th> */}
                         <th className="td-smaller">Dividend Rate (Annual)/Monthly)</th>
-                        <th>Forward PE</th>
+                        <th>Dividend Date</th>
                     </tr>
                     {curStocks}
                 </thead>

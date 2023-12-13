@@ -10,6 +10,8 @@ import ShowDividend from './dividends/show';
 import EditDividend from './dividends/edit';
 import DeleteDividend from './dividends/delete';
 import DipFinder from './dipFinder/index';
+import History from './history/index';
+
 
 function Navigation() {
 
@@ -18,6 +20,7 @@ function Navigation() {
             <div className="align-middle">
                 <NavLink className='nav-links remove-link-underline' to='/stockManager/stocks'>Stocks</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/stockManager/orders'>Stock Orders</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/stockManager/history'>Order History</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/stockManager/dividends'>Dividends</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/stockManager/dipFinder'>Dip Finder</NavLink>
             </div>
@@ -32,6 +35,7 @@ function Navigation() {
                 <Route path="/dividends/:name/edit" element={ <EditDividend />} />
                 <Route path="/dividends/:name/delete" element={ <DeleteDividend />} />
                 <Route path="/dipFinder" element={ <DipFinder />} />
+                <Route path="/history" element={ <History /> } />
             </Routes>
         </div>
     );

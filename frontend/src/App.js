@@ -8,6 +8,7 @@ import StockManager from './components/stockManager/index';
 import TcgTracker from './components/tcgTracker/index';
 import FowPeasant from './components/fowPeasant/index';
 import Admin from './components/admin/index';
+import Blog from './components/blog/index';
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
                 {stockManager}
                 {admin}
                 <NavLink className='nav-links remove-link-underline' to='/todolist'>Todolist</NavLink>
+                <NavLink className='nav-links remove-link-underline' to='/blog'>Blog</NavLink>
                 <NavLink className='nav-links remove-link-underline' to='/tcgtracker'>TCG Tracker</NavLink>
                 {/* <NavLink className='nav-links remove-link-underline' to='/fowPeasant'>FOW Peasant</NavLink> */}
             </div>
@@ -63,6 +65,7 @@ function App() {
                 <Route exact path="/home" element={ <Home/>} />
                 <Route exact path='/login' element={ <Login onLogin={login}/>} />
                 <Route exact path='/todolist' element={ <Todolist />} />
+                <Route exact path='/blog/*' element={ <Blog />} />
                 <Route exact path='/tcgtracker' element={ <TcgTracker />} />
                 {/* <Route exact path='/fowPeasant' element={ <FowPeasant />} /> */}
                 <Route path='/stockManager/*' element={<StockManager />}/>
