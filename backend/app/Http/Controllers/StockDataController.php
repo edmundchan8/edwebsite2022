@@ -26,7 +26,7 @@ class StockDataController extends Controller
         $ticker_stock_str = implode(",", $new_arr);
 
         
-        $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'regularMarketPrice', 'forwardPE', 
+        $stock_table_columns = ['symbol', 'twoHundredDayAverage', 'dividendDate', 'fiftyDayAverage', 'regularMarketPrice', 'forwardPE', 
         'lastDividendValue', 'recommendationMean', 'recommendationKey'];
 
         $API_KEY = env('APP_API_KEY');
@@ -93,7 +93,7 @@ class StockDataController extends Controller
 
         foreach ($json['body'] as $key => $stock_data){
           if (isset($stock_data['symbol'])){
-            Log::info($stock_data['symbol']);
+            Log::info($stock_data);
             $current_stock_symbol = $stock_data['symbol'];
             
             if (in_array($current_stock_symbol, $new_arr)){
@@ -103,10 +103,15 @@ class StockDataController extends Controller
               $trailingDivRate = null;
               $recommendationMean = 'null';
               $recommendationKey = 'null';
+              $dividendDate = null;
+              $fiftyDateAverage = null;
 
               // if below quotes don't exist, set to null
               isset($quote_array['forwardPE']) ? $forwardPE = $quote_array['forwardPE'] : '';
               isset($quote_array['trailingAnnualDividendRate']) ? $trailingDivRate = $quote_array['trailingAnnualDividendRate'] : '';
+              isset($quote_array['dividendDate']) ? $dividendDate = $quote_array['dividendDate'] : '';
+              isset($quote_array['fiftyDayAverage']) ? $fiftyDateAverage = $quote_array['fiftyDayAverage'] : '';
+              
 
               // set recommendationMean to null, or if available split rating and buy/sell/hold value out
               // isset($quote_array['recommendationMean']) ? $recommendationMean = $quote_array['recommendationMean'] : '';
@@ -129,6 +134,8 @@ class StockDataController extends Controller
                       'price' => $quote_array['regularMarketPrice'],
                       'forwardPE' => $forwardPE,
                       'dividendRate' => $trailingDivRate,
+                      'dividendDate' => $dividendDate,
+                      'fiftyDayAverage' => $fiftyDateAverage,
                       // 'analystRating' => $recommendationMean,
                       // 'analystOpinion' => $recommendationKey,
                       'created_at' => date('Y-m-d H:i:s')
@@ -143,6 +150,8 @@ class StockDataController extends Controller
                       'price' => $quote_array['regularMarketPrice'],
                       'forwardPE' => $forwardPE,
                       'dividendRate' => $trailingDivRate,
+                      'dividendDate' => $dividendDate,
+                      'fiftyDayAverage' => $fiftyDateAverage,
                       // 'analystRating' => $recommendationMean,
                       // 'analystOpinion' => $recommendationKey,
                       'created_at' => date('Y-m-d H:i:s')

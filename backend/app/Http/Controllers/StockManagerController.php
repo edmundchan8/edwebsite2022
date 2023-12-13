@@ -175,6 +175,36 @@ class StockManagerController extends Controller
         return $order;
     }
 
+
+    /**
+     * get all buy orders from every stock
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllBuyOrders(Request $request)
+    {
+        $data = DB::table('stock_orders')
+            ->join('stock_data', 'stock_orders.tickerSymbol', '=', 'stock_data.tickerSymbol')
+            ->select(
+                'stock_data.name',
+                'stock_orders.tickerSymbol',
+                'stock_orders.quantity',
+                'stock_orders.price',
+                'stock_orders.date',
+                'stock_data.price as currentPrice')
+            ->groupBy('stock_data.name',
+            'stock_orders.tickerSymbol',
+            'stock_orders.quantity',
+            'stock_orders.price',
+            'stock_orders.date','stock_data.price')
+            ->where('stock_orders.quantity', '>', 0)
+            ->get();
+
+        return $data;
+    }
+
+
+
     /**
      * Update the specified resource in storage.
      *
